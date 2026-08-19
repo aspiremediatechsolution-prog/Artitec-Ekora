@@ -340,6 +340,7 @@ export default function ProjectsPage() {
         <PageBanner
           title="Projects"
           sub="Architecture · Interiors · Visualizations · 360° Virtual Walkthroughs · Studio Gallery"
+          video="/projects/chishti-residence/project intro.mp4"
           actions={[
             { text: 'Our Clients', onClick: () => scrollToSection('#clients-section'), primary: true },
             { text: '360° Virtual Tours', onClick: () => scrollToSection('#360-tours-section'), primary: false },

@@ -12,6 +12,7 @@ export default function Hero({
   label = 'Est. 2010 — Mumbai',
   action = null,
   actions = null,
+  video = heroVideo,
 }) {
   const sectionRef   = useRef(null)
   const lineRef      = useRef(null)
@@ -81,7 +82,7 @@ export default function Hero({
       <video
         ref={videoRef}
         className="hero-video"
-        src={heroVideo}
+        src={video || heroVideo}
         autoPlay
         muted
         loop

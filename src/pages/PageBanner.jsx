@@ -5,6 +5,7 @@ export default function PageBanner({
   sub = 'Ekora Studio — Architecture · Interiors · Landscape',
   action,
   actions,
+  video,
 }) {
   return (
     <Hero
@@ -14,6 +15,7 @@ export default function PageBanner({
       label="Ekora — Since 2010"
       action={action}
       actions={actions}
+      video={video}
     />
   )
 }
