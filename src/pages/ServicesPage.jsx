@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
 
 import PageBanner from './PageBanner'
 import Services from '../components/sections/Services'
@@ -22,6 +23,7 @@ const process = [
 export default function ServicesPage() {
   const pageRef = useRef(null)
   const videoRef = useRef(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (videoRef.current) {
@@ -43,7 +45,14 @@ export default function ServicesPage() {
   return (
     <>
       <main ref={pageRef}>
-        <PageBanner title="Services" sub="Architecture · Interiors · Landscape · PMC" />
+        <PageBanner
+          title="Services"
+          sub="Architecture · Interiors · Landscape · PMC"
+          actions={[
+            { text: 'What We Do', target: '#services', primary: true },
+            { text: 'Book Consultation', onClick: () => navigate('/book-a-tour'), primary: false },
+          ]}
+        />
         <Services />
 
         {/* ── Process ── */}

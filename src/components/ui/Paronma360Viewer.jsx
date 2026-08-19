@@ -907,13 +907,14 @@ export default function Paronma360Viewer({
     >
       {/* ── 360° RENDER CANVAS CONTAINER ── */}
       <div
+        className="paronma-canvas-container"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         style={{
           position: 'relative',
           width: '100%',
-          height: height || (isFullscreen ? '100vh' : 'clamp(380px, 64vw, 760px)'),
+          height: height || (isFullscreen ? '100vh' : 'clamp(520px, 78vh, 880px)'),
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -1981,7 +1982,17 @@ export default function Paronma360Viewer({
         }
 
         /* ── RESPONSIVE MEDIA QUERIES ── */
+        @media (max-width: 992px) {
+          .paronma-canvas-container {
+            height: clamp(480px, 75vh, 750px) !important;
+            min-height: 480px !important;
+          }
+        }
         @media (max-width: 640px) {
+          .paronma-canvas-container {
+            height: clamp(450px, 72vh, 650px) !important;
+            min-height: 450px !important;
+          }
           .hud-btn-label {
             display: none !important;
           }
@@ -1989,7 +2000,7 @@ export default function Paronma360Viewer({
             display: none !important;
           }
           .hud-space-badge {
-            max-width: 50% !important;
+            max-width: 58% !important;
           }
           .spatial-radar-compass {
             width: 52px !important;
@@ -2001,6 +2012,10 @@ export default function Paronma360Viewer({
           }
         }
         @media (max-width: 440px) {
+          .paronma-canvas-container {
+            height: clamp(440px, 70vh, 600px) !important;
+            min-height: 440px !important;
+          }
           .hud-counter-text {
             display: none !important;
           }

@@ -90,15 +90,25 @@ export default function Footer() {
               Architecture and interior design studio crafting spaces across India — shaped by conversation, context and craft since 2010.
             </p>
             <div style={{ display: 'flex', gap: '0.8rem', marginTop: '1.5rem' }}>
-              {[FiInstagram, FiLinkedin, FiTwitter].map((Icon, i) => (
-                <a key={i} href="#" aria-label="Social link" style={{
-                  width: '36px', height: '36px',
-                  border: '1px solid var(--text-hair)',
-                  borderRadius: '50%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--text-faint)',
-                  transition: 'all 0.3s', textDecoration: 'none',
-                }}
+              {[
+                { Icon: FiInstagram, href: 'https://instagram.com', label: 'Instagram' },
+                { Icon: FiLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                { Icon: FiTwitter, href: 'https://wa.me/919999033566', label: 'WhatsApp Contact' },
+              ].map(({ Icon, href, label }, i) => (
+                <a
+                  key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  style={{
+                    width: '36px', height: '36px',
+                    border: '1px solid var(--text-hair)',
+                    borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--text-faint)',
+                    transition: 'all 0.3s', textDecoration: 'none',
+                  }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold)'; e.currentTarget.style.color = 'var(--gold)'; e.currentTarget.style.transform = 'translateY(-3px)' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--text-hair)'; e.currentTarget.style.color = 'var(--text-faint)'; e.currentTarget.style.transform = 'translateY(0)' }}
                 >

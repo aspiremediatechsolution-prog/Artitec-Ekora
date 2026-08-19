@@ -18,12 +18,6 @@ const stats = [
   { num: '8', label: 'Countries' },
 ]
 
-const featured = [
-  { title: 'Mr. Chishti Residence', category: 'Luxury Villa', location: 'Bihar, India', year: '2024', img: '/panoramas/chishti_residence_360_1.jpg' },
-  { title: 'Mr. Azad Residence', category: 'Contemporary Residence', location: 'Ghaziabad, India', year: '2024', img: '/panoramas/azad_residence_360_1.jpg' },
-  { title: 'Mr. Ajit Residence', category: 'Neoclassical Estate', location: 'Lucknow, India', year: '2024', img: '/panoramas/ajit_residence_360_1.jpg' },
-]
-
 const servicePreview = [
   { num: '01', title: 'Luxury Villas', desc: 'Private homes shaped around your routines, light and land.', img: w2_17_19 },
   { num: '02', title: 'Interior Design', desc: 'Considered interiors — every material chosen with a reason.', img: w2_17_18 },
@@ -50,97 +44,6 @@ const testimonials = [
   { quote: 'Four months, zero surprises. Our office now gets complimented before anyone sits down.', name: 'Karan Malhotra', role: 'Founder, Nova Workspaces' },
   { quote: 'They saved us money by making things simpler — which is the rarest skill in this industry.', name: 'Anita Verma', role: 'Serene Heights, Pune' },
 ]
-
-function FeaturedCard({ project, index }) {
-  const navigate = useNavigate()
-  const cardRef = useRef(null)
-  const [hovered, setHovered] = useState(false)
-
-  const onMouseMove = (e) => {
-    if (window.innerWidth <= 1024) return
-    const rect = cardRef.current?.getBoundingClientRect()
-    if (!rect) return
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 16
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -16
-    cardRef.current.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg) translateY(-4px)`
-  }
-
-  const onMouseLeave = () => {
-    if (window.innerWidth <= 1024) return
-    if (cardRef.current) cardRef.current.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)'
-    setHovered(false)
-  }
-
-  return (
-    <div
-      ref={cardRef}
-      className="reveal"
-      onMouseMove={onMouseMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={onMouseLeave}
-      style={{
-        position: 'relative',
-        background: 'var(--text-hair)',
-        border: `1px solid ${hovered ? 'var(--gold-line)' : 'var(--text-hair)'}`,
-        overflow: 'hidden',
-        transition: 'border 0.3s, transform 0.4s cubic-bezier(0.23,1,0.32,1)',
-        transformStyle: 'preserve-3d',
-      }}
-    >
-      <div style={{ position: 'relative', height: 'clamp(200px, 28vw, 260px)', overflow: 'hidden' }}>
-        <img src={project.img} alt={project.title}
-          style={{
-            width: '100%', height: '100%', objectFit: 'cover',
-            transform: hovered ? 'scale(1.08)' : 'scale(1)',
-            transition: 'transform 0.7s cubic-bezier(0.23,1,0.32,1)',
-            filter: hovered ? 'brightness(0.45)' : 'brightness(0.7)',
-          }}
-        />
-        <div style={{
-          position: 'absolute', top: '1rem', left: '1rem',
-          background: 'var(--chip-bg)', border: '1px solid var(--gold-line)',
-          borderRadius: '20px', padding: '0.25rem 0.7rem',
-          display: 'flex', alignItems: 'center', gap: '0.4rem',
-        }}>
-          <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--gold)' }} />
-          <span style={{ fontFamily: 'Inter', fontSize: '0.55rem', letterSpacing: '0.15em', color: 'var(--gold)' }}>360°</span>
-        </div>
-        <div style={{
-          position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          opacity: hovered ? 1 : 0, transition: 'opacity 0.3s',
-        }}>
-          <button
-            className="btn-outline"
-            onClick={() => navigate('/projects')}
-            style={{ padding: '0.65rem 1.6rem' }}
-          >View 360°</button>
-        </div>
-      </div>
-      <div style={{ padding: '1.4rem 1.6rem 1.8rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
-          <span style={{ fontFamily: 'Inter', fontSize: '0.58rem', letterSpacing: '0.22em', color: 'var(--text-faint)', textTransform: 'uppercase' }}>{project.category}</span>
-          <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '0.75rem', color: 'var(--gold)' }}>{String(index + 1).padStart(2, '0')}</span>
-        </div>
-        <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.2rem, 1.8vw, 1.7rem)', fontWeight: 300, color: hovered ? 'var(--gold)' : 'var(--text)', transition: 'color 0.3s', marginBottom: '1rem', lineHeight: 1.2 }}>
-          {project.title}
-        </h3>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.8rem', borderTop: '1px solid var(--text-hair)' }}>
-          <span style={{ fontFamily: 'Inter', fontSize: '0.62rem', color: 'var(--text-faint)' }}>{project.location}</span>
-          <button
-            onClick={() => navigate('/projects')}
-            style={{
-              background: 'none', border: 'none', color: 'var(--gold)',
-              fontFamily: 'Inter', fontSize: '0.6rem', letterSpacing: '0.15em',
-              textTransform: 'uppercase', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem',
-            }}
-          >
-            Explore →
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function ServicePreviewCard({ s }) {
   const cardRef = useRef(null)
@@ -250,7 +153,7 @@ export default function Home() {
         <Hero
           actions={[
             { text: 'Explore Projects', onClick: () => navigate('/projects'), primary: true },
-            { text: 'Recent Projects', onClick: () => navigate('/recent-projects'), primary: false },
+            { text: 'Book a Studio Tour', onClick: () => navigate('/book-a-tour'), primary: false },
           ]}
         />
 
@@ -326,21 +229,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Featured Projects ── */}
-        <section className="section-pad" style={{ background: 'var(--bg-alt)' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
-              <SectionHeading kicker="Selected Work" title="Featured projects" />
-              <button
-                className="btn-outline"
-                onClick={() => navigate('/projects')}
-              >View All Projects</button>
-            </div>
-            <div className="projects-grid">
-              {featured.map((p, i) => <FeaturedCard key={i} project={p} index={i} />)}
-            </div>
-          </div>
-        </section>
+
 
         {/* ── Process ── */}
         <section className="section-pad" style={{ background: 'var(--bg)' }}>

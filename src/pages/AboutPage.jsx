@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
 
 import PageBanner from './PageBanner'
 import Footer from '../components/sections/Footer'
@@ -23,44 +24,42 @@ const principles = [
 ]
 
 /* ─── Ishwer process steps ── */
-const process = [
-  { num: '01', title: 'Observe',      desc: 'Understanding the site, its environment, people, climate, opportunities and constraints.' },
-  { num: '02', title: 'Question',     desc: 'Identifying the central architectural problem and asking what the project should truly achieve.' },
-  { num: '03', title: 'Analyse',      desc: 'Studying orientation, circulation, zoning, views, daylight, climate, structure, materials and contextual relationships.' },
-  { num: '04', title: 'Conceptualise',desc: 'Translating the analysis into a clear architectural idea — a principle that can guide the project from the first sketch to the final detail.' },
-  { num: '05', title: 'Explore',      desc: 'Testing multiple possibilities through sketches, diagrams, physical models, 3D modelling and computational tools.' },
-  { num: '06', title: 'Refine',       desc: 'Balancing aesthetics with function, structure, cost, materiality, sustainability and construction feasibility.' },
-  { num: '07', title: 'Experience',   desc: 'Evaluating the architecture from the perspective of the user — how it is approached, entered, occupied, perceived and remembered.' },
+const ishwerProcess = [
+  { step: '01', title: 'Contextual Research & Spatial Concept',  desc: 'Every project begins with in-depth analysis of the site, orientation, microclimate, movement patterns and the client\'s programmatic requirements.' },
+  { step: '02', title: 'Algorithmic & Parametric Design',        desc: 'Advanced computational software and algorithmic scripts generate complex geometries, optimized shading systems, responsive envelopes and structural patterns.' },
+  { step: '03', title: 'Performance Optimization & Craft',       desc: 'Using analytical digital tools, concepts are tested for solar radiation, daylight penetration, aerodynamic comfort and material efficiency.' },
+  { step: '04', title: 'Construction Detailing & Execution',     desc: 'Digital models are translated into precise construction documentation, shop drawings and digital fabrication files for seamless on-site realization.' },
 ]
 
 /* ─── Gold line label ── */
 function GoldLabel({ text }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.6rem' }}>
-      <div style={{ width: '32px', height: '1px', background: 'var(--gold)', flexShrink: 0 }} />
-      <span style={{
-        fontFamily: 'Inter', fontSize: '0.6rem',
-        letterSpacing: '0.3em', color: 'var(--gold)',
-        textTransform: 'uppercase',
-      }}>{text}</span>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+      <div style={{ width: '28px', height: '1px', background: 'var(--gold)' }} />
+      <span style={{ fontFamily: 'Inter', fontSize: '0.62rem', letterSpacing: '0.25em', color: 'var(--gold)', textTransform: 'uppercase' }}>{text}</span>
     </div>
   )
 }
 
 /* ─── Body text ── */
-function Body({ children, style }) {
+function Body({ children, style = {} }) {
   return (
     <p style={{
-      fontFamily: 'Inter', fontSize: '0.86rem',
-      lineHeight: 1.95, color: 'var(--text-dim)',
-      marginBottom: '1.1rem',
+      fontFamily: 'Inter',
+      fontSize: '0.85rem',
+      lineHeight: 1.85,
+      color: 'var(--text-dim)',
+      marginBottom: '1.2rem',
       ...style,
-    }}>{children}</p>
+    }}>
+      {children}
+    </p>
   )
 }
 
 export default function AboutPage() {
   const pageRef = useRef(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -77,12 +76,19 @@ export default function AboutPage() {
   return (
     <>
       <main ref={pageRef}>
-        <PageBanner title="About" sub="EKORA ARCHITECTS — Architecture with Purpose. Identity. Experience." />
+        <PageBanner
+          title="About"
+          sub="EKORA ARCHITECTS — Architecture with Purpose. Identity. Experience."
+          actions={[
+            { text: 'Our Philosophy', target: '#about-section', primary: true },
+            { text: 'Book a Studio Visit', onClick: () => navigate('/book-a-tour'), primary: false },
+          ]}
+        />
 
         {/* ══════════════════════════════════════════════
             SECTION 1 — ABOUT EKORA ARCHITECTS
         ══════════════════════════════════════════════ */}
-        <section className="section-pad reveal" style={{ background: 'var(--bg)' }}>
+        <section id="about-section" className="section-pad reveal" style={{ background: 'var(--bg)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
             {/* Intro */}

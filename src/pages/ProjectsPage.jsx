@@ -679,7 +679,7 @@ export default function ProjectsPage() {
                 style={{
                   background: 'var(--card-bg-deep)',
                   border: '1px solid var(--text-hair)',
-                  padding: 'clamp(1.2rem, 3vw, 2rem)',
+                  padding: 'clamp(0.4rem, 2vw, 1.8rem)',
                   borderRadius: '4px',
                 }}
               >
