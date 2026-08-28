@@ -56,11 +56,9 @@ export default function Hero({
     if (subtitleRef.current) gsap.set(subtitleRef.current, { y: 20, opacity: 0 })
     if (scrollHintRef.current) gsap.set(scrollHintRef.current, { opacity: 0 })
     if (rightLabelRef.current) gsap.set(rightLabelRef.current, { opacity: 0 })
-    if (videoRef.current) gsap.set(videoRef.current, { opacity: 0, scale: 1.06 })
 
-    const tl = gsap.timeline({ delay: 0.25 })
-    if (videoRef.current) tl.to(videoRef.current, { opacity: 1, scale: 1, duration: 1.4, ease: 'power2.out' })
-    if (lineRef.current) tl.to(lineRef.current, { scaleX: 1, duration: 0.9, ease: 'power3.out' }, '-=0.6')
+    const tl = gsap.timeline({ delay: 0.15 })
+    if (lineRef.current) tl.to(lineRef.current, { scaleX: 1, duration: 0.9, ease: 'power3.out' })
     if (headingRef.current) {
       tl.to(headingRef.current.children || [], { y: 0, opacity: 1, stagger: 0.15, duration: 1.0, ease: 'power3.out' }, '-=0.5')
     }
@@ -79,21 +77,23 @@ export default function Hero({
       },
     })
 
-    const st2 = gsap.to(videoRef.current, {
-      y: 50,
-      scale: 1.04,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '100% top',
-        scrub: true,
-      },
-    })
+    const st2 = videoRef.current
+      ? gsap.to(videoRef.current, {
+          y: 50,
+          scale: 1.04,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '100% top',
+            scrub: true,
+          },
+        })
+      : null
 
     return () => {
       st1.scrollTrigger?.kill()
-      st2.scrollTrigger?.kill()
+      st2?.scrollTrigger?.kill()
       tl.kill()
     }
   }, [video])
@@ -116,10 +116,16 @@ export default function Hero({
     >
       {/* ── High-Definition Architectural Video Background (new.mp4 / custom video) ── */}
       <video
-        ref={videoRef}
-        key={video || heroVideo}
+        ref={(el) => {
+          if (el) {
+            el.muted = true
+            el.defaultMuted = true
+            el.playsInline = true
+            el.play().catch(() => {})
+          }
+          videoRef.current = el
+        }}
         src={video || heroVideo}
-        poster={baseImage}
         autoPlay
         muted
         loop
@@ -133,8 +139,9 @@ export default function Hero({
           height: '100%',
           objectFit: 'cover',
           transformOrigin: 'center',
-          willChange: 'transform, opacity',
           zIndex: 1,
+          opacity: 1,
+          display: 'block',
         }}
       />
 
