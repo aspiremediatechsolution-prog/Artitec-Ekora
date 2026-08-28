@@ -191,8 +191,10 @@ class LuxuryAmbientMusicEngine {
  * - Fullscreen, Auto-Tour Mode, and Keyboard Shortcuts.
  */
 export default function Paronma360Viewer({
+  spaces = [],
   images = [],
   panoramas = [],
+  title = '',
   clientName = '',
   projectName = '',
   initialFrame = 0,
@@ -205,14 +207,22 @@ export default function Paronma360Viewer({
   const containerRef = useRef(null)
   const canvasContainerRef = useRef(null)
   const filmstripScrollRef = useRef(null)
-  const effectiveName = projectName || clientName || 'Ekora Architectural Project'
+  const effectiveName = title || projectName || clientName || 'Ekora Architectural Project'
 
   // WebGL availability detection
   const [webglSupported, setWebglSupported] = useState(() => checkWebGL())
 
   // Normalize panorama data list with spatial metadata
   const items = useMemo(() => {
-    const source = (panoramas && panoramas.length > 0) ? panoramas : images
+    let source = []
+    if (spaces && spaces.length > 0) {
+      source = spaces
+    } else if (panoramas && panoramas.length > 0) {
+      source = panoramas
+    } else if (images && images.length > 0) {
+      source = images
+    }
+
     if (!source || source.length === 0) return []
 
     return source.map((item, idx) => {
@@ -231,12 +241,12 @@ export default function Paronma360Viewer({
         id: item.id || `space-${idx}`,
         url: item.url || item.src || '',
         title: item.title || `${effectiveName} — Space ${idx + 1}`,
-        room: item.room || `Space ${idx + 1}`,
+        room: item.room || item.title || `Space ${idx + 1}`,
         index: idx,
         specs: item.specs || ['Italian Botticino Marble', 'Acoustic Ceiling Treatment', 'Smart Lutron Automation'],
       }
     })
-  }, [images, panoramas, effectiveName])
+  }, [spaces, images, panoramas, effectiveName])
 
   // Active space index
   const [selectedIndex, setSelectedIndex] = useState(() => {
@@ -250,6 +260,13 @@ export default function Paronma360Viewer({
     }
     return typeof initialFrame === 'number' ? Math.min(initialFrame, Math.max(0, items.length - 1)) : 0
   })
+
+  // Reset selectedIndex when items list changes (e.g. switching client tabs)
+  useEffect(() => {
+    if (selectedIndex >= items.length) {
+      setSelectedIndex(0)
+    }
+  }, [items, selectedIndex])
 
   // Sync if external activeId changes
   useEffect(() => {
@@ -1810,7 +1827,7 @@ export default function Paronma360Viewer({
               <div style={{ fontFamily: 'Inter', fontSize: '0.52rem', letterSpacing: '0.2em', color: 'var(--gold)', textTransform: 'uppercase' }}>
                 Spatial Overview
               </div>
-              <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.3rem, 2.5vw, 2rem)', color: 'var(--text)', margin: '0.2rem 0 0 0' }}>
+              <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.3rem, 2.5vw, 2rem)', color: 'var(--heading)', margin: '0.2rem 0 0 0' }}>
                 Select an Architectural Space
               </h3>
             </div>

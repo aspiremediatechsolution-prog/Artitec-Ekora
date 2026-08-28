@@ -2,9 +2,7 @@ import Hero from '../components/sections/Hero'
 
 export default function PageBanner({
   title,
-  sub = 'Ekora Studio — Architecture · Interiors · Landscape',
-  action,
-  actions,
+  sub = 'Ekora Architects — Luxury Architecture · Interiors · Landscape',
   video,
 }) {
   return (
@@ -12,9 +10,7 @@ export default function PageBanner({
       head1={title}
       head2=""
       sub={sub}
-      label="Ekora — Since 2010"
-      action={action}
-      actions={actions}
+      label="Ekora Architects — Spatial Atelier"
       video={video}
     />
   )

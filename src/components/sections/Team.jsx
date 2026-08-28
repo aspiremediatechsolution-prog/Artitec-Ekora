@@ -79,7 +79,7 @@ function TeamCard({ member }) {
         background: hovered ? 'var(--gold-hair)' : 'transparent',
         transition: 'background 0.3s', transformStyle: 'preserve-3d',
       }}>
-        <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.35rem', fontWeight: 400, color: hovered ? 'var(--gold)' : 'var(--text)', marginBottom: '0.3rem', transition: 'color 0.3s' }}>
+        <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.35rem', fontWeight: 400, color: 'var(--heading)', marginBottom: '0.3rem', transition: 'color 0.3s' }}>
           {member.name}
         </h3>
         <p style={{ fontFamily: 'Inter', fontSize: '0.62rem', letterSpacing: '0.15em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
@@ -113,7 +113,7 @@ export default function Team() {
           <div style={{ width: '36px', height: '1px', background: 'var(--gold)' }} />
           <span style={{ fontFamily: 'Inter', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase' }}>Our Team</span>
         </div>
-        <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2.2rem, 4.5vw, 4.5rem)', fontWeight: 300, color: 'var(--text)', marginBottom: '4rem', lineHeight: 1.1 }}>
+        <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2.2rem, 4.5vw, 4.5rem)', fontWeight: 300, color: 'var(--heading)', marginBottom: '4rem', lineHeight: 1.1 }}>
           The people behind the work
         </h2>
         <div className="team-grid">

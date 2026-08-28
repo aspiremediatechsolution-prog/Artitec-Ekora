@@ -145,7 +145,7 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
           <div style={{
             position: 'absolute', inset: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: hovered ? 'rgba(40,3,6,0.55)' : 'rgba(40,3,6,0.35)',
+            background: hovered ? 'rgba(24, 15, 17, 0.6)' : 'rgba(24, 15, 17, 0.4)',
             transition: 'background 0.3s',
           }}>
             <div style={{
@@ -170,7 +170,7 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
             position: 'absolute', top: '0.5rem', left: '0.5rem',
             fontFamily: 'Inter', fontSize: '0.52rem',
             letterSpacing: '0.18em', color: 'var(--gold)',
-            background: 'rgba(40,3,6,0.8)',
+            background: 'rgba(24, 15, 17, 0.85)',
             border: '1px solid var(--gold-faint)',
             padding: '0.15rem 0.5rem',
             textTransform: 'uppercase',
@@ -194,7 +194,7 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
           {/* Hover overlay */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'rgba(40,3,6,0.45)',
+            background: 'rgba(24, 15, 17, 0.55)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             opacity: hovered ? 1 : 0, transition: 'opacity 0.3s',
           }}>
@@ -216,7 +216,7 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
         position: 'absolute', top: '0.5rem', right: '0.5rem',
         fontFamily: 'Cormorant Garamond, serif',
         fontSize: '0.7rem', color: 'var(--gold)',
-        background: 'rgba(40,3,6,0.75)',
+        background: 'rgba(24, 15, 17, 0.85)',
         padding: '0.1rem 0.4rem',
       }}>
         {String(index + 1).padStart(2, '0')}
@@ -333,7 +333,7 @@ export default function RecentProjectsModal({ onClose }) {
             <h2 style={{
               fontFamily: 'Cormorant Garamond, serif',
               fontSize: '1.4rem', fontWeight: 300,
-              color: 'var(--text)', lineHeight: 1.2, margin: 0,
+              color: 'var(--heading)', lineHeight: 1.2, margin: 0,
             }}>
               Recent Projects
             </h2>
@@ -432,7 +432,7 @@ export default function RecentProjectsModal({ onClose }) {
                     borderRadius: '20px',
                     border: `1px solid ${isActive ? 'var(--gold)' : 'var(--text-hair)'}`,
                     background: isActive ? 'var(--gold)' : 'var(--bg-deep)',
-                    color: isActive ? '#380408' : 'var(--text-dim)',
+                    color: isActive ? 'var(--on-gold)' : 'var(--text-dim)',
                     fontFamily: 'Inter', fontSize: '0.65rem',
                     cursor: 'pointer',
                     fontWeight: isActive ? 600 : 400,

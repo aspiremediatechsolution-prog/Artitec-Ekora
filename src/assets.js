@@ -19,7 +19,7 @@ import w2_16_33 from './image/WhatsApp Image 2026-07-27 at 2.16.33 PM.jpeg'
 // About page — founder photos
 import founderIshwer from './image/ishwer-singh.jpeg'
 import founderRajdeep from './image/rajdeep-singh.jpeg'
-const heroVideo = '/video/new.mp4'
+import heroVideo from './video/new.mp4'
 import philosophyVideo from './image/hero-video.mp4'
 import studioVideo from './image/WhatsApp Video 2026-07-27 at 2.17.20 PM.mp4'
 

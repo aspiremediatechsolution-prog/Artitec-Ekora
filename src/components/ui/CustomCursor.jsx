@@ -2,58 +2,131 @@ import { useEffect, useRef } from 'react'
 
 export default function CustomCursor() {
   const cursorRef = useRef(null)
-  const followerRef = useRef(null)
 
   useEffect(() => {
-    // Disable on touch / mobile devices
-    const isTouch = window.matchMedia('(hover: none) or (pointer: coarse)').matches || window.innerWidth <= 1024
+    // Disable on mobile/touch screens
+    const isTouch =
+      window.matchMedia('(hover: none) or (pointer: coarse)').matches ||
+      window.innerWidth <= 768
+
     if (isTouch) return
 
     const cursor = cursorRef.current
-    const follower = followerRef.current
-    if (!cursor || !follower) return
+    if (!cursor) return
 
-    let mouseX = -100, mouseY = -100
-    let followerX = -100, followerY = -100
-    let animId
+    let mouseX = -100
+    let mouseY = -100
+    let cursorX = -100
+    let cursorY = -100
+    let lastX = -100
+    let lastY = -100
+    let frame = null
 
     const onMouseMove = (e) => {
       mouseX = e.clientX
       mouseY = e.clientY
-      cursor.style.left = mouseX + 'px'
-      cursor.style.top = mouseY + 'px'
+
+      if (lastX === -100 || lastY === -100) {
+        lastX = mouseX
+        lastY = mouseY
+        cursorX = mouseX
+        cursorY = mouseY
+        cursor.style.left = cursorX + 'px'
+        cursor.style.top = cursorY + 'px'
+        return
+      }
+
+      /* Create architectural drafting line trail */
+      const distance = Math.hypot(mouseX - lastX, mouseY - lastY)
+
+      if (distance > 18) {
+        const line = document.createElement('div')
+        line.className = 'arch-line'
+
+        const angle = (Math.atan2(mouseY - lastY, mouseX - lastX) * 180) / Math.PI
+
+        line.style.left = lastX + 'px'
+        line.style.top = lastY + 'px'
+        line.style.width = Math.min(distance, 35) + 'px'
+        line.style.transform = `rotate(${angle}deg)`
+
+        document.body.appendChild(line)
+
+        setTimeout(() => {
+          if (line.parentNode) line.remove()
+        }, 500)
+
+        lastX = mouseX
+        lastY = mouseY
+      }
     }
 
-    const animate = () => {
-      followerX += (mouseX - followerX) * 0.14
-      followerY += (mouseY - followerY) * 0.14
-      follower.style.left = followerX + 'px'
-      follower.style.top = followerY + 'px'
-      animId = requestAnimationFrame(animate)
+    /* Smooth RAF cursor physics */
+    const animateCursor = () => {
+      cursorX += (mouseX - cursorX) * 0.18
+      cursorY += (mouseY - cursorY) * 0.18
+
+      cursor.style.left = cursorX + 'px'
+      cursor.style.top = cursorY + 'px'
+
+      frame = requestAnimationFrame(animateCursor)
     }
 
-    const onMouseEnter = () => cursor.classList.add('hover')
-    const onMouseLeave = () => cursor.classList.remove('hover')
+    animateCursor()
 
-    window.addEventListener('mousemove', onMouseMove)
-    document.querySelectorAll('a, button, [data-cursor]').forEach(el => {
-      el.addEventListener('mouseenter', onMouseEnter)
-      el.addEventListener('mouseleave', onMouseLeave)
-    })
+    /* Hover detection for Projects, Links/Buttons, and Text */
+    const onMouseOver = (e) => {
+      const element = e.target
+      if (!element || !cursor) return
 
-    animId = requestAnimationFrame(animate)
+      cursor.classList.remove('project', 'text', 'link')
+
+      /* Project images / media cards / 360 viewer canvas */
+      if (
+        element.tagName === 'IMG' ||
+        element.tagName === 'VIDEO' ||
+        element.tagName === 'CANVAS' ||
+        element.closest(
+          '.project, .projects, .portfolio, .aparna-project-card, .tilt-card, [data-cursor="project"], [data-cursor="explore"], .pano-thumb-card'
+        )
+      ) {
+        cursor.classList.add('project')
+      }
+      /* Links and interactive buttons */
+      else if (
+        element.tagName === 'A' ||
+        element.tagName === 'BUTTON' ||
+        element.closest("a, button, [role='button'], .btn-gold, .btn-outline, .btn-text, [data-cursor='link']")
+      ) {
+        cursor.classList.add('link')
+      }
+      /* Text elements */
+      else if (
+        element.tagName === 'P' ||
+        element.tagName === 'H1' ||
+        element.tagName === 'H2' ||
+        element.tagName === 'H3' ||
+        element.tagName === 'H4' ||
+        element.tagName === 'H5' ||
+        element.tagName === 'H6' ||
+        element.tagName === 'SPAN' ||
+        element.tagName === 'BLOCKQUOTE' ||
+        element.tagName === 'LI'
+      ) {
+        cursor.classList.add('text')
+      }
+    }
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
+    document.addEventListener('mouseover', onMouseOver, { passive: true })
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
-      cancelAnimationFrame(animId)
+      document.removeEventListener('mouseover', onMouseOver)
+      if (frame) cancelAnimationFrame(frame)
+      document.querySelectorAll('.arch-line').forEach((el) => el.remove())
     }
   }, [])
 
-  return (
-    <>
-      <div ref={cursorRef} className="cursor" />
-      <div ref={followerRef} className="cursor-follower" />
-    </>
-  )
+  return <div ref={cursorRef} className="arch-drawing-cursor" />
 }
-

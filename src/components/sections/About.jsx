@@ -6,8 +6,8 @@ import { aboutImage, gallery1, projectsImage } from '../../assets'
 gsap.registerPlugin(ScrollTrigger)
 
 const stats = [
-  { num: '15+', label: 'Years Experience' },
   { num: '200+', label: 'Projects Completed' },
+  { num: '100%', label: 'Bespoke Craft' },
   { num: '12', label: 'Design Awards' },
   { num: '8', label: 'Countries' },
 ]
@@ -133,7 +133,7 @@ function VisionStrip() {
             <div style={{ width: '30px', height: '1px', background: 'var(--gold)' }} />
             <span style={{ fontFamily: 'Inter', fontSize: '0.6rem', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase' }}>Our Vision</span>
           </div>
-          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.5rem, 3.5vw, 3.2rem)', fontWeight: 300, color: 'var(--text)', lineHeight: 1.2 }}>
+          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.5rem, 3.5vw, 3.2rem)', fontWeight: 300, color: 'var(--heading)', lineHeight: 1.2 }}>
             We build for the people who will live there — not for awards.
           </h3>
         </div>
@@ -195,8 +195,8 @@ export default function About() {
                 background: 'var(--card-bg-deep)', border: '1px solid var(--gold-mid)',
                 padding: '0.65rem 1rem', zIndex: 3,
               }}>
-                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem', color: 'var(--gold)', lineHeight: 1 }}>2010</div>
-                <div style={{ fontFamily: 'Inter', fontSize: '0.55rem', letterSpacing: '0.2em', color: 'var(--text-soft)', textTransform: 'uppercase', marginTop: '0.2rem' }}>Est.</div>
+                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.2rem', color: 'var(--gold)', lineHeight: 1, letterSpacing: '0.08em' }}>EKORA</div>
+                <div style={{ fontFamily: 'Inter', fontSize: '0.55rem', letterSpacing: '0.2em', color: 'var(--text-soft)', textTransform: 'uppercase', marginTop: '0.2rem' }}>Atelier</div>
               </div>
             </Image3D>
           </div>
@@ -207,7 +207,7 @@ export default function About() {
               <div style={{ width: '36px', height: '1px', background: 'var(--gold)' }} />
               <span style={{ fontFamily: 'Inter', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase' }}>About Us</span>
             </div>
-            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 4vw, 4rem)', fontWeight: 300, color: 'var(--text)', lineHeight: 1.15, marginBottom: '0.3rem' }}>
+            <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 4vw, 4rem)', fontWeight: 300, color: 'var(--heading)', lineHeight: 1.15, marginBottom: '0.3rem' }}>
               Building homes that
             </h2>
             <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2rem, 4vw, 4rem)', fontWeight: 300, color: 'var(--gold)', fontStyle: 'italic', lineHeight: 1.15, marginBottom: '1.5rem' }}>

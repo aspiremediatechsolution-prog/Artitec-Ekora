@@ -1,5 +1,6 @@
 // All client projects data — about text sourced from "ABOUT THE PROJECT.txt" files
 // Images served from /public/projects/{folder}/
+import { allPanoramas } from './panoramasData'
 
 export const projectsData = [
   {
@@ -72,12 +73,7 @@ The architectural approach demonstrates that a clinic can be technically functio
 Drawing inspiration from neoclassical and contemporary European architectural aesthetics, the design has been thoughtfully adapted to suit the character of a modern Indian luxury residence. The warm beige palette, rich textures, decorative mouldings, expansive glazing, statement lighting, and landscaped frontage come together to create a façade that feels both grand and refined.
 
 Every element reflects a commitment to luxury, craftsmanship, and architectural richness—from the monumental entrance and intricate boundary wall to the dramatic illuminated interiors and lush landscape. With its harmonious blend of classical detailing and contemporary functionality, this residence showcases the design philosophy of EKORA ARCHITECTS, creating an elegant, distinctive, and luxurious architectural statement in Lucknow.`,
-    panoramas: [
-      { title: 'Grand Entrance Hall', url: '/panoramas/ajit_residence_360_1.jpg' },
-      { title: 'Classical Drawing Room', url: '/panoramas/ajit_residence_360_2.jpg' },
-      { title: 'Family Lounge', url: '/panoramas/ajit_residence_360_3.jpg' },
-      { title: 'Royal Bedroom Suite', url: '/panoramas/ajit_residence_360_4.jpg' },
-    ],
+    panoramas: allPanoramas.filter((p) => p.project === 'Mr. Ajit Residence'),
     images: [
       '/projects/ajit-residence/A1.jpg',
       '/projects/ajit-residence/A2.jpg',
@@ -106,11 +102,7 @@ Every element reflects a commitment to luxury, craftsmanship, and architectural 
 At Ekora Architects, the design approach focuses on creating architecture that responds to its environment while maintaining a strong contemporary identity. Every space is carefully planned to maximize natural light, ventilation, thermal comfort, and connection with nature, ensuring that each corner of the residence feels welcoming and comfortable.
 
 The result is a residence that is contemporary in appearance, responsive to its surroundings, naturally illuminated, well ventilated, thermally comfortable, and energy efficient—reflecting Ekora Architects' philosophy of creating architecture where design, comfort, sustainability, and functionality come together seamlessly.`,
-    panoramas: [
-      { title: 'Living & Lounge', url: '/panoramas/azad_residence_360_1.jpg' },
-      { title: 'Contemporary Master Suite', url: '/panoramas/azad_residence_360_2.jpg' },
-      { title: 'Balcony & Foyer', url: '/panoramas/azad_residence_360_3.jpg' },
-    ],
+    panoramas: allPanoramas.filter((p) => p.project === 'Mr. Azad Residence'),
     images: [
       '/projects/azad-residence/1_1 - Photo.png',
       '/projects/azad-residence/1_2 - Photo.png',
@@ -141,14 +133,7 @@ The design adopts a climate-responsive and passive approach, allowing the buildi
 Here, the facade is not simply a visual statement; it acts as a responsive environmental skin, mediating between the exterior climate and the interior spaces. The interplay of solid and void, light and shadow, natural materials, and greenery creates an architecture that is both contemporary in expression and sensitive to its context.
 
 The result is a residence designed to be visually distinctive, naturally lit, well ventilated, thermally comfortable, climate-oriented, and environmentally conscious—demonstrating how thoughtful architectural design can enhance both living experience and environmental performance.`,
-    panoramas: [
-      { title: 'Grand Living Foyer', url: '/panoramas/chishti_residence_360_1.jpg' },
-      { title: 'Formal Dining Room', url: '/panoramas/chishti_residence_360_2.jpg' },
-      { title: 'Master Suite', url: '/panoramas/chishti_residence_360_3.jpg' },
-      { title: 'Executive Lounge', url: '/panoramas/chishti_residence_360_4.jpg' },
-      { title: 'Kitchen & Pantry', url: '/panoramas/chishti_residence_360_5.jpg' },
-      { title: 'Upper Terrace View', url: '/panoramas/chishti_residence_360_6.jpg' },
-    ],
+    panoramas: allPanoramas.filter((p) => p.project === 'Mr. Chishti Residence'),
     images: [
       '/projects/chishti-residence/A1.png',
       '/projects/chishti-residence/A2.png',
@@ -263,13 +248,7 @@ The result is a residence designed to be visually distinctive, naturally lit, we
     location: 'United States',
     type: 'International',
     about: `A collection of architectural and interior projects executed for clients across the United States, showcasing Ekora Architects' global design capability. Each project adapts the studio's core philosophy — natural light, honest materials, and human-centred space planning — to diverse climatic and cultural contexts.`,
-    panoramas: [
-      { title: 'Banquet Hall — View 01', url: '/panoramas/usa_banquet_360_1.jpg' },
-      { title: 'Banquet Hall — View 02', url: '/panoramas/usa_banquet_360_2.jpg' },
-      { title: 'Banquet Hall — View 03', url: '/panoramas/usa_banquet_360_3.jpg' },
-      { title: 'Banquet Hall — View 04', url: '/panoramas/usa_banquet_360_4.jpg' },
-      { title: 'Banquet Hall — View 05', url: '/panoramas/usa_banquet_360_5.jpg' },
-    ],
+    panoramas: allPanoramas.filter((p) => p.project === 'USA Banquet Hall'),
     images: [
       '/projects/usa-works/A1.jpg',
       '/projects/usa-works/A2.jpg',

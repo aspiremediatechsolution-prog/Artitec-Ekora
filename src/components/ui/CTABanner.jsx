@@ -3,7 +3,13 @@ import gsap from 'gsap'
 import { useNavigate } from 'react-router-dom'
 import { philosophyVideo } from '../../assets'
 
-export default function CTABanner({ title, sub, label = 'Book a Tour', video = philosophyVideo }) {
+export default function CTABanner({
+  title,
+  sub,
+  label = 'Contact Us',
+  video = philosophyVideo,
+  secondaryAction = null,
+}) {
   const navigate = useNavigate()
   const sectionRef = useRef(null)
   const mediaRef = useRef(null)
@@ -21,18 +27,12 @@ export default function CTABanner({ title, sub, label = 'Book a Tour', video = p
     if (!rect) return
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    gsap.to(mediaRef.current, { x: x * 26, y: y * 14, scale: 1.06, duration: 0.6, ease: 'power2.out' })
+    gsap.to(mediaRef.current, { x: x * 20, y: y * 12, scale: 1.05, duration: 0.6, ease: 'power2.out' })
   }
 
   const onMouseLeave = () => {
     if (window.innerWidth <= 1024) return
     gsap.to(mediaRef.current, { x: 0, y: 0, scale: 1, duration: 0.9, ease: 'power3.out' })
-  }
-
-  const mediaStyle = {
-    position: 'absolute', inset: 0, width: '100%', height: '100%',
-    objectFit: 'cover', filter: 'brightness(0.4)',
-    transformOrigin: 'center', willChange: 'transform',
   }
 
   return (
@@ -42,8 +42,10 @@ export default function CTABanner({ title, sub, label = 'Book a Tour', video = p
       onMouseLeave={onMouseLeave}
       className="reveal"
       style={{
-        position: 'relative', overflow: 'hidden',
-        padding: 'clamp(4rem, 8vw, 8rem) 5%',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: 'clamp(5rem, 9vw, 8.5rem) 5%',
+        background: 'var(--bg-deep)',
       }}
     >
       <video
@@ -54,35 +56,81 @@ export default function CTABanner({ title, sub, label = 'Book a Tour', video = p
         loop
         playsInline
         preload="auto"
-        style={mediaStyle}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          filter: 'brightness(0.35) contrast(1.05)',
+          transformOrigin: 'center',
+          willChange: 'transform',
+        }}
       />
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'var(--overlay-banner)',
-      }} />
-      <div style={{
-        position: 'relative', zIndex: 2,
-        maxWidth: '760px', margin: '0 auto', textAlign: 'center',
-      }}>
-        <div style={{ width: '36px', height: '1px', background: 'var(--gold)', margin: '0 auto 1.2rem' }} />
-        <h2 style={{
-          fontFamily: 'Cormorant Garamond, serif',
-          fontSize: 'clamp(1.8rem, 4vw, 3.6rem)',
-          fontWeight: 300, color: 'var(--text)', lineHeight: 1.15, marginBottom: '1.2rem',
-        }}>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'var(--overlay-banner)',
+        }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: '820px',
+          margin: '0 auto',
+          textAlign: 'center',
+        }}
+      >
+        <div style={{ width: '32px', height: '1px', background: 'var(--gold)', margin: '0 auto 1.5rem' }} />
+        <h2
+          style={{
+            fontFamily: 'Cormorant Garamond, Georgia, serif',
+            fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
+            fontWeight: 300,
+            color: 'var(--heading)',
+            lineHeight: 1.15,
+            marginBottom: '1.25rem',
+            textWrap: 'balance',
+          }}
+        >
           {title}
         </h2>
         {sub && (
-          <p style={{ fontFamily: 'Inter', fontSize: '0.82rem', lineHeight: 1.85, color: 'var(--text-dim)', maxWidth: '560px', margin: '0 auto 2.2rem' }}>
+          <p
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: 'clamp(0.85rem, 1.2vw, 0.96rem)',
+              lineHeight: 1.85,
+              color: 'rgba(245, 239, 235, 0.78)',
+              maxWidth: '620px',
+              margin: '0 auto 2.5rem',
+              textWrap: 'pretty',
+            }}
+          >
             {sub}
           </p>
         )}
-        <button
-          className="btn-gold"
-          onClick={() => navigate('/book-a-tour')}
-        >{label}</button>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <button
+            className="btn-gold"
+            onClick={() => navigate('/contact')}
+            style={{ padding: '0.9rem 2.2rem' }}
+          >
+            {label}
+          </button>
+          {secondaryAction && (
+            <button
+              className="btn-outline"
+              onClick={secondaryAction.onClick || (() => navigate(secondaryAction.path || '/projects'))}
+              style={{ padding: '0.9rem 2.2rem' }}
+            >
+              {secondaryAction.label || 'Explore Portfolio'}
+            </button>
+          )}
+        </div>
       </div>
     </section>
   )
 }
-

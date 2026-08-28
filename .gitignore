@@ -7,15 +7,20 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Local environment
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -30,3 +35,10 @@ scratch/
 *.CR3
 compress_videos.cjs
 _theme-replace.mjs
+
+# Large video files
+# Add only if videos are NOT required by the website
+# *.mp4
+# *.mov
+# *.avi
+# *.mkv

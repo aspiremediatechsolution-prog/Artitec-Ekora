@@ -329,7 +329,7 @@ function PanoCard({ pano, index, onOpen }) {
           border: '1.5px solid var(--gold)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           transition: 'all 0.3s',
-          background: 'rgba(40,3,6,0.5)',
+          background: 'rgba(24, 15, 17, 0.65)',
         }}>
           {/* 360 text */}
           <span style={{
@@ -353,7 +353,7 @@ function PanoCard({ pano, index, onOpen }) {
       <div style={{
         position: 'absolute', bottom: '0.7rem', left: '0.8rem',
         fontFamily: 'Cormorant Garamond, serif', fontSize: '0.85rem',
-        color: 'var(--text)', background: 'rgba(40,3,6,0.8)',
+        color: 'var(--text)', background: 'rgba(24, 15, 17, 0.85)',
         padding: '0.2rem 0.7rem',
         border: '1px solid var(--gold-faint)',
       }}>
@@ -364,7 +364,7 @@ function PanoCard({ pano, index, onOpen }) {
       <div style={{
         position: 'absolute', top: '0.6rem', right: '0.7rem',
         fontFamily: 'Cormorant Garamond, serif', fontSize: '0.7rem',
-        color: 'var(--gold)', background: 'rgba(40,3,6,0.75)',
+        color: 'var(--gold)', background: 'rgba(24, 15, 17, 0.85)',
         padding: '0.1rem 0.4rem',
       }}>
         {String(index + 1).padStart(2, '0')}
@@ -437,7 +437,7 @@ function VideoCard({ src, index }) {
         aria-label={muted ? 'Unmute video' : 'Mute video'}
         style={{
           position: 'absolute', bottom: '0.8rem', right: '0.8rem',
-          background: 'rgba(40,3,6,0.85)', border: '1px solid var(--gold-line)',
+          background: 'rgba(24, 15, 17, 0.85)', border: '1px solid var(--gold-line)',
           color: 'var(--gold)', fontFamily: 'Inter', fontSize: '0.58rem',
           letterSpacing: '0.14em', padding: '0.35rem 0.75rem',
           cursor: 'pointer', textTransform: 'uppercase', borderRadius: '4px',
@@ -451,7 +451,7 @@ function VideoCard({ src, index }) {
       {/* Video badge */}
       <div style={{
         position: 'absolute', top: '0.7rem', left: '0.7rem',
-        background: 'rgba(40,3,6,0.8)', border: '1px solid var(--gold-faint)',
+        background: 'rgba(24, 15, 17, 0.85)', border: '1px solid var(--gold-faint)',
         borderRadius: '20px', padding: '0.2rem 0.6rem',
         display: 'flex', alignItems: 'center', gap: '0.35rem',
         zIndex: 2,
@@ -471,7 +471,7 @@ function VideoCard({ src, index }) {
       <div style={{
         position: 'absolute', top: '0.7rem', right: '0.7rem',
         fontFamily: 'Cormorant Garamond, serif', fontSize: '0.75rem',
-        color: 'var(--gold)', background: 'rgba(40,3,6,0.75)',
+        color: 'var(--gold)', background: 'rgba(24, 15, 17, 0.85)',
         padding: '0.15rem 0.5rem', pointerEvents: 'none',
         zIndex: 2,
       }}>
@@ -559,7 +559,7 @@ function ImageCard({ src, index, projectName, onOpen }) {
       />
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'rgba(40,3,6,0.45)',
+        background: 'rgba(24, 15, 17, 0.55)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         opacity: hovered ? 1 : 0, transition: 'opacity 0.25s',
       }}>
@@ -573,7 +573,7 @@ function ImageCard({ src, index, projectName, onOpen }) {
       <div style={{
         position: 'absolute', top: '0.5rem', right: '0.5rem',
         fontFamily: 'Cormorant Garamond, serif', fontSize: '0.7rem',
-        color: 'var(--gold)', background: 'rgba(40,3,6,0.75)',
+        color: 'var(--gold)', background: 'rgba(24, 15, 17, 0.85)',
         padding: '0.1rem 0.4rem',
       }}>
         {String(index + 1).padStart(2, '0')}
@@ -656,7 +656,7 @@ export default function RecentProjectsPage() {
             <h1 style={{
               fontFamily: 'Cormorant Garamond, serif',
               fontSize: '1.6rem', fontWeight: 300,
-              color: 'var(--text)', lineHeight: 1.2,
+              color: 'var(--heading)', lineHeight: 1.2,
               margin: '0.4rem 0 0',
             }}>Recent Projects</h1>
           </div>
@@ -775,7 +775,7 @@ export default function RecentProjectsPage() {
                     borderRadius: '20px',
                     border: `1px solid ${isActive ? 'var(--gold)' : 'var(--text-hair)'}`,
                     background: isActive ? 'var(--gold)' : 'var(--bg-deep)',
-                    color: isActive ? '#380408' : 'var(--text-dim)',
+                    color: isActive ? 'var(--on-gold)' : 'var(--text-dim)',
                     fontFamily: 'Inter', fontSize: '0.65rem',
                     cursor: 'pointer',
                     fontWeight: isActive ? 600 : 400,
@@ -787,8 +787,8 @@ export default function RecentProjectsPage() {
                   {p.panoramas?.length > 0 && (
                     <span style={{
                       fontSize: '0.5rem',
-                      background: isActive ? '#380408' : 'rgba(200,169,106,0.15)',
-                      color: isActive ? '#fff' : 'var(--gold)',
+                      background: isActive ? 'var(--on-gold)' : 'rgba(200,169,106,0.15)',
+                      color: isActive ? 'var(--gold)' : 'var(--gold)',
                       padding: '0.05rem 0.35rem', borderRadius: '8px',
                     }}>360°</span>
                   )}
@@ -814,7 +814,7 @@ export default function RecentProjectsPage() {
               <h2 style={{
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: 'clamp(1.4rem, 2.5vw, 2.4rem)',
-                fontWeight: 300, color: 'var(--text)', margin: 0, lineHeight: 1.1,
+                fontWeight: 300, color: 'var(--heading)', margin: 0, lineHeight: 1.1,
               }}>{active.name}</h2>
               <span style={{
                 fontFamily: 'Inter', fontSize: '0.58rem',

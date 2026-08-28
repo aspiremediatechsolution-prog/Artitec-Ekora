@@ -8,50 +8,57 @@ import Footer from '../components/sections/Footer'
 import SectionHeading from '../components/ui/SectionHeading'
 import CTABanner from '../components/ui/CTABanner'
 import TiltCard from '../components/ui/TiltCard'
-import { founderIshwer, founderRajdeep, ctaAbout } from '../assets'
+import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
+import { founderIshwer, founderRajdeep, ctaAbout, aboutImage, gallery1, heroSide } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* ─── Design Principles data ── */
+const aboutFloaters = [
+  { img: aboutImage, kicker: '01 · Design Philosophy', title: 'Computational & Climate', top: '8%', side: 'right' },
+  { img: gallery1, kicker: '02 · Natural Stone', title: 'Travertine & Botticino', top: '44%', side: 'left' },
+  { img: heroSide, kicker: '03 · Spatial Volume', title: 'Light & Compression', top: '78%', side: 'right' },
+]
+
 const principles = [
-  { key: 'Context',          desc: 'Understanding the site, climate, culture and surroundings before defining form.' },
-  { key: 'Function',         desc: 'Creating spaces that are intuitive, efficient and responsive to the needs of their users.' },
-  { key: 'Technology',       desc: 'Using computational and parametric tools to explore intelligent, adaptable and innovative design solutions.' },
-  { key: 'Materiality',      desc: 'Celebrating materials through their texture, performance, craftsmanship and relationship with light.' },
-  { key: 'Sustainability',   desc: 'Integrating passive design, natural light, ventilation, shading and environmentally conscious strategies wherever appropriate.' },
-  { key: 'Human Experience', desc: 'Designing architecture around movement, perception, comfort, emotion and interaction.' },
-  { key: 'Buildability',     desc: 'Ensuring that creativity is supported by structural logic, construction knowledge, economic feasibility and practical execution.' },
+  { key: 'Context & Climate', desc: 'Exhaustive study of site orientation, microclimate, local culture, and immediate topography before defining any architectural volume.' },
+  { key: 'Programmatic Logic', desc: 'Developing spatial layouts that are intuitive, efficient, and calibrated to daily living routines and circulation flow.' },
+  { key: 'Computational Design', desc: 'Employing parametric modeling and algorithmic tools to engineer responsive envelopes, solar shading, and material optimizations.' },
+  { key: 'Material Integrity', desc: 'Celebrating authentic natural stone, warm timber, lime plasters, and architectural metals through their honest structural expression.' },
+  { key: 'Passive Sustainability', desc: 'Maximizing cross-ventilation, daylight penetration, thermal massing, and rainwater harvesting without reliant artificial systems.' },
+  { key: 'Human Experience', desc: 'Choreographing sensory journeys through compression and release of volume, tactile textures, acoustic calm, and atmospheric shadow.' },
+  { key: 'Constructability', desc: 'Backing creative ambition with rigorous structural engineering, budget honesty, local craft techniques, and precise execution.' },
 ]
 
-/* ─── Ishwer process steps ── */
 const ishwerProcess = [
-  { step: '01', title: 'Contextual Research & Spatial Concept',  desc: 'Every project begins with in-depth analysis of the site, orientation, microclimate, movement patterns and the client\'s programmatic requirements.' },
-  { step: '02', title: 'Algorithmic & Parametric Design',        desc: 'Advanced computational software and algorithmic scripts generate complex geometries, optimized shading systems, responsive envelopes and structural patterns.' },
-  { step: '03', title: 'Performance Optimization & Craft',       desc: 'Using analytical digital tools, concepts are tested for solar radiation, daylight penetration, aerodynamic comfort and material efficiency.' },
-  { step: '04', title: 'Construction Detailing & Execution',     desc: 'Digital models are translated into precise construction documentation, shop drawings and digital fabrication files for seamless on-site realization.' },
+  { step: '01', title: 'Contextual Research & Spatial Brief', desc: 'Every project begins with in-depth analysis of the site, orientation, microclimate, movement patterns, and the client’s programmatic requirements.' },
+  { step: '02', title: 'Algorithmic & Parametric Design', desc: 'Advanced computational software and algorithmic scripts generate complex geometries, optimized shading systems, responsive envelopes, and structural patterns.' },
+  { step: '03', title: 'Performance Optimization & Craft', desc: 'Using analytical digital tools, concepts are tested for solar radiation, daylight penetration, aerodynamic comfort, and material efficiency.' },
+  { step: '04', title: 'Construction Detailing & Execution', desc: 'Digital models are translated into precise construction documentation, shop drawings, and digital fabrication files for seamless on-site realization.' },
 ]
 
-/* ─── Gold line label ── */
 function GoldLabel({ text }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
-      <div style={{ width: '28px', height: '1px', background: 'var(--gold)' }} />
-      <span style={{ fontFamily: 'Inter', fontSize: '0.62rem', letterSpacing: '0.25em', color: 'var(--gold)', textTransform: 'uppercase' }}>{text}</span>
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+      <div style={{ width: '24px', height: '1px', background: 'var(--gold)' }} />
+      <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.65rem', fontWeight: 500, letterSpacing: '0.22em', color: 'var(--gold)', textTransform: 'uppercase' }}>
+        {text}
+      </span>
     </div>
   )
 }
 
-/* ─── Body text ── */
 function Body({ children, style = {} }) {
   return (
-    <p style={{
-      fontFamily: 'Inter',
-      fontSize: '0.85rem',
-      lineHeight: 1.85,
-      color: 'var(--text-dim)',
-      marginBottom: '1.2rem',
-      ...style,
-    }}>
+    <p
+      style={{
+        fontFamily: 'Inter, sans-serif',
+        fontSize: '0.88rem',
+        lineHeight: 1.85,
+        color: 'var(--text-dim)',
+        marginBottom: '1.25rem',
+        ...style,
+      }}
+    >
       {children}
     </p>
   )
@@ -65,7 +72,10 @@ export default function AboutPage() {
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.reveal').forEach((el) => {
         gsap.from(el, {
-          y: 60, opacity: 0, duration: 1, ease: 'power3.out',
+          y: 45,
+          opacity: 0,
+          duration: 0.85,
+          ease: 'power3.out',
           scrollTrigger: { trigger: el, start: 'top 85%' },
         })
       })
@@ -77,122 +87,182 @@ export default function AboutPage() {
     <>
       <main ref={pageRef}>
         <PageBanner
-          title="About"
+          title="About the Practice"
           sub="EKORA ARCHITECTS — Architecture with Purpose. Identity. Experience."
-          actions={[
-            { text: 'Our Philosophy', target: '#about-section', primary: true },
-            { text: 'Book a Studio Visit', onClick: () => navigate('/book-a-tour'), primary: false },
-          ]}
         />
 
-        {/* ══════════════════════════════════════════════
-            SECTION 1 — ABOUT EKORA ARCHITECTS
-        ══════════════════════════════════════════════ */}
-        <section id="about-section" className="section-pad reveal" style={{ background: 'var(--bg)' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* ── Content Wrapper with Floating Architectural Parallax Images ── */}
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <ScrollParallaxFloaters floaters={aboutFloaters} />
 
-            {/* Intro */}
-            <div style={{ maxWidth: '860px', marginBottom: '5rem' }}>
-              <GoldLabel text="About EKORA ARCHITECTS" />
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(2rem, 4vw, 3.8rem)',
-                fontWeight: 300, color: 'var(--text)',
-                lineHeight: 1.15, marginBottom: '2.4rem',
-              }}>
-                Architecture with Purpose.<br />Identity. Experience.
-              </h2>
-              <Body>EKORA ARCHITECTS is an architecture and design practice committed to creating thoughtful, contemporary and context-responsive spaces. Our approach brings together architecture, interior design, urban thinking, technology and human experience to develop environments that are purposeful, expressive and enduring.</Body>
-              <Body>At EKORA ARCHITECTS, we believe that every project begins with an understanding of its place, people and purpose. Rather than following a predetermined style, we develop design solutions that respond to the unique character of the site, climate, culture, functionality and aspirations of the client. Our work seeks to establish a meaningful dialogue between the built environment and its surroundings.</Body>
-              <Body>We explore the possibilities of contemporary, computational and parametric design to create architecture with a strong identity. Digital tools allow us to investigate complex geometries, adaptive systems, façade patterns, day-light, shading and material relationships, transforming technology into a meaningful design instrument rather than merely an aesthetic feature.</Body>
-              <Body>Our design process is equally grounded in practicality and buildability. We believe innovation must respond to real-world conditions, including budget, construction techniques, material availability, structural logic, maintenance and environmental performance. The objective is to create architecture that is not only visually distinctive but also economical, functional, sustainable and capable of standing the test of time.</Body>
-              <Body>From residences and commercial spaces to hospitality, institutional, interior and urban projects, EKORA ARCHITECTS approaches each assignment as an opportunity to create a distinct architectural experience. We aim to balance logic with expression, tradition with technology, and functionality with emotion.</Body>
-            </div>
+          {/* ══════════════════════════════════════════════
+              SECTION 1 — ABOUT EKORA ARCHITECTS
+          ══════════════════════════════════════════════ */}
+          <section id="about-section" className="section-pad reveal" style={{ background: 'var(--bg)' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              {/* Intro */}
+              <div style={{ maxWidth: '880px', marginBottom: '4.5rem' }}>
+                <GoldLabel text="Atelier Profile" />
+                <h2
+                  style={{
+                    fontFamily: 'Cormorant Garamond, Georgia, serif',
+                    fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
+                    fontWeight: 300,
+                    color: 'var(--heading)',
+                    lineHeight: 1.15,
+                    marginBottom: '2rem',
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Architecture with Purpose.<br />
+                  Identity. Experience.
+                </h2>
+                <Body>
+                  EKORA ARCHITECTS is an architecture and spatial design practice committed to creating thoughtful, contemporary, and context-responsive environments. Our multidisciplinary approach brings together architecture, interior design, computational engineering, and human experience to develop spaces that are purposeful, expressive, and enduring.
+                </Body>
+                <Body>
+                  We believe that every project begins with an understanding of its place, people, and purpose. Rather than imposing a predetermined signature style, we develop architectural solutions that respond to the unique character of the site, climate, culture, and aspirations of each client.
+                </Body>
+                <Body>
+                  From private residences and commercial headquarters to healthcare and hospitality spaces, EKORA ARCHITECTS approaches each project as an opportunity to create a distinct spatial experience — balancing structural logic with artistic expression, and tradition with modern craft.
+                </Body>
+              </div>
 
-            {/* Philosophy quote block */}
-            <div className="reveal" style={{
-              borderLeft: '3px solid var(--gold)',
-              padding: 'clamp(1.5rem, 3vw, 2.4rem) clamp(1.4rem, 3vw, 3rem)',
-              background: 'var(--bg-alt)',
-              marginBottom: '4rem',
-              maxWidth: '860px',
-            }}>
-              <div style={{
-                fontFamily: 'Inter', fontSize: '0.6rem',
-                letterSpacing: '0.28em', color: 'var(--gold)',
-                textTransform: 'uppercase', marginBottom: '1.2rem',
-              }}>Our Architecture Philosophy</div>
-              <p style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(1.2rem, 2vw, 1.7rem)',
-                fontStyle: 'italic', fontWeight: 300,
-                color: 'var(--text)', lineHeight: 1.6,
-                marginBottom: '1.6rem',
-              }}>
-                "Architecture should emerge from the relationship between context, function, technology and human experience."
-              </p>
-              <Body>For us, form is not an isolated aesthetic exercise. It is the result of understanding a place — its climate, culture, movement, light, materiality and people. We are interested in creating architecture that possesses a strong identity while remaining sensitive and responsive to its surroundings.</Body>
-              <Body>We see computational and parametric design as a means of exploring relationships, rather than as an end in itself. Technology enables us to move beyond repetitive forms and develop adaptable systems in which geometry, light, shading, material and structure can work together to create intelligent and responsive environments.</Body>
-              <Body>At the same time, we believe that innovation should remain grounded in reality. Good architecture must be buildable, economical, environmentally responsible and sensitive to local materials and construction techniques. Design innovation has meaning when it can translate successfully from concept to construction and ultimately improve the experience of the people who inhabit it.</Body>
-              <Body>Our approach therefore exists between logic and expression, tradition and technology, functionality and emotion. We seek to create spaces where every design decision has a purpose while still allowing architecture to evoke a sense of character, identity and belonging.</Body>
-              <Body style={{ marginBottom: 0 }}>Ultimately, our ambition at EKORA ARCHITECTS is to create architecture that is not merely seen, but experienced — architecture with purpose, identity and a meaningful connection to its place.</Body>
-            </div>
+              {/* Philosophy quote block */}
+              <div
+                className="reveal"
+                style={{
+                  borderLeft: '2px solid var(--gold)',
+                  padding: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 3rem)',
+                  background: 'var(--bg-alt)',
+                  marginBottom: '5rem',
+                  maxWidth: '920px',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'Inter',
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.24em',
+                    color: 'var(--gold)',
+                    textTransform: 'uppercase',
+                    marginBottom: '1rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  Our Spatial Manifesto
+                </div>
+                <blockquote
+                  style={{
+                    fontFamily: 'Cormorant Garamond, Georgia, serif',
+                    fontSize: 'clamp(1.3rem, 2.2vw, 1.85rem)',
+                    fontStyle: 'italic',
+                    fontWeight: 300,
+                    color: 'var(--text)',
+                    lineHeight: 1.55,
+                    marginBottom: '1.5rem',
+                    margin: 0,
+                  }}
+                >
+                  "Architecture should emerge from the uncompromised relationship between context, function, technology, and human emotion."
+                </blockquote>
+                <Body style={{ marginTop: '1.25rem', marginBottom: 0 }}>
+                  For us, form is not an isolated aesthetic exercise. It is the result of deeply understanding a site — its light, climate, winds, materiality, and the rituals of the people who inhabit it.
+                </Body>
+              </div>
 
-            {/* Design Principles grid */}
+            {/* Design Principles Grid */}
             <div className="reveal">
-              <SectionHeading kicker="Our Design Principles" title="The values behind every decision." />
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
-                gap: '1px',
-                marginTop: '3rem',
-                background: 'var(--text-hair)',
-                border: '1px solid var(--text-hair)',
-              }}>
+              <SectionHeading kicker="Core Principles" title="The seven values behind every blueprint." />
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+                  gap: '1.25rem',
+                  marginTop: '3rem',
+                }}
+              >
                 {principles.map((p, i) => (
-                  <TiltCard key={i} maxTilt={5}>
-                    <div style={{
-                      padding: 'clamp(1.4rem, 2.5vw, 2rem) clamp(1.4rem, 2.5vw, 2.2rem)',
-                      background: 'var(--bg)',
-                      height: '100%',
-                    }}>
-                      <div style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1.2rem', fontWeight: 300,
-                        color: 'var(--gold)', marginBottom: '0.7rem',
-                      }}>{p.key}</div>
-                      <p style={{
-                        fontFamily: 'Inter', fontSize: '0.76rem',
-                        lineHeight: 1.8, color: 'var(--text-dim)',
-                      }}>{p.desc}</p>
+                  <TiltCard key={i} maxTilt={6}>
+                    <div
+                      style={{
+                        padding: 'clamp(1.5rem, 2.5vw, 2.2rem)',
+                        background: 'var(--bg-alt)',
+                        border: '1px solid var(--text-hair)',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <div>
+                        <div
+                          style={{
+                            fontFamily: 'Cormorant Garamond, Georgia, serif',
+                            fontSize: '1.35rem',
+                            fontWeight: 300,
+                            color: 'var(--gold)',
+                            marginBottom: '0.85rem',
+                          }}
+                        >
+                          {p.key}
+                        </div>
+                        <p
+                          style={{
+                            fontFamily: 'Inter, sans-serif',
+                            fontSize: '0.8rem',
+                            lineHeight: 1.75,
+                            color: 'var(--text-dim)',
+                            margin: 0,
+                          }}
+                        >
+                          {p.desc}
+                        </p>
+                      </div>
                     </div>
                   </TiltCard>
                 ))}
               </div>
             </div>
 
-            {/* Vision */}
-            <div className="reveal" style={{
-              marginTop: '4rem',
-              padding: 'clamp(1.5rem, 3vw, 2.4rem) clamp(1.4rem, 3vw, 3rem)',
-              background: 'var(--bg-deep)',
-              border: '1px solid var(--gold-line)',
-              maxWidth: '860px',
-            }}>
-              <div style={{
-                fontFamily: 'Inter', fontSize: '0.6rem',
-                letterSpacing: '0.28em', color: 'var(--gold)',
-                textTransform: 'uppercase', marginBottom: '1rem',
-              }}>Our Vision</div>
-              <p style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(1rem, 1.8vw, 1.4rem)',
-                fontWeight: 300, color: 'var(--text)', lineHeight: 1.7,
-              }}>
-                To establish EKORA ARCHITECTS as a design practice known for contextual thinking, architectural innovation, technological exploration and meaningful human experiences — creating spaces that are distinctive yet timeless, contemporary yet rooted in place.
+            {/* Studio Vision Strip */}
+            <div
+              className="reveal"
+              style={{
+                marginTop: '4.5rem',
+                padding: 'clamp(2rem, 3.5vw, 3rem)',
+                background: 'var(--bg-deep)',
+                border: '1px solid var(--gold-hair)',
+                borderLeft: '3px solid var(--gold)',
+                maxWidth: '920px',
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'Inter',
+                  fontSize: '0.65rem',
+                  letterSpacing: '0.24em',
+                  color: 'var(--gold)',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.85rem',
+                  fontWeight: 600,
+                }}
+              >
+                Studio Vision
+              </div>
+              <p
+                style={{
+                  fontFamily: 'Cormorant Garamond, serif',
+                  fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)',
+                  fontWeight: 300,
+                  color: 'var(--text)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                To establish EKORA ARCHITECTS as a practice celebrated for contextual integrity, algorithmic exploration, and deeply meaningful human environments — creating spaces that are distinctive yet timeless, contemporary yet rooted in place.
               </p>
             </div>
-
           </div>
         </section>
 
@@ -201,14 +271,10 @@ export default function AboutPage() {
         ══════════════════════════════════════════════ */}
         <section className="section-pad" style={{ background: 'var(--bg-alt)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
             <div className="reveal grid-founder-ishwer">
-              {/* Photo column */}
-              <div style={{ maxWidth: '400px', width: '100%', margin: '0 auto' }}>
-                <div style={{
-                  position: 'relative',
-                  marginBottom: '2rem',
-                }}>
+              {/* Photo Column */}
+              <div style={{ maxWidth: '380px', width: '100%', margin: '0 auto' }}>
+                <div style={{ position: 'relative', marginBottom: '1.5rem' }}>
                   <img
                     src={founderIshwer}
                     alt="Ar. Ishwer Singh"
@@ -217,141 +283,174 @@ export default function AboutPage() {
                       aspectRatio: '3/4',
                       objectFit: 'cover',
                       display: 'block',
-                      filter: 'brightness(0.88)',
+                      filter: 'brightness(0.92) contrast(1.02)',
                     }}
                   />
-                  {/* Gold corner accent */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '-1rem', right: '-1rem',
-                    width: '60%', height: '60%',
-                    border: '1px solid var(--gold-mid)',
-                    pointerEvents: 'none',
-                  }} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '-0.85rem',
+                      right: '-0.85rem',
+                      width: '60%',
+                      height: '60%',
+                      border: '1px solid var(--gold-mid)',
+                      pointerEvents: 'none',
+                    }}
+                  />
                 </div>
-                {/* Name card below photo */}
-                <div style={{
-                  padding: '1.4rem 1.6rem',
-                  background: 'var(--bg-deep)',
-                  border: '1px solid var(--gold-line)',
-                  borderLeft: '3px solid var(--gold)',
-                }}>
-                  <div style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontSize: '1.35rem', fontWeight: 300,
-                    color: 'var(--text)', marginBottom: '0.3rem',
-                  }}>Ar. Ishwer Singh</div>
-                  <div style={{
-                    fontFamily: 'Inter', fontSize: '0.6rem',
-                    letterSpacing: '0.18em', color: 'var(--gold)',
-                    textTransform: 'uppercase',
-                  }}>Founder &amp; Principal Architect</div>
-                  <div style={{
-                    fontFamily: 'Inter', fontSize: '0.6rem',
-                    letterSpacing: '0.12em', color: 'var(--text-faint)',
-                    textTransform: 'uppercase', marginTop: '0.2rem',
-                  }}>EKORA ARCHITECTS</div>
+                <div
+                  style={{
+                    padding: '1.5rem',
+                    background: 'var(--bg-deep)',
+                    border: '1px solid var(--gold-hair)',
+                    borderLeft: '2px solid var(--gold)',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'Cormorant Garamond, serif',
+                      fontSize: '1.35rem',
+                      fontWeight: 300,
+                      color: 'var(--text)',
+                      marginBottom: '0.25rem',
+                    }}
+                  >
+                    Ar. Ishwer Singh
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'Inter',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.18em',
+                      color: 'var(--gold)',
+                      textTransform: 'uppercase',
+                      fontWeight: 500,
+                    }}
+                  >
+                    Founder &amp; Principal Architect
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'Inter',
+                      fontSize: '0.6rem',
+                      letterSpacing: '0.14em',
+                      color: 'var(--text-faint)',
+                      textTransform: 'uppercase',
+                      marginTop: '0.25rem',
+                    }}
+                  >
+                    EKORA ARCHITECTS
+                  </div>
                 </div>
               </div>
 
-              {/* Content column */}
+              {/* Biography Column */}
               <div>
-                <GoldLabel text="Founder &amp; Principal Architect" />
-                <h2 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: 'clamp(1.8rem, 3vw, 3rem)',
-                  fontWeight: 300, color: 'var(--text)',
-                  lineHeight: 1.2, marginBottom: '2rem',
-                }}>Ar. Ishwer Singh</h2>
+                <GoldLabel text="Design Leadership" />
+                <h2
+                  style={{
+                    fontFamily: 'Cormorant Garamond, Georgia, serif',
+                    fontSize: 'clamp(2rem, 3.5vw, 3.2rem)',
+                    fontWeight: 300,
+                    color: 'var(--heading)',
+                    lineHeight: 1.2,
+                    marginBottom: '1.85rem',
+                  }}
+                >
+                  Ar. Ishwer Singh
+                </h2>
 
-                <Body>Ar. Ishwer Singh, Founder and Principal Architect of EKORA ARCHITECTS, approaches architecture as a process of discovery rather than simply the creation of form. His design philosophy is rooted in the belief that meaningful architecture emerges from the relationship between context, function, material, technology and human experience.</Body>
-                <Body>For Ishwer Singh, every project begins with a question: What does this place need, and how can architecture respond to it meaningfully? Rather than imposing a predefined architectural language, he believes in understanding the site, its surroundings, climate, movement patterns, cultural character and the people who will experience the space.</Body>
+                <Body>
+                  Ar. Ishwer Singh, Founder and Principal Architect of EKORA ARCHITECTS, approaches architecture as a rigorous process of discovery rather than the arbitrary invention of form. His design philosophy is rooted in the belief that meaningful architecture emerges from the precise dialogue between site context, computational intelligence, material honesty, and user comfort.
+                </Body>
+                <Body>
+                  For Ishwer Singh, every project begins with an inquiry: What does this land need, and how can architecture respond meaningfully? Rather than imposing a standard template, he studies site topography, climate, movement patterns, cultural character, and solar geometry to create tailored architectural expressions.
+                </Body>
 
-                {/* Design principles accordion-style */}
-                <div style={{ marginTop: '2.4rem', marginBottom: '2.4rem' }}>
-                  <div style={{
-                    fontFamily: 'Inter', fontSize: '0.6rem',
-                    letterSpacing: '0.28em', color: 'var(--gold)',
-                    textTransform: 'uppercase', marginBottom: '1.4rem',
-                  }}>Design Principles</div>
-                  {[
-                    { title: 'Context Before Form',       desc: 'The context becomes the starting point of the design process. Site orientation, climate, surrounding built fabric, views, access, vegetation, light and local character are studied to establish the fundamental logic of the architecture.' },
-                    { title: 'Function as the Foundation',desc: 'Function is treated not simply as a requirement but as an opportunity to organize space intelligently. Circulation, zoning, proportions, privacy, interaction and user movement are carefully considered so that the final design feels natural and intuitive.' },
-                    { title: 'Form Through Logic',        desc: 'Strong architectural forms are often the result of a strong underlying logic. Massing, voids, proportions, openings and façade elements are developed through a process of analysis and refinement, allowing aesthetics and functionality to evolve together.' },
-                    { title: 'Technology as a Design Tool',desc: 'Computational and parametric design are explored as tools for generating responsive architectural systems — developing relationships between geometry, structure, daylight, shading, ventilation and materiality.' },
-                    { title: 'Light as an Architectural Material', desc: 'Natural light plays an important role in shaping his spaces. Openings, courtyards, screens, skylights and façade systems are considered not only for illumination but also for creating changing experiences throughout the day.' },
-                    { title: 'Material with Purpose',     desc: 'Material selection is driven by both aesthetics and performance. Texture, scale, colour, durability, local availability, construction techniques and maintenance are considered together to create a coherent material language.' },
-                    { title: 'Human Experience',          desc: 'At the centre of the design process is the user. Architecture is experienced through movement, touch, light, sound, proportion and emotion — the objective is to create a space that feels meaningful to inhabit.' },
-                  ].map((item, i) => (
-                    <div key={i} className="grid-principle-row">
-                      <div style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1rem', color: 'var(--gold)',
-                        fontStyle: 'italic',
-                      }}>{item.title}</div>
-                      <p style={{
-                        fontFamily: 'Inter', fontSize: '0.78rem',
-                        lineHeight: 1.8, color: 'var(--text-dim)',
-                        margin: 0,
-                      }}>{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Process steps */}
-                <div style={{ marginBottom: '2.4rem' }}>
-                  <div style={{
-                    fontFamily: 'Inter', fontSize: '0.6rem',
-                    letterSpacing: '0.28em', color: 'var(--gold)',
-                    textTransform: 'uppercase', marginBottom: '1.6rem',
-                  }}>The Process of Thinking</div>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 200px), 1fr))',
-                    gap: '1rem',
-                  }}>
-                    {process.map((s, i) => (
-                      <div key={i} style={{
-                        padding: '1.2rem 1.4rem',
-                        background: 'var(--bg-deep)',
-                        border: '1px solid var(--text-hair)',
-                      }}>
-                        <div style={{
-                          fontFamily: 'Cormorant Garamond, serif',
-                          fontSize: '0.85rem', color: 'var(--gold)',
-                          letterSpacing: '0.1em', marginBottom: '0.5rem',
-                        }}>{s.num} — {s.title}</div>
-                        <p style={{
-                          fontFamily: 'Inter', fontSize: '0.73rem',
-                          lineHeight: 1.75, color: 'var(--text-dim)',
-                          margin: 0,
-                        }}>{s.desc}</p>
+                {/* 4-Step Methodology */}
+                <div style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
+                  <div
+                    style={{
+                      fontFamily: 'Inter',
+                      fontSize: '0.65rem',
+                      letterSpacing: '0.24em',
+                      color: 'var(--gold)',
+                      textTransform: 'uppercase',
+                      marginBottom: '1.5rem',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Methodology &amp; Computational Craft
+                  </div>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 220px), 1fr))',
+                      gap: '1rem',
+                    }}
+                  >
+                    {ishwerProcess.map((s, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          padding: '1.25rem',
+                          background: 'var(--bg-deep)',
+                          border: '1px solid var(--text-hair)',
+                        }}
+                      >
+                        <div
+                          style={{
+                            fontFamily: 'Cormorant Garamond, serif',
+                            fontSize: '0.95rem',
+                            color: 'var(--gold)',
+                            letterSpacing: '0.08em',
+                            marginBottom: '0.5rem',
+                            fontWeight: 400,
+                          }}
+                        >
+                          {s.step} — {s.title}
+                        </div>
+                        <p
+                          style={{
+                            fontFamily: 'Inter',
+                            fontSize: '0.76rem',
+                            lineHeight: 1.7,
+                            color: 'var(--text-dim)',
+                            margin: 0,
+                          }}
+                        >
+                          {s.desc}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Closing quote */}
-                <div style={{
-                  padding: '1.6rem 2rem',
-                  background: 'var(--bg)',
-                  borderLeft: '3px solid var(--gold)',
-                  marginTop: '2rem',
-                }}>
-                  <p style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontSize: 'clamp(1rem, 1.6vw, 1.35rem)',
-                    fontStyle: 'italic', fontWeight: 300,
-                    color: 'var(--text)', lineHeight: 1.65, margin: 0,
-                  }}>
-                    "I believe architecture should not begin with the question of what a building should look like. It should begin with understanding what the place, the people and the purpose demand. The form should emerge from that understanding."
-                  </p>
+                <div
+                  style={{
+                    padding: '1.5rem 2rem',
+                    background: 'var(--bg)',
+                    borderLeft: '2px solid var(--gold)',
+                    marginTop: '2rem',
+                  }}
+                >
+                  <blockquote
+                    style={{
+                      fontFamily: 'Cormorant Garamond, serif',
+                      fontSize: 'clamp(1.05rem, 1.6vw, 1.35rem)',
+                      fontStyle: 'italic',
+                      fontWeight: 300,
+                      color: 'var(--text)',
+                      lineHeight: 1.65,
+                      margin: 0,
+                    }}
+                  >
+                    "Architecture should not begin with the question of what a building should look like. It should begin with understanding what the place, the climate, and the human rituals demand. The form will emerge naturally from that logic."
+                  </blockquote>
                 </div>
-
-                <Body style={{ marginTop: '1.6rem' }}>Through this philosophy, Ar. Ishwer Singh aims to create architecture that is contextual yet contemporary, innovative yet buildable, expressive yet purposeful — spaces that are not merely objects within a landscape, but meaningful experiences connected to their place.</Body>
               </div>
             </div>
-
           </div>
         </section>
 
@@ -360,77 +459,102 @@ export default function AboutPage() {
         ══════════════════════════════════════════════ */}
         <section className="section-pad" style={{ background: 'var(--bg)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
             <div className="reveal grid-founder-rajdeep">
-              {/* Content column (left) */}
+              {/* Content Column */}
               <div>
-                <GoldLabel text="Business Partner &amp; Project Operations" />
-                <h2 style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: 'clamp(1.8rem, 3vw, 3rem)',
-                  fontWeight: 300, color: 'var(--text)',
-                  lineHeight: 1.2, marginBottom: '2rem',
-                }}>Mr. Rajdeep Singh</h2>
+                <GoldLabel text="Turnkey Operations &amp; Execution" />
+                <h2
+                  style={{
+                    fontFamily: 'Cormorant Garamond, Georgia, serif',
+                    fontSize: 'clamp(2rem, 3.5vw, 3.2rem)',
+                    fontWeight: 300,
+                    color: 'var(--heading)',
+                    lineHeight: 1.2,
+                    marginBottom: '1.85rem',
+                  }}
+                >
+                  Mr. Rajdeep Singh
+                </h2>
 
-                <Body>Mr. Rajdeep Singh is a Business Partner at EKORA ARCHITECTS, playing a key role in translating the firm's design vision into well-executed, practical and efficiently managed projects. With strong field knowledge and extensive understanding of construction, materials, execution and project coordination, he bridges the gap between design, client requirements and on-site implementation.</Body>
-                <Body>His role extends beyond conventional business management. He closely handles client coordination, turnkey project execution, vendor and contractor management, procurement, site supervision and project operations, ensuring that the design intent is effectively carried through to the final execution.</Body>
-                <Body>Rajdeep has developed a strong practical understanding of the architecture and construction industry through hands-on involvement in projects. His knowledge of construction processes, materials, workmanship, site conditions, costing and execution methodologies enables him to make informed decisions and efficiently resolve practical challenges on site.</Body>
+                <Body>
+                  Mr. Rajdeep Singh is Business Partner and Head of Project Operations at EKORA ARCHITECTS, playing a pivotal role in translating the firm's architectural drawings into impeccably built physical reality. With deep expertise across construction engineering, material procurement, vendor management, and on-site execution, he bridges the gap between digital vision and physical craft.
+                </Body>
+                <Body>
+                  His leadership oversees turnkey site operations, project schedules, subcontractor coordination, precision craftsmanship, and commercial budgeting — ensuring that the client's financial investment is protected and the architectural intent is delivered without compromise.
+                </Body>
 
-                {/* Key roles */}
-                <div style={{ margin: '2.4rem 0' }}>
+                {/* Key Roles */}
+                <div style={{ margin: '2.5rem 0' }}>
                   {[
                     {
-                      title: 'Client &amp; Project Coordination',
-                      body: 'Rajdeep Singh serves as an important point of connection between the client, design team, contractors and site teams. He understands client expectations and works closely with the architectural team to ensure that requirements are translated into practical and achievable solutions. His approach is centred around clear communication, accountability and timely execution.',
+                      title: 'Turnkey Project Execution &amp; Site Supervision',
+                      body: 'Leading on-site engineering, structural tolerances, craftsmanship standards, and vendor accountability to ensure that what was drawn is built with millimetre precision.',
                     },
                     {
-                      title: 'Financial &amp; Business Management',
-                      body: 'Alongside project execution, Rajdeep Singh oversees the financial and commercial aspects of the company. He manages project budgets, costing, procurement decisions, vendor coordination, payments and financial planning, helping ensure that projects remain commercially viable without compromising the intended quality.',
+                      title: 'Commercial Governance &amp; Procurement',
+                      body: 'Direct management of material sourcing, stone quarries, joinery workshops, cost estimation, and schedule milestones — delivering full fiscal transparency with zero surprises.',
                     },
                   ].map((item, i) => (
-                    <div key={i} style={{
-                      borderBottom: '1px solid var(--text-hair)',
-                      padding: '1.2rem 0',
-                    }}>
+                    <div
+                      key={i}
+                      style={{
+                        borderBottom: '1px solid var(--text-hair)',
+                        padding: '1.25rem 0',
+                      }}
+                    >
                       <div
                         style={{
                           fontFamily: 'Cormorant Garamond, serif',
-                          fontSize: '1.15rem', color: 'var(--gold)',
-                          fontStyle: 'italic', marginBottom: '0.6rem',
+                          fontSize: '1.2rem',
+                          color: 'var(--gold)',
+                          fontStyle: 'italic',
+                          marginBottom: '0.5rem',
                         }}
                         dangerouslySetInnerHTML={{ __html: item.title }}
                       />
-                      <p style={{
-                        fontFamily: 'Inter', fontSize: '0.82rem',
-                        lineHeight: 1.85, color: 'var(--text-dim)', margin: 0,
-                      }}>{item.body}</p>
+                      <p
+                        style={{
+                          fontFamily: 'Inter',
+                          fontSize: '0.82rem',
+                          lineHeight: 1.8,
+                          color: 'var(--text-dim)',
+                          margin: 0,
+                        }}
+                      >
+                        {item.body}
+                      </p>
                     </div>
                   ))}
                 </div>
 
                 {/* Closing quote */}
-                <div style={{
-                  padding: '1.6rem 2rem',
-                  background: 'var(--bg-alt)',
-                  borderLeft: '3px solid var(--gold)',
-                  marginBottom: '1.6rem',
-                }}>
-                  <p style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontSize: 'clamp(1rem, 1.6vw, 1.3rem)',
-                    fontStyle: 'italic', fontWeight: 300,
-                    color: 'var(--text)', lineHeight: 1.65, margin: 0,
-                  }}>
-                    "Great architecture is not complete when it is designed; it is complete when the idea is successfully translated into reality."
-                  </p>
+                <div
+                  style={{
+                    padding: '1.5rem 2rem',
+                    background: 'var(--bg-alt)',
+                    borderLeft: '2px solid var(--gold)',
+                    marginBottom: '1.5rem',
+                  }}
+                >
+                  <blockquote
+                    style={{
+                      fontFamily: 'Cormorant Garamond, serif',
+                      fontSize: 'clamp(1.05rem, 1.6vw, 1.35rem)',
+                      fontStyle: 'italic',
+                      fontWeight: 300,
+                      color: 'var(--text)',
+                      lineHeight: 1.65,
+                      margin: 0,
+                    }}
+                  >
+                    "Great architecture is not finished on the computer screen; it is realized when every stone joint, bespoke light fixture, and door handle is crafted with care on site."
+                  </blockquote>
                 </div>
-
-                <Body>Through his combination of field knowledge, client management, execution expertise and financial understanding, Rajdeep Singh contributes to making EKORA ARCHITECTS not only a design practice, but a design-to-execution platform capable of delivering complete architectural and turnkey solutions.</Body>
               </div>
 
-              {/* Photo column (right) */}
-              <div style={{ maxWidth: '400px', width: '100%', margin: '0 auto' }}>
-                <div style={{ position: 'relative', marginBottom: '2rem' }}>
+              {/* Photo Column */}
+              <div style={{ maxWidth: '380px', width: '100%', margin: '0 auto' }}>
+                <div style={{ position: 'relative', marginBottom: '1.5rem' }}>
                   <img
                     src={founderRajdeep}
                     alt="Mr. Rajdeep Singh"
@@ -439,49 +563,74 @@ export default function AboutPage() {
                       aspectRatio: '3/4',
                       objectFit: 'cover',
                       display: 'block',
-                      filter: 'brightness(0.88)',
+                      filter: 'brightness(0.92) contrast(1.02)',
                     }}
                   />
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '-1rem', left: '-1rem',
-                    width: '60%', height: '60%',
-                    border: '1px solid var(--gold-mid)',
-                    pointerEvents: 'none',
-                  }} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '-0.85rem',
+                      left: '-0.85rem',
+                      width: '60%',
+                      height: '60%',
+                      border: '1px solid var(--gold-mid)',
+                      pointerEvents: 'none',
+                    }}
+                  />
                 </div>
-                {/* Name card below photo */}
-                <div style={{
-                  padding: '1.4rem 1.6rem',
-                  background: 'var(--bg-deep)',
-                  border: '1px solid var(--gold-line)',
-                  borderLeft: '3px solid var(--gold)',
-                }}>
-                  <div style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontSize: '1.35rem', fontWeight: 300,
-                    color: 'var(--text)', marginBottom: '0.3rem',
-                  }}>Mr. Rajdeep Singh</div>
-                  <div style={{
-                    fontFamily: 'Inter', fontSize: '0.6rem',
-                    letterSpacing: '0.18em', color: 'var(--gold)',
-                    textTransform: 'uppercase',
-                  }}>Business Partner &amp; Project Operations</div>
-                  <div style={{
-                    fontFamily: 'Inter', fontSize: '0.6rem',
-                    letterSpacing: '0.12em', color: 'var(--text-faint)',
-                    textTransform: 'uppercase', marginTop: '0.2rem',
-                  }}>EKORA ARCHITECTS</div>
+                <div
+                  style={{
+                    padding: '1.5rem',
+                    background: 'var(--bg-deep)',
+                    border: '1px solid var(--gold-hair)',
+                    borderLeft: '2px solid var(--gold)',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'Cormorant Garamond, serif',
+                      fontSize: '1.35rem',
+                      fontWeight: 300,
+                      color: 'var(--text)',
+                      marginBottom: '0.25rem',
+                    }}
+                  >
+                    Mr. Rajdeep Singh
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'Inter',
+                      fontSize: '0.62rem',
+                      letterSpacing: '0.18em',
+                      color: 'var(--gold)',
+                      textTransform: 'uppercase',
+                      fontWeight: 500,
+                    }}
+                  >
+                    Business Partner &amp; Project Operations
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'Inter',
+                      fontSize: '0.6rem',
+                      letterSpacing: '0.14em',
+                      color: 'var(--text-faint)',
+                      textTransform: 'uppercase',
+                      marginTop: '0.25rem',
+                    }}
+                  >
+                    EKORA ARCHITECTS
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </section>
+      </div>
 
-        <CTABanner
-          title="Meet the team behind every project."
-          sub="Book a studio visit and talk through your project with the team — no pitch, no pressure."
+      <CTABanner
+          title="Meet the architects behind your vision."
+          sub="Schedule a private consultation at our studio or on your project site — honest advice, transparent execution."
           video={ctaAbout}
         />
       </main>
@@ -489,4 +638,3 @@ export default function AboutPage() {
     </>
   )
 }
-

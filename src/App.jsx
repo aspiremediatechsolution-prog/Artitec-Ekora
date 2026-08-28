@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Preloader from './components/ui/Preloader'
 import CustomCursor from './components/ui/CustomCursor'
 import Navbar from './components/ui/Navbar'
+import AmbientSoundscape from './components/ui/AmbientSoundscape'
+import ScrollProgress from './components/ui/ScrollProgress'
 
 import Home from './pages/Home'
 import AboutPage from './pages/AboutPage'
@@ -43,6 +45,7 @@ function Shell() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
     })
+    window.__lenis = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
@@ -52,9 +55,48 @@ function Shell() {
     gsap.ticker.lagSmoothing(0)
 
     return () => {
+      window.__lenis = null
       lenis.destroy()
       gsap.ticker.remove()
     }
+  }, [loaded, location.pathname])
+
+  // Universal ScrollTrigger Animation Engine on Route Change
+  useEffect(() => {
+    if (!loaded) return
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh()
+
+      // Target all cards, sections, grids, and headings across the entire application
+      const targets = gsap.utils.toArray(
+        '.reveal, .page-reveal, .scroll-reveal, .tilt-card, .stat-item, .service-preview-card, .process-card, .team-card, .testimonial-card-item, .about-grid > *, .services-grid > *, .grid-resp-2 > *, .grid-resp-3 > *, .grid-resp-4 > *'
+      )
+
+      targets.forEach((el) => {
+        if (!el._hasSt) {
+          el._hasSt = true
+          gsap.fromTo(
+            el,
+            { y: 35, opacity: 0, scale: 0.98 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.95,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 92%',
+                toggleActions: 'play none none none',
+              },
+            }
+          )
+        }
+      })
+    }, 200)
+
+    return () => clearTimeout(timer)
   }, [loaded, location.pathname])
 
   return (
@@ -62,9 +104,11 @@ function Shell() {
       {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
       {loaded && (
         <>
+          <ScrollProgress />
           <CustomCursor />
           <ScrollToTop />
           <Navbar />
+          <AmbientSoundscape />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
@@ -72,6 +116,8 @@ function Shell() {
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/recent-projects" element={<RecentProjectsPage />} />
             <Route path="/book-a-tour" element={<BookTourPage />} />
+            <Route path="/contact" element={<BookTourPage />} />
+            <Route path="/contact-us" element={<BookTourPage />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </>
