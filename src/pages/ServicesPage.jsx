@@ -116,8 +116,18 @@ export default function ServicesPage() {
           {/* ── Delivery Methodology Process ── */}
           <section className="section-pad" style={{ background: 'var(--bg-deep)', position: 'relative', overflow: 'hidden' }}>
             <video
-              ref={videoRef}
-              src={processVideo}
+              ref={(el) => {
+                if (el) {
+                  el.muted = true
+                  el.defaultMuted = true
+                  el.playsInline = true
+                  el.setAttribute('playsinline', '')
+                  el.setAttribute('webkit-playsinline', '')
+                  el.setAttribute('muted', '')
+                  el.play().catch(() => {})
+                }
+                videoRef.current = el
+              }}
               autoPlay
               muted
               loop
@@ -130,8 +140,12 @@ export default function ServicesPage() {
                 height: '100%',
                 objectFit: 'cover',
                 filter: 'brightness(0.32) saturate(1.05)',
+                opacity: 1,
+                display: 'block',
               }}
-            />
+            >
+              <source src={processVideo} type="video/mp4" />
+            </video>
             <div style={{ position: 'absolute', inset: 0, background: 'var(--overlay-band)' }} />
             <div style={{ position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto' }}>
               <SectionHeading

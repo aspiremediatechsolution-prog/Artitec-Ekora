@@ -64,8 +64,18 @@ export default function CTABanner({
       }}
     >
       <video
-        ref={mediaRef}
-        src={video}
+        ref={(el) => {
+          if (el) {
+            el.muted = true
+            el.defaultMuted = true
+            el.playsInline = true
+            el.setAttribute('playsinline', '')
+            el.setAttribute('webkit-playsinline', '')
+            el.setAttribute('muted', '')
+            el.play().catch(() => {})
+          }
+          mediaRef.current = el
+        }}
         autoPlay
         muted
         loop
@@ -80,8 +90,12 @@ export default function CTABanner({
           filter: 'brightness(0.35) contrast(1.05)',
           transformOrigin: 'center',
           willChange: 'transform',
+          opacity: 1,
+          display: 'block',
         }}
-      />
+      >
+        <source src={video} type="video/mp4" />
+      </video>
       <div
         style={{
           position: 'absolute',

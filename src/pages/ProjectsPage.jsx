@@ -632,13 +632,23 @@ export default function ProjectsPage() {
         ══════════════════════════════════════════════════════════ */}
         <section style={{ padding: 'clamp(4rem, 7vw, 6.5rem) 5%', background: 'var(--bg-deep)', position: 'relative', overflow: 'hidden' }}>
           <video
-            ref={statsVideoRef}
-            src={statsVideo}
+            ref={(el) => {
+              if (el) {
+                el.muted = true
+                el.defaultMuted = true
+                el.playsInline = true
+                el.setAttribute('playsinline', '')
+                el.setAttribute('webkit-playsinline', '')
+                el.setAttribute('muted', '')
+                el.play().catch(() => {})
+              }
+              statsVideoRef.current = el
+            }}
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             style={{
               position: 'absolute',
               inset: 0,
@@ -646,8 +656,12 @@ export default function ProjectsPage() {
               height: '100%',
               objectFit: 'cover',
               filter: 'brightness(0.32) saturate(1.05)',
+              opacity: 1,
+              display: 'block',
             }}
-          />
+          >
+            <source src={statsVideo} type="video/mp4" />
+          </video>
           <div style={{ position: 'absolute', inset: 0, background: 'var(--overlay-band)' }} />
           <div className="grid-resp-4" style={{ position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
             {[

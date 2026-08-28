@@ -121,11 +121,13 @@ export default function Hero({
             el.muted = true
             el.defaultMuted = true
             el.playsInline = true
+            el.setAttribute('playsinline', '')
+            el.setAttribute('webkit-playsinline', '')
+            el.setAttribute('muted', '')
             el.play().catch(() => {})
           }
           videoRef.current = el
         }}
-        src={video || heroVideo}
         autoPlay
         muted
         loop
@@ -143,7 +145,9 @@ export default function Hero({
           opacity: 1,
           display: 'block',
         }}
-      />
+      >
+        <source src={video || heroVideo} type="video/mp4" />
+      </video>
 
       {/* ── Cinematic Ambient Lighting & Vignette Overlays ── */}
       <div
