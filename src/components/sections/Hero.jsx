@@ -31,10 +31,24 @@ export default function Hero({
 
   // Entrance animation & parallax
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = true
-      videoRef.current.defaultMuted = true
-      videoRef.current.play().catch(() => {})
+    const vid = videoRef.current
+    if (vid) {
+      vid.muted = true
+      vid.defaultMuted = true
+      const playPromise = vid.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const tryPlay = () => {
+            if (vid) vid.play().catch(() => {})
+            window.removeEventListener('click', tryPlay)
+            window.removeEventListener('touchstart', tryPlay)
+            window.removeEventListener('scroll', tryPlay)
+          }
+          window.addEventListener('click', tryPlay, { once: true })
+          window.addEventListener('touchstart', tryPlay, { once: true })
+          window.addEventListener('scroll', tryPlay, { once: true })
+        })
+      }
     }
 
     gsap.set(lineRef.current, { scaleX: 0, transformOrigin: 'left' })

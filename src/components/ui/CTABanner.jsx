@@ -15,9 +15,24 @@ export default function CTABanner({
   const mediaRef = useRef(null)
 
   useEffect(() => {
-    if (mediaRef.current) {
-      mediaRef.current.muted = true
-      mediaRef.current.play().catch(() => {})
+    const vid = mediaRef.current
+    if (vid) {
+      vid.muted = true
+      vid.defaultMuted = true
+      const p = vid.play()
+      if (p !== undefined) {
+        p.catch(() => {
+          const tryPlay = () => {
+            if (vid) vid.play().catch(() => {})
+            window.removeEventListener('click', tryPlay)
+            window.removeEventListener('touchstart', tryPlay)
+            window.removeEventListener('scroll', tryPlay)
+          }
+          window.addEventListener('click', tryPlay, { once: true })
+          window.addEventListener('touchstart', tryPlay, { once: true })
+          window.addEventListener('scroll', tryPlay, { once: true })
+        })
+      }
     }
   }, [video])
 

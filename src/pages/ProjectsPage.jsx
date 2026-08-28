@@ -342,7 +342,7 @@ export default function ProjectsPage() {
         <PageBanner
           title="Selected Works"
           sub="360° Virtual Immersion · Architecture · Interiors · Visualizations"
-          video="/projects/chishti-residence/project intro.mp4"
+          video="/projects/chishti-residence/project%20intro.mp4"
         />
 
         {/* ── Content Wrapper with Floating Architectural Parallax Images ── */}

@@ -50,9 +50,24 @@ export default function ServicesPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = true
-      videoRef.current.play().catch(() => {})
+    const vid = videoRef.current
+    if (vid) {
+      vid.muted = true
+      vid.defaultMuted = true
+      const p = vid.play()
+      if (p !== undefined) {
+        p.catch(() => {
+          const tryPlay = () => {
+            if (vid) vid.play().catch(() => {})
+            window.removeEventListener('click', tryPlay)
+            window.removeEventListener('touchstart', tryPlay)
+            window.removeEventListener('scroll', tryPlay)
+          }
+          window.addEventListener('click', tryPlay, { once: true })
+          window.addEventListener('touchstart', tryPlay, { once: true })
+          window.addEventListener('scroll', tryPlay, { once: true })
+        })
+      }
     }
 
     const ctx = gsap.context(() => {
