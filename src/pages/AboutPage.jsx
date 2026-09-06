@@ -9,6 +9,7 @@ import SectionHeading from '../components/ui/SectionHeading'
 import CTABanner from '../components/ui/CTABanner'
 import TiltCard from '../components/ui/TiltCard'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
+import CardCarousel from '../components/ui/CardCarousel'
 import { founderIshwer, founderRajdeep, ctaAbout, aboutImage, gallery1, heroSide } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -72,11 +73,11 @@ export default function AboutPage() {
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.reveal').forEach((el) => {
         gsap.from(el, {
-          y: 45,
+          y: 32,
           opacity: 0,
-          duration: 0.85,
+          duration: 0.95,
           ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
+          scrollTrigger: { trigger: el, start: 'top 88%' },
         })
       })
     }, pageRef)
@@ -174,54 +175,49 @@ export default function AboutPage() {
             {/* Design Principles Grid */}
             <div className="reveal">
               <SectionHeading kicker="Core Principles" title="The seven values behind every blueprint." />
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
-                  gap: '1.25rem',
-                  marginTop: '3rem',
-                }}
-              >
-                {principles.map((p, i) => (
-                  <TiltCard key={i} maxTilt={6}>
-                    <div
-                      style={{
-                        padding: 'clamp(1.5rem, 2.5vw, 2.2rem)',
-                        background: 'var(--bg-alt)',
-                        border: '1px solid var(--text-hair)',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <div>
-                        <div
-                          style={{
-                            fontFamily: 'Cormorant Garamond, Georgia, serif',
-                            fontSize: '1.35rem',
-                            fontWeight: 300,
-                            color: 'var(--gold)',
-                            marginBottom: '0.85rem',
-                          }}
-                        >
-                          {p.key}
+              <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+                <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }} gap={20} autoPlay={true} autoPlayInterval={3400}>
+                  {principles.map((p, i) => (
+                    <TiltCard key={i} maxTilt={6} style={{ height: '100%' }}>
+                      <div
+                        style={{
+                          padding: 'clamp(1.5rem, 2.5vw, 2.2rem)',
+                          background: 'var(--bg-alt)',
+                          border: '1px solid var(--text-hair)',
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <div>
+                          <div
+                            style={{
+                              fontFamily: 'Cormorant Garamond, Georgia, serif',
+                              fontSize: '1.35rem',
+                              fontWeight: 300,
+                              color: 'var(--gold)',
+                              marginBottom: '0.85rem',
+                            }}
+                          >
+                            {p.key}
+                          </div>
+                          <p
+                            style={{
+                              fontFamily: 'Inter, sans-serif',
+                              fontSize: '0.8rem',
+                              lineHeight: 1.75,
+                              color: 'var(--text-dim)',
+                              margin: 0,
+                            }}
+                          >
+                            {p.desc}
+                          </p>
                         </div>
-                        <p
-                          style={{
-                            fontFamily: 'Inter, sans-serif',
-                            fontSize: '0.8rem',
-                            lineHeight: 1.75,
-                            color: 'var(--text-dim)',
-                            margin: 0,
-                          }}
-                        >
-                          {p.desc}
-                        </p>
                       </div>
-                    </div>
-                  </TiltCard>
-                ))}
+                    </TiltCard>
+                  ))}
+                </CardCarousel>
               </div>
             </div>
 

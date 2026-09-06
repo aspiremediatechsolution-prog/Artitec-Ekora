@@ -39,64 +39,140 @@ function Shell() {
     const noLenisRoutes = ['/recent-projects']
     if (noLenisRoutes.includes(location.pathname)) return
 
-    // Lenis smooth scroll
+    // Lenis ultra-smooth inertial scroll
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.3,
+      infinite: false,
     })
     window.__lenis = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
-    gsap.ticker.add((time) => {
+    const updateTicker = (time) => {
       lenis.raf(time * 1000)
-    })
+    }
+    gsap.ticker.add(updateTicker)
     gsap.ticker.lagSmoothing(0)
 
     return () => {
       window.__lenis = null
       lenis.destroy()
-      gsap.ticker.remove()
+      gsap.ticker.remove(updateTicker)
     }
   }, [loaded, location.pathname])
 
-  // Universal ScrollTrigger Animation Engine on Route Change
+  // Universal Silky Scroll-Reveal & Micro-Parallax Engine on Route Change
   useEffect(() => {
     if (!loaded) return
 
-    const timer = setTimeout(() => {
+    let ctx = gsap.context(() => {
       ScrollTrigger.refresh()
 
-      // Target all cards, sections, grids, and headings across the entire application
-      const targets = gsap.utils.toArray(
-        '.reveal, .page-reveal, .scroll-reveal, .tilt-card, .stat-item, .service-preview-card, .process-card, .team-card, .testimonial-card-item, .about-grid > *, .services-grid > *, .grid-resp-2 > *, .grid-resp-3 > *, .grid-resp-4 > *'
+      // 1. Grid Containers: Synchronized Cascading Stagger
+      const gridContainers = document.querySelectorAll(
+        '.grid-resp-4, .grid-resp-3, .grid-resp-2, .about-grid, .services-grid, .testimonials-grid-container, .home-stats'
       )
 
-      targets.forEach((el) => {
-        if (!el._hasSt) {
-          el._hasSt = true
+      gridContainers.forEach((grid) => {
+        const children = grid.children
+        if (children && children.length > 0) {
           gsap.fromTo(
-            el,
-            { y: 35, opacity: 0, scale: 0.98 },
+            children,
+            { y: 36, opacity: 0, scale: 0.985 },
             {
               y: 0,
               opacity: 1,
               scale: 1,
-              duration: 0.95,
+              duration: 1.05,
+              stagger: 0.12,
               ease: 'power3.out',
               scrollTrigger: {
-                trigger: el,
-                start: 'top 92%',
+                trigger: grid,
+                start: 'top 88%',
                 toggleActions: 'play none none none',
               },
             }
           )
         }
       })
+
+      // 2. Standalone Reveal Elements (Sections, Headings, Lone Cards)
+      const standaloneElements = document.querySelectorAll(
+        '.reveal:not(.grid-resp-4 > *):not(.grid-resp-3 > *):not(.grid-resp-2 > *):not(.about-grid > *):not(.services-grid > *):not(.testimonials-grid-container > *):not(.home-stats > *), .page-reveal'
+      )
+
+      standaloneElements.forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 32, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.0,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      })
+
+      // 3. Editorial Project Rows
+      const editorialRows = document.querySelectorAll('.aparna-lyt2')
+      editorialRows.forEach((row) => {
+        gsap.fromTo(
+          row,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: row,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      })
+
+      // 4. Smooth Media Parallax inside Photo Frames
+      const parallaxImages = document.querySelectorAll('.aparna-lyt2 .pc img')
+      parallaxImages.forEach((img) => {
+        gsap.fromTo(
+          img,
+          { y: -14 },
+          {
+            y: 14,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.25,
+            },
+          }
+        )
+      })
+    })
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh()
     }, 200)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      ctx.revert()
+    }
   }, [loaded, location.pathname])
 
   return (

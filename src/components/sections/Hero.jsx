@@ -51,50 +51,51 @@ export default function Hero({
       }
     }
 
-    gsap.set(lineRef.current, { scaleX: 0, transformOrigin: 'left' })
-    if (headingRef.current) gsap.set(headingRef.current.children || [], { y: 60, opacity: 0 })
-    if (subtitleRef.current) gsap.set(subtitleRef.current, { y: 20, opacity: 0 })
-    if (scrollHintRef.current) gsap.set(scrollHintRef.current, { opacity: 0 })
-    if (rightLabelRef.current) gsap.set(rightLabelRef.current, { opacity: 0 })
-
-    const tl = gsap.timeline({ delay: 0.15 })
-    if (lineRef.current) tl.to(lineRef.current, { scaleX: 1, duration: 0.9, ease: 'power3.out' })
+    if (lineRef.current) gsap.fromTo(lineRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: 'power3.out' })
     if (headingRef.current) {
-      tl.to(headingRef.current.children || [], { y: 0, opacity: 1, stagger: 0.15, duration: 1.0, ease: 'power3.out' }, '-=0.5')
+      gsap.fromTo(
+        headingRef.current.children || [],
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.1, duration: 1.0, ease: 'power3.out' }
+      )
     }
-    if (subtitleRef.current) tl.to(subtitleRef.current, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.4')
-    if (rightLabelRef.current) tl.to(rightLabelRef.current, { opacity: 1, duration: 0.6 }, '-=0.4')
-    // Scroll parallax (Subtle text lift and smooth video parallax without white color wash)
+    if (subtitleRef.current) gsap.fromTo(subtitleRef.current, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out', delay: 0.25 })
+    if (rightLabelRef.current) gsap.fromTo(rightLabelRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8, delay: 0.35 })
+    
+    // Smooth scroll parallax with inertial scrub
     const st1 = gsap.to(textWrapRef.current, {
-      y: -50,
+      y: -45,
       opacity: 0,
       ease: 'none',
+      force3D: true,
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '50% top',
-        scrub: true,
+        end: '55% top',
+        scrub: 1.2,
       },
     })
 
     const st2 = videoRef.current
       ? gsap.to(videoRef.current, {
-          y: 50,
-          scale: 1.04,
+          y: 45,
+          scale: 1.05,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
             end: '100% top',
-            scrub: true,
+            scrub: 1.2,
           },
         })
       : null
 
     return () => {
-      st1.scrollTrigger?.kill()
+      st1?.scrollTrigger?.kill()
+      st1?.kill()
       st2?.scrollTrigger?.kill()
-      tl.kill()
+      st2?.kill()
     }
   }, [video])
 

@@ -2,84 +2,165 @@
 
 @import "tailwindcss";
 
-:root {
-  color-scheme: light;
-  
-  /* Haute-Couture Architectural Cherry Red & Ruby Crimson */
-  --cherry: #BA1331;
-  --cherry-light: #D41A3D;
-  --cherry-dark: #8E0B24;
-  --cherry-muted: #A3122D;
-  --on-cherry: #FFFFFF;
+/* ==========================================================================
+   EKORA ARCHITECTURAL DESIGN SYSTEM — HAUTE-COUTURE WHITE CHERRY PALETTE
+   ========================================================================== */
 
-  /* Backward Compatibility Aliases for components */
-  --gold: #BA1331;
-  --gold-light: #D41A3D;
-  --gold-dark: #8E0B24;
-  --gold-muted: #A3122D;
-  --on-gold: #FFFFFF;
-  
-  /* Heading Color: Rich Cherry Red */
-  --heading: #BA1331;
-
-  /* Pure Crisp White & Soft Porcelain Backgrounds */
-  --bg: #FFFFFF;
-  --bg-alt: #F9F7F7;
-  --bg-deep: #F3EFEF;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #F5F1F1;
-  
-  /* Navigation */
-  --nav-bg: rgba(255, 255, 255, 0.96);
-  --nav-grad: linear-gradient(to bottom, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0) 100%);
-  
-  /* Rich Cherry Red & High-Contrast Typography */
-  --text: #BA1331;
-  --text-strong: #8E0B24;
-  --text-bright: #BA1331;
-  --text-dim: #4A2228;
-  --text-soft: #6E3B44;
-  --text-faint: #925862;
-  --text-mute: #B6828C;
-  --text-hair: rgba(186, 19, 49, 0.14);
-  
-  /* Cherry Red Architectural Lines & Hairline Borders */
-  --gold-line: rgba(186, 19, 49, 0.40);
-  --gold-mid: rgba(186, 19, 49, 0.25);
-  --gold-faint: rgba(186, 19, 49, 0.15);
-  --gold-hair: rgba(186, 19, 49, 0.10);
-  
-  /* Surfaces & Cards */
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --card-bg-strong: #FFFFFF;
-  --card-bg-deep: #F8F5F5;
-  --chip-bg: rgba(186, 19, 49, 0.08);
-  
-  /* Shadows & Highlights */
-  --shadow-deep: rgba(186, 19, 49, 0.08);
-  --shadow-card: 0 10px 30px -8px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.03);
-  --gold-glow: rgba(186, 19, 49, 0.18);
-  --media-dark: 1;
-  
-  /* Crisp, Crystal-Clear Overlays (Zero White Blurry Fog) */
-  --overlay-video: transparent;
-  --overlay-card: transparent;
-  --overlay-panel: transparent;
-  --overlay-banner: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
-  --overlay-band: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.35) 100%);
-  --overlay-hero-bottom: transparent;
-  --overlay-hero-side: transparent;
-  --overlay-left: linear-gradient(to right, rgba(255, 255, 255, 0.8) 0%, transparent 80%);
-  --overlay-philosophy: linear-gradient(to right, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
-  --overlay-banner-simple: transparent;
-  
-  --white: #FFFFFF;
-  --off-white: #F9F7F7;
-}
-
+/* ── DEFAULT / LIGHT MODE (Signature Imperial White Cherry & Porcelain) ── */
+:root,
 [data-theme="light"] {
   color-scheme: light;
+  
+  /* Imperial French Black Cherry & Ruby Crimson */
+  --cherry: #A0102D;
+  --cherry-light: #C8193D;
+  --cherry-dark: #75061D;
+  --cherry-muted: #8C0D26;
+  --on-cherry: #FFFFFF;
+
+  /* Accent Mappings (All gold aliases map to Royal Black Cherry) */
+  --gold: #A0102D;
+  --gold-light: #C8193D;
+  --gold-dark: #75061D;
+  --gold-muted: #8C0D26;
+  --on-gold: #FFFFFF;
+  
+  /* Heading Color: Deep Imperial Black Cherry */
+  --heading: #75061D;
+  --heading-accent: #A0102D;
+
+  /* Luminous Pure Porcelain White & Blush Alabaster Canvas */
+  --bg: #FFFFFF;
+  --bg-alt: #FCF9FA;
+  --bg-deep: #F7F0F2;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFFFF;
+  
+  /* Navigation */
+  --nav-bg: transparent;
+  --nav-grad: transparent;
+  
+  /* Rich Velvet Espresso-Cherry Typography (Crisp, High-Contrast & Luxurious) */
+  --text: #23171A;
+  --text-strong: #110608;
+  --text-bright: #1D1013;
+  --text-dim: #594448;
+  --text-soft: #786367;
+  --text-faint: #9E898E;
+  --text-mute: #BFB0B4;
+  --text-hair: rgba(160, 16, 45, 0.10);
+  
+  /* Cherry Architectural Lines & Hairline Borders */
+  --gold-line: rgba(160, 16, 45, 0.35);
+  --gold-mid: rgba(160, 16, 45, 0.20);
+  --gold-faint: rgba(160, 16, 45, 0.12);
+  --gold-hair: rgba(160, 16, 45, 0.08);
+  
+  /* Surfaces & Cards */
+  --card-bg: rgba(255, 255, 255, 0.96);
+  --card-bg-strong: #FFFFFF;
+  --card-bg-deep: #FAF4F6;
+  --chip-bg: rgba(160, 16, 45, 0.07);
+  
+  /* Shadows & Highlights */
+  --shadow-deep: rgba(117, 6, 29, 0.07);
+  --shadow-card: 0 14px 40px -8px rgba(117, 6, 29, 0.07), 0 2px 8px rgba(0, 0, 0, 0.02);
+  --gold-glow: rgba(200, 25, 61, 0.22);
+  --media-dark: 0.96;
+  
+  /* Overlays & Scrims (Crystal clear, deep architectural scrims for media/cards) */
+  --overlay-video: linear-gradient(to top, rgba(14, 4, 7, 0.92) 0%, rgba(14, 4, 7, 0.25) 50%, rgba(14, 4, 7, 0.55) 100%);
+  --overlay-card: rgba(14, 4, 7, 0.65);
+  --overlay-panel: rgba(255, 255, 255, 0.98);
+  --overlay-banner: linear-gradient(to bottom, rgba(20, 4, 8, 0.45) 0%, rgba(20, 4, 8, 0.88) 100%);
+  --overlay-band: linear-gradient(to bottom, rgba(14, 4, 7, 0.85) 0%, rgba(14, 4, 7, 0.45) 50%, rgba(14, 4, 7, 0.85) 100%);
+  --overlay-hero-bottom: linear-gradient(to top, rgba(14, 4, 7, 0.92) 0%, transparent 100%);
+  --overlay-hero-side: linear-gradient(to right, rgba(14, 4, 7, 0.8) 0%, transparent 100%);
+  --overlay-left: linear-gradient(to right, rgba(14, 4, 7, 0.85) 0%, transparent 80%);
+  --overlay-philosophy: linear-gradient(to right, rgba(14, 4, 7, 0.92) 0%, rgba(14, 4, 7, 0.5) 50%, transparent 100%);
+  --overlay-banner-simple: linear-gradient(to bottom, rgba(20, 4, 8, 0.35) 0%, rgba(20, 4, 8, 0.8) 100%);
+  
+  --white: #FFFFFF;
+  --off-white: #FCF9FA;
 }
+
+/* ── DARK MODE (Nocturne Black Cherry & Radiant Ruby) ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  
+  /* Luminous Haute Ruby Crimson */
+  --cherry: #E01E47;
+  --cherry-light: #FF335F;
+  --cherry-dark: #A30E2E;
+  --cherry-muted: #BF163B;
+  --on-cherry: #FFFFFF;
+
+  /* Accent Mappings */
+  --gold: #E01E47;
+  --gold-light: #FF335F;
+  --gold-dark: #A30E2E;
+  --gold-muted: #BF163B;
+  --on-gold: #FFFFFF;
+  
+  /* Heading Color: Crisp Alabaster Pearl */
+  --heading: #FFF0F3;
+  --heading-accent: #E01E47;
+
+  /* Deepest Obsidian Black Cherry Noir */
+  --bg: #0A0305;
+  --bg-alt: #14060A;
+  --bg-deep: #050102;
+  --bg-surface: #1C0A10;
+  --bg-surface-elevated: #280E17;
+  
+  /* Navigation */
+  --nav-bg: transparent;
+  --nav-grad: transparent;
+  
+  /* Luminous Soft Pearl Typography */
+  --text: #F5E4E8;
+  --text-strong: #FFFFFF;
+  --text-bright: #FFF0F3;
+  --text-dim: #B89EA5;
+  --text-soft: #947B82;
+  --text-faint: #6E565D;
+  --text-mute: #543D43;
+  --text-hair: rgba(255, 240, 243, 0.10);
+  
+  /* Cherry Architectural Lines & Hairline Borders */
+  --gold-line: rgba(224, 30, 71, 0.45);
+  --gold-mid: rgba(224, 30, 71, 0.25);
+  --gold-faint: rgba(224, 30, 71, 0.15);
+  --gold-hair: rgba(224, 30, 71, 0.10);
+  
+  /* Surfaces & Cards */
+  --card-bg: rgba(20, 6, 10, 0.78);
+  --card-bg-strong: #1C0A10;
+  --card-bg-deep: #0E0306;
+  --chip-bg: rgba(224, 30, 71, 0.12);
+  
+  /* Shadows & Highlights */
+  --shadow-deep: rgba(0, 0, 0, 0.8);
+  --shadow-card: 0 14px 40px -10px rgba(0, 0, 0, 0.8), 0 2px 12px rgba(224, 30, 71, 0.1);
+  --gold-glow: rgba(224, 30, 71, 0.28);
+  --media-dark: 1;
+  
+  /* Overlays */
+  --overlay-video: linear-gradient(to top, rgba(10, 3, 5, 0.92) 0%, rgba(10, 3, 5, 0.35) 50%, rgba(10, 3, 5, 0.55) 100%);
+  --overlay-card: rgba(10, 3, 5, 0.65);
+  --overlay-panel: rgba(10, 3, 5, 0.85);
+  --overlay-banner: linear-gradient(to bottom, rgba(10, 3, 5, 0.5) 0%, rgba(10, 3, 5, 0.88) 100%);
+  --overlay-band: linear-gradient(to bottom, rgba(10, 3, 5, 0.85) 0%, rgba(10, 3, 5, 0.45) 50%, rgba(10, 3, 5, 0.85) 100%);
+  --overlay-hero-bottom: linear-gradient(to top, rgba(10, 3, 5, 0.92) 0%, transparent 100%);
+  --overlay-hero-side: linear-gradient(to right, rgba(10, 3, 5, 0.8) 0%, transparent 100%);
+  --overlay-left: linear-gradient(to right, rgba(10, 3, 5, 0.85) 0%, transparent 80%);
+  --overlay-philosophy: linear-gradient(to right, rgba(10, 3, 5, 0.92) 0%, rgba(10, 3, 5, 0.5) 50%, transparent 100%);
+  --overlay-banner-simple: linear-gradient(to bottom, rgba(10, 3, 5, 0.45) 0%, rgba(10, 3, 5, 0.82) 100%);
+  
+  --white: #FFFFFF;
+  --off-white: #FFF0F3;
+}
+
 
 @layer base {
   html, body {
@@ -113,23 +194,30 @@ body {
   line-height: 1.6;
 }
 
-/* Headings in Rich Cherry Red */
+/* Headings in Theme Heading Color */
 h1, h2, h3, h4, h5, h6, .heading, .section-heading-title {
-  color: var(--heading, #BA1331);
+  color: var(--heading);
+  transition: color 0.35s ease;
 }
 
-/* Smooth theme switch */
+/* Smooth theme switch across all elements */
 html.theme-anim,
 html.theme-anim *,
 html.theme-anim *::before,
 html.theme-anim *::after {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease,
-    box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease, opacity 0.4s ease !important;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              fill 0.35s ease,
+              stroke 0.35s ease,
+              opacity 0.35s ease !important;
 }
 
-section { background-color: var(--bg); }
-footer { background-color: var(--bg-deep); }
+section { background-color: var(--bg); transition: background-color 0.4s ease; }
+footer { background-color: var(--bg-deep); transition: background-color 0.4s ease; }
 canvas { display: block; background: var(--bg); }
+
 
 /* Typography Helpers */
 .font-display {
@@ -149,6 +237,21 @@ canvas { display: block; background: var(--bg); }
 }
 
 /* ============================================================
+   SMOOTH SCROLL & SCROLL-TRIGGERED ANIMATIONS
+   ============================================================ */
+
+.reveal,
+.page-reveal,
+.scroll-reveal,
+.aparna-lyt2,
+.team-card,
+.tilt-card {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* ============================================================
    SANJAY PURI ARCHITECTS STYLE ARCHITECTURAL DRAWING CURSOR
    ============================================================ */
 @media (min-width: 769px) {
@@ -162,15 +265,16 @@ canvas { display: block; background: var(--bg); }
     position: fixed;
     width: 32px;
     height: 32px;
-    left: -100px;
-    top: -100px;
+    left: 0;
+    top: 0;
     pointer-events: none;
     z-index: 999999;
-    transform: translate(-50%, -50%);
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+    transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
                 opacity 0.2s ease;
-    will-change: left, top, width, height, transform;
+    will-change: transform, width, height;
+    backface-visibility: hidden;
   }
 
   /* Four Architectural Corners / Crop Marks */
@@ -848,24 +952,24 @@ canvas { display: block; background: var(--bg); }
 
 .aparna-filter-btn.active {
   background: var(--gold);
-  color: #140E0C;
+  color: var(--on-gold);
   border-color: var(--gold);
   font-weight: 600;
-  box-shadow: 0 4px 18px rgba(186, 19, 49, 0.25);
+  box-shadow: 0 4px 18px var(--gold-glow);
 }
 
 .aparna-filter-btn .badge {
   font-size: 0.58rem;
   padding: 0.12rem 0.45rem;
   border-radius: 8px;
-  background: rgba(186, 19, 49, 0.12);
+  background: var(--chip-bg);
   color: var(--gold);
   transition: all 0.3s ease;
 }
 
 .aparna-filter-btn.active .badge {
   background: rgba(0, 0, 0, 0.2);
-  color: #140E0C;
+  color: var(--on-gold);
 }
 
 /* Alternating Layout Rows (lyt2 full & lyt2 split) */
@@ -967,7 +1071,7 @@ canvas { display: block; background: var(--bg); }
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.4rem, 2.4vw, 2.3rem);
   font-weight: 300;
-  color: var(--heading);
+  color: #FFFFFF;
   line-height: 1.15;
   margin: 0.25rem 0 0;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
@@ -1042,7 +1146,7 @@ canvas { display: block; background: var(--bg); }
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: #0d080a;
+  background: var(--bg);
   overflow-y: scroll !important;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -1074,13 +1178,13 @@ canvas { display: block; background: var(--bg); }
   justify-content: space-between;
   align-items: center;
   padding: 1.1rem clamp(1rem, 3.5vw, 3.5rem);
-  background: rgba(13, 8, 10, 0.88);
+  background: var(--nav-bg);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--text-hair);
 }
 
 .aparna-detail-back-btn {
-  background: none;
+  background: var(--bg-alt);
   border: 1px solid var(--gold-hair);
   color: var(--gold);
   font-family: 'Inter', sans-serif;
@@ -1099,7 +1203,7 @@ canvas { display: block; background: var(--bg); }
 
 .aparna-detail-back-btn:hover {
   background: var(--gold);
-  color: #140E0C;
+  color: var(--on-gold);
   border-color: var(--gold);
 }
 
@@ -1124,7 +1228,7 @@ canvas { display: block; background: var(--bg); }
   left: 0;
   right: 0;
   height: 45%;
-  background: linear-gradient(to bottom, rgba(13, 8, 10, 0.8) 0%, transparent 100%);
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -1134,7 +1238,7 @@ canvas { display: block; background: var(--bg); }
   left: 0;
   right: 0;
   height: 65%;
-  background: linear-gradient(to top, rgba(13, 8, 10, 0.98) 0%, rgba(13, 8, 10, 0.5) 50%, transparent 100%);
+  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
   pointer-events: none;
 }
 
@@ -1239,7 +1343,7 @@ canvas { display: block; background: var(--bg); }
   margin-bottom: clamp(0.75rem, 1.5vw, 1.8rem);
   overflow: hidden;
   cursor: pointer;
-  background: #120c0e;
+  background: var(--bg-alt);
   border: 1px solid var(--text-hair);
   border-radius: 2px;
 }
@@ -1282,7 +1386,7 @@ canvas { display: block; background: var(--bg); }
   height: clamp(300px, 46vw, 620px);
   overflow: hidden;
   cursor: pointer;
-  background: #120c0e;
+  background: var(--bg-alt);
   border: 1px solid var(--text-hair);
   border-radius: 2px;
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import CardCarousel from '../ui/CardCarousel'
 import { w2_17_16, w2_16_49, w2_16_59, w2_16_33 } from '../../assets'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -51,6 +52,7 @@ function TeamCard({ member }) {
         position: 'relative', overflow: 'hidden',
         border: `1px solid ${hovered ? 'var(--gold-line)' : 'var(--text-hair)'}`,
         transition: 'border-color 0.3s', transformStyle: 'preserve-3d', willChange: 'transform',
+        height: '100%',
       }}
     >
       <div style={{ position: 'relative', height: 'clamp(220px, 32vw, 280px)', overflow: 'hidden' }}>
@@ -96,16 +98,6 @@ function TeamCard({ member }) {
 export default function Team() {
   const sectionRef = useRef(null)
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.team-card', {
-        y: 50, opacity: 0, stagger: 0.12, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
   return (
     <section id="team" ref={sectionRef} className="section-pad" style={{ background: 'var(--bg-alt)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -113,12 +105,12 @@ export default function Team() {
           <div style={{ width: '36px', height: '1px', background: 'var(--gold)' }} />
           <span style={{ fontFamily: 'Inter', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'var(--gold)', textTransform: 'uppercase' }}>Our Team</span>
         </div>
-        <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2.2rem, 4.5vw, 4.5rem)', fontWeight: 300, color: 'var(--heading)', marginBottom: '4rem', lineHeight: 1.1 }}>
+        <h2 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(2.2rem, 4.5vw, 4.5rem)', fontWeight: 300, color: 'var(--heading)', marginBottom: '2.5rem', lineHeight: 1.1 }}>
           The people behind the work
         </h2>
-        <div className="team-grid">
+        <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }} gap={20} autoPlay={true} autoPlayInterval={3400}>
           {team.map((member, i) => <TeamCard key={i} member={member} />)}
-        </div>
+        </CardCarousel>
       </div>
     </section>
   )

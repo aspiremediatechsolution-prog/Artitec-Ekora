@@ -12,6 +12,8 @@ import Paronma360Viewer from '../components/ui/Paronma360Viewer'
 import ErrorBoundary from '../components/ui/ErrorBoundary'
 import ProjectModal from '../components/ui/ProjectModal'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
+import CardCarousel from '../components/ui/CardCarousel'
+import ScrollytellingSection from '../components/ui/ScrollytellingSection'
 import { statsVideo, ctaProjects, gallery3, w2_16_59, w2_17_17 } from '../assets'
 import { projectsData } from '../data/projectsData'
 import { panoramaProjects } from '../data/panoramasData'
@@ -386,7 +388,7 @@ export default function ProjectsPage() {
                     style={{
                       padding: '0.8rem 1.5rem',
                       background: isActive ? 'var(--gold)' : 'var(--bg-alt)',
-                      color: isActive ? '#140E0C' : 'var(--text)',
+                      color: isActive ? 'var(--on-gold)' : 'var(--text)',
                       border: isActive ? '1px solid var(--gold)' : '1px solid var(--gold-hair)',
                       cursor: 'pointer',
                       borderRadius: '2px',
@@ -409,8 +411,8 @@ export default function ProjectsPage() {
                         fontSize: '0.58rem',
                         padding: '0.15rem 0.5rem',
                         borderRadius: '2px',
-                        background: isActive ? 'rgba(0,0,0,0.15)' : 'rgba(200,169,106,0.12)',
-                        color: isActive ? '#140E0C' : 'var(--gold)',
+                        background: isActive ? 'rgba(0,0,0,0.15)' : 'var(--chip-bg)',
+                        color: isActive ? 'var(--on-gold)' : 'var(--gold)',
                       }}
                     >
                       {proj.spaces.length} Views
@@ -498,6 +500,14 @@ export default function ProjectsPage() {
             )}
           </div>
         </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            SECTION 1.5: CINEMATIC ARCHITECTURAL SCROLLYTELLING BREAKDOWN
+        ══════════════════════════════════════════════════════════ */}
+        <ScrollytellingSection
+          projectName="The Chishti Residence"
+          projectLocation="Lucknow · Master Commission"
+        />
 
         {/* ══════════════════════════════════════════════════════════
             SECTION 2: APARNA KAUSHIK PROJECT SHOWCASE (lyt1 & lyt2 Full / Split Rhythm)
@@ -688,31 +698,33 @@ export default function ProjectsPage() {
         <section className="section-pad" style={{ background: 'var(--bg)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <SectionHeading kicker="Client Voices" title="Reflections on completed commissions." align="center" />
-            <div className="grid-resp-3 testimonials-grid-container" style={{ marginTop: '3.5rem' }}>
-              {testimonials.map((t, i) => (
-                <TiltCard key={i} className="testimonial-card-item" style={{ height: '100%' }}>
-                  <div
-                    style={{
-                      height: '100%',
-                      padding: 'clamp(1.6rem, 3vw, 2.4rem)',
-                      border: '1px solid var(--text-hair)',
-                      background: 'var(--bg-alt)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      gap: '1.5rem',
-                    }}
-                  >
-                    <p style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', fontStyle: 'italic', lineHeight: 1.7, color: 'var(--text-bright)', margin: 0 }}>
-                      “{t.quote}”
-                    </p>
-                    <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--gold-hair)' }}>
-                      <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.15rem', color: 'var(--text)' }}>{t.name}</div>
-                      <div style={{ fontFamily: 'Inter', fontSize: '0.62rem', letterSpacing: '0.14em', color: 'var(--gold)', textTransform: 'uppercase', marginTop: '0.25rem' }}>{t.role}</div>
+            <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+              <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }} gap={24} autoPlay={true} autoPlayInterval={5000}>
+                {testimonials.map((t, i) => (
+                  <TiltCard key={i} className="testimonial-card-item" style={{ height: '100%' }}>
+                    <div
+                      style={{
+                        height: '100%',
+                        padding: 'clamp(1.6rem, 3vw, 2.4rem)',
+                        border: '1px solid var(--text-hair)',
+                        background: 'var(--bg-alt)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '1.5rem',
+                      }}
+                    >
+                      <p style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', fontStyle: 'italic', lineHeight: 1.7, color: 'var(--text-bright)', margin: 0 }}>
+                        “{t.quote}”
+                      </p>
+                      <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--gold-hair)' }}>
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.15rem', color: 'var(--text)' }}>{t.name}</div>
+                        <div style={{ fontFamily: 'Inter', fontSize: '0.62rem', letterSpacing: '0.14em', color: 'var(--gold)', textTransform: 'uppercase', marginTop: '0.25rem' }}>{t.role}</div>
+                      </div>
                     </div>
-                  </div>
-                </TiltCard>
-              ))}
+                  </TiltCard>
+                ))}
+              </CardCarousel>
             </div>
           </div>
         </section>

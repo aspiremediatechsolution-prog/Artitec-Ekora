@@ -21,6 +21,7 @@ export default function CustomCursor() {
     let lastX = -100
     let lastY = -100
     let frame = null
+    let lastLineTime = 0
 
     const onMouseMove = (e) => {
       mouseX = e.clientX
@@ -31,43 +32,42 @@ export default function CustomCursor() {
         lastY = mouseY
         cursorX = mouseX
         cursorY = mouseY
-        cursor.style.left = cursorX + 'px'
-        cursor.style.top = cursorY + 'px'
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`
         return
       }
 
-      /* Create architectural drafting line trail */
+      /* Create subtle architectural drafting line trail (throttled for silky performance) */
+      const now = performance.now()
       const distance = Math.hypot(mouseX - lastX, mouseY - lastY)
 
-      if (distance > 18) {
+      if (distance > 24 && now - lastLineTime > 40) {
+        lastLineTime = now
         const line = document.createElement('div')
         line.className = 'arch-line'
 
         const angle = (Math.atan2(mouseY - lastY, mouseX - lastX) * 180) / Math.PI
 
-        line.style.left = lastX + 'px'
-        line.style.top = lastY + 'px'
-        line.style.width = Math.min(distance, 35) + 'px'
-        line.style.transform = `rotate(${angle}deg)`
+        line.style.transform = `translate3d(${lastX}px, ${lastY}px, 0) rotate(${angle}deg)`
+        line.style.width = Math.min(distance, 40) + 'px'
 
         document.body.appendChild(line)
 
         setTimeout(() => {
           if (line.parentNode) line.remove()
-        }, 500)
+        }, 450)
 
         lastX = mouseX
         lastY = mouseY
       }
     }
 
-    /* Smooth RAF cursor physics */
+    /* Silky 120fps RAF cursor physics with GPU acceleration */
     const animateCursor = () => {
-      cursorX += (mouseX - cursorX) * 0.18
-      cursorY += (mouseY - cursorY) * 0.18
+      const ease = 0.16
+      cursorX += (mouseX - cursorX) * ease
+      cursorY += (mouseY - cursorY) * ease
 
-      cursor.style.left = cursorX + 'px'
-      cursor.style.top = cursorY + 'px'
+      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`
 
       frame = requestAnimationFrame(animateCursor)
     }

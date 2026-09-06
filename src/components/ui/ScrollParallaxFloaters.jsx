@@ -44,13 +44,14 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
     const st1 = floater1Ref.current
       ? gsap.to(floater1Ref.current, {
           y: -180,
-          rotate: 4,
+          rotate: 3.5,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: floater1Ref.current,
-            start: 'top 90%',
+            start: 'top 92%',
             end: 'bottom 10%',
-            scrub: 1.2,
+            scrub: 1.25,
           },
         })
       : null
@@ -59,13 +60,14 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
     const st2 = floater2Ref.current
       ? gsap.to(floater2Ref.current, {
           y: 160,
-          rotate: -3,
+          rotate: -2.5,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: floater2Ref.current,
-            start: 'top 90%',
+            start: 'top 92%',
             end: 'bottom 10%',
-            scrub: 1.4,
+            scrub: 1.35,
           },
         })
       : null
@@ -74,11 +76,12 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
     const st3 = floater3Ref.current
       ? gsap.to(floater3Ref.current, {
           y: -150,
-          rotate: 3,
+          rotate: 2.5,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: floater3Ref.current,
-            start: 'top 90%',
+            start: 'top 92%',
             end: 'bottom 10%',
             scrub: 1.3,
           },

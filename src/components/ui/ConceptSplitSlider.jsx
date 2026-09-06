@@ -149,7 +149,7 @@ export default function ConceptSplitSlider({
             position: 'absolute',
             top: '1rem',
             left: '1rem',
-            background: 'rgba(20, 14, 16, 0.88)',
+            background: 'var(--card-bg)',
             border: '1px solid var(--gold-hair)',
             padding: '0.35rem 0.85rem',
             fontFamily: 'Inter, sans-serif',
@@ -158,7 +158,8 @@ export default function ConceptSplitSlider({
             color: 'var(--gold)',
             textTransform: 'uppercase',
             pointerEvents: 'none',
-            backdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '2px',
           }}
         >
           {labelBefore}
@@ -170,16 +171,17 @@ export default function ConceptSplitSlider({
             position: 'absolute',
             top: '1rem',
             right: '1rem',
-            background: 'rgba(20, 14, 16, 0.88)',
+            background: 'var(--card-bg)',
             border: '1px solid var(--gold-hair)',
             padding: '0.35rem 0.85rem',
             fontFamily: 'Inter, sans-serif',
             fontSize: '0.62rem',
             letterSpacing: '0.14em',
-            color: '#FAF7F2',
+            color: 'var(--text-bright)',
             textTransform: 'uppercase',
             pointerEvents: 'none',
-            backdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '2px',
           }}
         >
           {labelAfter}
@@ -228,7 +230,7 @@ export default function ConceptSplitSlider({
             bottom: '0.85rem',
             left: '50%',
             transform: 'translateX(-50%)',
-            background: 'rgba(20, 14, 16, 0.85)',
+            background: 'var(--card-bg)',
             border: '1px solid var(--gold-hair)',
             borderRadius: '20px',
             padding: '0.25rem 0.75rem',
@@ -238,6 +240,7 @@ export default function ConceptSplitSlider({
             color: 'var(--gold)',
             textTransform: 'uppercase',
             pointerEvents: 'none',
+            backdropFilter: 'blur(8px)',
           }}
         >
           Drag horizontally to compare execution fidelity

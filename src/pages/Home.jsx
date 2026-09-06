@@ -10,6 +10,7 @@ import SectionHeading from '../components/ui/SectionHeading'
 import CTABanner from '../components/ui/CTABanner'
 import ConceptSplitSlider from '../components/ui/ConceptSplitSlider'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
+import CardCarousel from '../components/ui/CardCarousel'
 import { heroMain, projectsImage, w2_17_19, w2_17_18, w2_17_17, w2_17_16, philosophyVideo } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -113,28 +114,29 @@ function ServicePreviewCard({ s }) {
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
 
     gsap.to(cardRef.current, {
-      rotateY: x * 10,
-      rotateX: -y * 8,
-      duration: 0.35,
+      rotateY: x * 8,
+      rotateX: -y * 6,
+      duration: 0.45,
       ease: 'power2.out',
-      transformPerspective: 800,
+      transformPerspective: 900,
     })
 
     if (glowRef.current) {
       gsap.to(glowRef.current, {
-        opacity: 0.85,
+        opacity: 0.8,
         left: `${(x + 1) * 50}%`,
         top: `${(y + 1) * 50}%`,
-        duration: 0.25,
+        duration: 0.3,
+        ease: 'power2.out',
       })
     }
 
     if (imgRef.current) {
       gsap.to(imgRef.current, {
-        scale: 1.08,
-        x: x * -10,
-        y: y * -10,
-        duration: 0.4,
+        scale: 1.06,
+        x: x * -8,
+        y: y * -8,
+        duration: 0.5,
         ease: 'power2.out',
       })
     }
@@ -142,17 +144,17 @@ function ServicePreviewCard({ s }) {
 
   const onMouseEnter = () => {
     setHovered(true)
-    if (contentRef.current) gsap.to(contentRef.current, { z: 30, duration: 0.4, ease: 'power3.out' })
-    if (lineRef.current) gsap.to(lineRef.current, { width: '45px', duration: 0.35, ease: 'power2.out' })
+    if (contentRef.current) gsap.to(contentRef.current, { z: 24, duration: 0.45, ease: 'power3.out' })
+    if (lineRef.current) gsap.to(lineRef.current, { width: '45px', duration: 0.4, ease: 'power2.out' })
   }
 
   const onMouseLeave = () => {
     setHovered(false)
-    gsap.to(cardRef.current, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' })
-    if (imgRef.current) gsap.to(imgRef.current, { scale: 1, x: 0, y: 0, duration: 0.6, ease: 'power3.out' })
-    if (glowRef.current) gsap.to(glowRef.current, { opacity: 0, duration: 0.3 })
-    if (contentRef.current) gsap.to(contentRef.current, { z: 0, duration: 0.6, ease: 'power3.out' })
-    if (lineRef.current) gsap.to(lineRef.current, { width: '24px', duration: 0.35, ease: 'power2.out' })
+    gsap.to(cardRef.current, { rotateY: 0, rotateX: 0, duration: 0.75, ease: 'power3.out' })
+    if (imgRef.current) gsap.to(imgRef.current, { scale: 1, x: 0, y: 0, duration: 0.75, ease: 'power3.out' })
+    if (glowRef.current) gsap.to(glowRef.current, { opacity: 0, duration: 0.4 })
+    if (contentRef.current) gsap.to(contentRef.current, { z: 0, duration: 0.75, ease: 'power3.out' })
+    if (lineRef.current) gsap.to(lineRef.current, { width: '24px', duration: 0.4, ease: 'power2.out' })
   }
 
   return (
@@ -244,7 +246,7 @@ function ServicePreviewCard({ s }) {
               fontFamily: 'Cormorant Garamond, Georgia, serif',
               fontSize: 'clamp(1.35rem, 1.8vw, 1.85rem)',
               fontWeight: 300,
-              color: 'var(--heading)',
+              color: '#FFFFFF',
               marginBottom: '0.65rem',
               lineHeight: 1.2,
               transition: 'color 0.25s ease',
@@ -257,7 +259,7 @@ function ServicePreviewCard({ s }) {
               fontFamily: 'Inter, sans-serif',
               fontSize: '0.78rem',
               lineHeight: 1.7,
-              color: 'rgba(250, 247, 242, 0.78)',
+              color: 'rgba(250, 247, 242, 0.88)',
             }}
           >
             {s.desc}
@@ -287,28 +289,6 @@ export default function Home() {
       philVideoRef.current.muted = true
       philVideoRef.current.play().catch(() => {})
     }
-
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray('.reveal').forEach((el) => {
-        gsap.from(el, {
-          y: 45,
-          opacity: 0,
-          duration: 0.85,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
-        })
-      })
-      gsap.from('.stat-item', {
-        y: 30,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.75,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: '.home-stats', start: 'top 88%' },
-      })
-    }, introRef)
-
-    return () => ctx.revert()
   }, [])
 
   return (
@@ -504,54 +484,62 @@ export default function Home() {
                 align="center"
                 sub="A rigorous 4-stage architectural process refined across two hundred completed projects."
               />
-              <div className="grid-resp-4" style={{ marginTop: 'clamp(3rem, 5vw, 4.5rem)' }}>
-                {process.map((p, i) => (
-                  <div
-                    key={i}
-                    className="reveal"
-                    style={{
-                      position: 'relative',
-                      padding: 'clamp(1.5rem, 2vw, 2rem)',
-                      border: '1px solid var(--text-hair)',
-                      background: 'var(--bg-alt)',
-                    }}
-                  >
+              <div style={{ marginTop: 'clamp(2.5rem, 4vw, 4rem)' }}>
+                <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }} gap={20} autoPlay={true} autoPlayInterval={3600}>
+                  {process.map((p, i) => (
                     <div
+                      key={i}
                       style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1.4rem',
-                        color: 'var(--gold)',
-                        lineHeight: 1,
-                        marginBottom: '1rem',
-                        fontWeight: 400,
+                        position: 'relative',
+                        padding: 'clamp(1.5rem, 2vw, 2rem)',
+                        border: '1px solid var(--text-hair)',
+                        background: 'var(--bg-alt)',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
                       }}
                     >
-                      {p.step}
+                      <div>
+                        <div
+                          style={{
+                            fontFamily: 'Cormorant Garamond, serif',
+                            fontSize: '1.4rem',
+                            color: 'var(--gold)',
+                            lineHeight: 1,
+                            marginBottom: '1rem',
+                            fontWeight: 400,
+                          }}
+                        >
+                          {p.step}
+                        </div>
+                        <h3
+                          style={{
+                            fontFamily: 'Cormorant Garamond, serif',
+                            fontSize: '1.35rem',
+                            fontWeight: 300,
+                            color: 'var(--heading)',
+                            marginBottom: '0.75rem',
+                            lineHeight: 1.25,
+                          }}
+                        >
+                          {p.title}
+                        </h3>
+                        <p
+                          style={{
+                            fontFamily: 'Inter, sans-serif',
+                            fontSize: '0.78rem',
+                            lineHeight: 1.75,
+                            color: 'var(--text-dim)',
+                            margin: 0,
+                          }}
+                        >
+                          {p.desc}
+                        </p>
+                      </div>
                     </div>
-                    <h3
-                      style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1.35rem',
-                        fontWeight: 300,
-                        color: 'var(--heading)',
-                        marginBottom: '0.75rem',
-                        lineHeight: 1.25,
-                      }}
-                    >
-                      {p.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '0.78rem',
-                        lineHeight: 1.75,
-                        color: 'var(--text-dim)',
-                      }}
-                    >
-                      {p.desc}
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </CardCarousel>
               </div>
             </div>
           </section>
@@ -702,10 +690,12 @@ export default function Home() {
                 sub="Architecture, interior design, landscape, and project management under one roof — ensuring zero dilution from drawing board to site execution."
                 align="center"
               />
-              <div className="services-grid" style={{ marginTop: '3.5rem' }}>
-                {servicePreview.map((s, i) => (
-                  <ServicePreviewCard key={i} s={s} />
-                ))}
+              <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+                <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }} gap={24} autoPlay={true} autoPlayInterval={3400}>
+                  {servicePreview.map((s, i) => (
+                    <ServicePreviewCard key={i} s={s} />
+                  ))}
+                </CardCarousel>
               </div>
             </div>
           </section>
@@ -714,125 +704,122 @@ export default function Home() {
           <section className="section-pad" style={{ background: 'var(--bg)' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <SectionHeading kicker="Recognition" title="Awards that followed the work." />
-              <div
-                className="grid-resp-2"
-                style={{
-                  background: 'var(--text-hair)',
-                  border: '1px solid var(--text-hair)',
-                  marginTop: '3rem',
-                  gap: '1px',
-                }}
-              >
-                {awards.map((a, i) => (
-                  <div
-                    key={i}
-                    className="reveal"
-                    style={{
-                      background: 'var(--bg)',
-                      padding: 'clamp(1.5rem, 3vw, 2.4rem)',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      gap: '1rem',
-                    }}
-                  >
-                    <div>
-                      <h3
-                        style={{
-                          fontFamily: 'Cormorant Garamond, serif',
-                          fontSize: '1.25rem',
-                          fontWeight: 300,
-                          color: 'var(--heading)',
-                          marginBottom: '0.35rem',
-                        }}
-                      >
-                        {a.title}
-                      </h3>
-                      <span
-                        style={{
-                          fontFamily: 'Inter, sans-serif',
-                          fontSize: '0.62rem',
-                          letterSpacing: '0.18em',
-                          color: 'var(--text-faint)',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        {a.body}
-                      </span>
-                    </div>
-                    <span
+              <div style={{ marginTop: 'clamp(2.5rem, 3.5vw, 3rem)' }}>
+                <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 2 }} gap={20} autoPlay={true} autoPlayInterval={4000}>
+                  {awards.map((a, i) => (
+                    <div
+                      key={i}
                       style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1.4rem',
-                        color: 'var(--gold)',
-                        fontStyle: 'italic',
-                        whiteSpace: 'nowrap',
+                        background: 'var(--bg-alt)',
+                        border: '1px solid var(--text-hair)',
+                        padding: 'clamp(1.5rem, 3vw, 2.4rem)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        height: '100%',
                       }}
                     >
-                      {a.badge}
-                    </span>
-                  </div>
-                ))}
+                      <div>
+                        <h3
+                          style={{
+                            fontFamily: 'Cormorant Garamond, serif',
+                            fontSize: '1.25rem',
+                            fontWeight: 300,
+                            color: 'var(--heading)',
+                            marginBottom: '0.35rem',
+                          }}
+                        >
+                          {a.title}
+                        </h3>
+                        <span
+                          style={{
+                            fontFamily: 'Inter, sans-serif',
+                            fontSize: '0.62rem',
+                            letterSpacing: '0.18em',
+                            color: 'var(--text-faint)',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          {a.body}
+                        </span>
+                      </div>
+                      <span
+                        style={{
+                          fontFamily: 'Cormorant Garamond, serif',
+                          fontSize: '1.4rem',
+                          color: 'var(--gold)',
+                          fontStyle: 'italic',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {a.badge}
+                      </span>
+                    </div>
+                  ))}
+                </CardCarousel>
               </div>
             </div>
           </section>
 
-          {/* ── Client Voices ── */}
+          {/* ── Client Voices / Reviews ── */}
           <section className="section-pad" style={{ background: 'var(--bg-alt)' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <SectionHeading kicker="Client Reflections" title="What they say when the home is lived in." align="center" />
-              <div className="grid-resp-3" style={{ marginTop: '3.5rem' }}>
-                {testimonials.map((t, i) => (
-                  <div
-                    key={i}
-                    className="reveal"
-                    style={{
-                      border: '1px solid var(--gold-hair)',
-                      background: 'var(--bg)',
-                      padding: 'clamp(1.6rem, 3vw, 2.2rem)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      gap: '1.5rem',
-                    }}
-                  >
-                    <p
+              <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+                <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 3 }} gap={24} autoPlay={true} autoPlayInterval={5000}>
+                  {testimonials.map((t, i) => (
+                    <div
+                      key={i}
                       style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1.1rem',
-                        fontStyle: 'italic',
-                        lineHeight: 1.7,
-                        color: 'var(--text-bright)',
-                        margin: 0,
+                        border: '1px solid var(--gold-hair)',
+                        background: 'var(--bg)',
+                        padding: 'clamp(1.6rem, 3vw, 2.2rem)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '1.5rem',
+                        height: '100%',
                       }}
                     >
-                      “{t.quote}”
-                    </p>
-                    <div style={{ borderTop: '1px solid var(--text-hair)', paddingTop: '1rem' }}>
-                      <div
+                      <p
                         style={{
                           fontFamily: 'Cormorant Garamond, serif',
-                          fontSize: '1.15rem',
-                          color: 'var(--text)',
+                          fontSize: '1.1rem',
+                          fontStyle: 'italic',
+                          lineHeight: 1.7,
+                          color: 'var(--text-bright)',
+                          margin: 0,
                         }}
                       >
-                        {t.name}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: 'Inter, sans-serif',
-                          fontSize: '0.62rem',
-                          letterSpacing: '0.14em',
-                          color: 'var(--gold)',
-                          textTransform: 'uppercase',
-                          marginTop: '0.25rem',
-                        }}
-                      >
-                        {t.role}
+                        “{t.quote}”
+                      </p>
+                      <div style={{ borderTop: '1px solid var(--text-hair)', paddingTop: '1rem' }}>
+                        <div
+                          style={{
+                            fontFamily: 'Cormorant Garamond, serif',
+                            fontSize: '1.15rem',
+                            color: 'var(--text)',
+                          }}
+                        >
+                          {t.name}
+                        </div>
+                        <div
+                          style={{
+                            fontFamily: 'Inter, sans-serif',
+                            fontSize: '0.62rem',
+                            letterSpacing: '0.14em',
+                            color: 'var(--gold)',
+                            textTransform: 'uppercase',
+                            marginTop: '0.25rem',
+                          }}
+                        >
+                          {t.role}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </CardCarousel>
               </div>
             </div>
           </section>

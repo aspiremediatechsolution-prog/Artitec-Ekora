@@ -268,12 +268,13 @@ export default function ProjectModal({ project, onClose, onSelectProject }) {
           y: 70,
           scale: 1.06,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: '.aparna-detail-hero',
             scroller: scroller,
             start: 'top top',
             end: 'bottom top',
-            scrub: true,
+            scrub: 1.0,
           },
         })
       }
@@ -284,12 +285,13 @@ export default function ProjectModal({ project, onClose, onSelectProject }) {
           y: -45,
           opacity: 0,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: '.aparna-detail-hero',
             scroller: scroller,
             start: '20% top',
             end: 'bottom top',
-            scrub: true,
+            scrub: 1.0,
           },
         })
       }

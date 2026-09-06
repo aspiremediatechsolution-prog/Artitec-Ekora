@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useLocation, useNavigate } from 'react-router-dom'
+import ThemeToggle from './ThemeToggle'
 
 const leftLinks = [
   { label: 'Home', path: '/' },
@@ -29,6 +30,7 @@ export default function Navbar() {
   const rightWingRef = useRef(null)
   const orbitRingsRef = useRef(null)
   const hasDockedRef = useRef(false)
+  const timelineRef = useRef(null)
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -43,9 +45,146 @@ export default function Navbar() {
     if (!isHome) {
       hasDockedRef.current = true
       setHasDocked(true)
+      if (logoWrapperRef.current) {
+        gsap.set(logoWrapperRef.current, {
+          top: '50%',
+          scale: 1,
+          opacity: 1,
+          xPercent: -50,
+          yPercent: -50,
+          left: '50%',
+        })
+      }
+      if (orbitRingsRef.current) {
+        gsap.set(orbitRingsRef.current, { display: 'none', opacity: 0 })
+      }
+      if (leftWingRef.current) gsap.set(leftWingRef.current, { opacity: 1, pointerEvents: 'all' })
+      if (rightWingRef.current) gsap.set(rightWingRef.current, { opacity: 1, pointerEvents: 'all' })
     }
   }, [isHome, location.pathname])
 
+  // Cinematic Hero Pop-up & Smooth Ascent into Navbar Center
+  useEffect(() => {
+    if (!isHome) return
+
+    // If already docked, maintain docked state in navbar center
+    if (hasDockedRef.current) {
+      if (logoWrapperRef.current) {
+        gsap.set(logoWrapperRef.current, {
+          top: '50%',
+          scale: 1,
+          opacity: 1,
+          xPercent: -50,
+          yPercent: -50,
+          left: '50%',
+        })
+      }
+      if (orbitRingsRef.current) {
+        gsap.set(orbitRingsRef.current, { display: 'none', opacity: 0 })
+      }
+      if (leftWingRef.current) gsap.set(leftWingRef.current, { opacity: 1, pointerEvents: 'all' })
+      if (rightWingRef.current) gsap.set(rightWingRef.current, { opacity: 1, pointerEvents: 'all' })
+      return
+    }
+
+    const logoEl = logoWrapperRef.current
+    const orbitEl = orbitRingsRef.current
+    const leftWing = leftWingRef.current
+    const rightWing = rightWingRef.current
+
+    if (!logoEl) return
+
+    // Initial state: centered in Hero section, scaled down & transparent
+    gsap.set(logoEl, {
+      top: '48vh',
+      scale: 0.15,
+      opacity: 0,
+      xPercent: -50,
+      yPercent: -50,
+      left: '50%',
+    })
+    if (orbitEl) {
+      gsap.set(orbitEl, { display: 'flex', opacity: 0, scale: 0.4 })
+    }
+    if (leftWing) gsap.set(leftWing, { opacity: 0, pointerEvents: 'none' })
+    if (rightWing) gsap.set(rightWing, { opacity: 0, pointerEvents: 'none' })
+
+    const tl = gsap.timeline({
+      delay: 0.25,
+      onComplete: () => {
+        hasDockedRef.current = true
+        setHasDocked(true)
+        if (orbitEl) orbitEl.style.display = 'none'
+        if (leftWing) leftWing.style.pointerEvents = 'all'
+        if (rightWing) rightWing.style.pointerEvents = 'all'
+      },
+    })
+    timelineRef.current = tl
+
+    // 1. POPUP in Hero: Scales up to large crest with spring and expanding orbit rings
+    tl.to(logoEl, {
+      opacity: 1,
+      scale: 1.85,
+      duration: 1.05,
+      ease: 'back.out(1.5)',
+    })
+    if (orbitEl) {
+      tl.to(
+        orbitEl,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.85,
+          ease: 'power2.out',
+        },
+        '<'
+      )
+    }
+
+    // 2. Pause in Hero section center so the user can admire the emblem
+    tl.to({}, { duration: 0.85 })
+
+    // 3. Smooth slow glide up to the navbar center ("dhira sa upar jya aur center mai lag jya")
+    tl.to(logoEl, {
+      top: '50%',
+      scale: 1,
+      duration: 1.45,
+      ease: 'power3.inOut',
+    })
+
+    // Orbit rings softly fade out as it glides up
+    if (orbitEl) {
+      tl.to(
+        orbitEl,
+        {
+          opacity: 0,
+          scale: 0.6,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        '<0.1'
+      )
+    }
+
+    // Nav Links (Left & Right Wings) smoothly fade in as logo reaches navbar center
+    if (leftWing && rightWing) {
+      tl.to(
+        [leftWing, rightWing],
+        {
+          opacity: 1,
+          duration: 0.75,
+          ease: 'power2.out',
+        },
+        '-=0.55'
+      )
+    }
+
+    return () => {
+      tl.kill()
+    }
+  }, [isHome])
+
+  // Scroll listener for navbar styling on scroll
   useEffect(() => {
     let ticking = false
 
@@ -55,82 +194,18 @@ export default function Navbar() {
           const scrollY = window.scrollY || window.pageYOffset || 0
           setIsScrolled(scrollY > 20)
 
-          // Navbar background styling
+          // Navbar background styling — Completely Transparent with Zero Blur
           if (navRef.current) {
-            if (scrollY > 20) {
-              navRef.current.style.background = '#FFFFFF'
-              navRef.current.style.backdropFilter = 'none'
-              navRef.current.style.borderBottom = '1px solid var(--gold-hair)'
-              navRef.current.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.04)'
-            } else {
-              navRef.current.style.background = isHome ? 'transparent' : '#FFFFFF'
-              navRef.current.style.backdropFilter = 'none'
-              navRef.current.style.borderBottom = isHome ? '1px solid transparent' : '1px solid var(--gold-hair)'
-              navRef.current.style.boxShadow = 'none'
-            }
+            navRef.current.style.background = 'transparent'
+            navRef.current.style.backdropFilter = 'none'
+            navRef.current.style.webkitBackdropFilter = 'none'
+            navRef.current.style.boxShadow = 'none'
+            navRef.current.style.borderBottom = '1px solid transparent'
           }
 
-          // Case 1: Already docked permanently (or non-home page)
-          if (hasDockedRef.current || !isHome) {
-            if (logoWrapperRef.current) {
-              logoWrapperRef.current.style.top = '50%'
-              logoWrapperRef.current.style.transform = 'translate(-50%, -50%) scale(1)'
-            }
-            if (orbitRingsRef.current) {
-              orbitRingsRef.current.style.display = 'none'
-            }
-            if (leftWingRef.current && rightWingRef.current) {
-              leftWingRef.current.style.opacity = '1'
-              leftWingRef.current.style.pointerEvents = 'all'
-              rightWingRef.current.style.opacity = '1'
-              rightWingRef.current.style.pointerEvents = 'all'
-            }
-            ticking = false
-            return
-          }
-
-          // Case 2: Scroll-linked Ascent (Jitna scroll karu utna logo upar jaye)
-          const maxScroll = 200
-          const p = Math.min(1, Math.max(0, scrollY / maxScroll))
-
-          if (logoWrapperRef.current) {
-            if (p >= 0.98) {
-              // 🚀 LATCH DOCKED: Permanently lock in navbar center!
-              hasDockedRef.current = true
-              setHasDocked(true)
-              logoWrapperRef.current.style.top = '50%'
-              logoWrapperRef.current.style.transform = 'translate(-50%, -50%) scale(1)'
-              if (orbitRingsRef.current) {
-                orbitRingsRef.current.style.display = 'none'
-              }
-              if (leftWingRef.current && rightWingRef.current) {
-                leftWingRef.current.style.opacity = '1'
-                leftWingRef.current.style.pointerEvents = 'all'
-                rightWingRef.current.style.opacity = '1'
-                rightWingRef.current.style.pointerEvents = 'all'
-              }
-            } else {
-              // Smooth proportional position and scale tied to user scroll
-              const currentTopVh = (1 - p) * 48
-              const currentScale = 1 + (1 - p) * 0.75
-
-              logoWrapperRef.current.style.top = `calc(${currentTopVh}vh + ${p * 50}%)`
-              logoWrapperRef.current.style.transform = `translate(-50%, -50%) scale(${currentScale})`
-
-              if (orbitRingsRef.current) {
-                orbitRingsRef.current.style.display = 'flex'
-                orbitRingsRef.current.style.opacity = Math.max(0, 1 - p * 1.5)
-                orbitRingsRef.current.style.transform = `scale(${1 - p * 0.35})`
-              }
-
-              if (leftWingRef.current && rightWingRef.current) {
-                const wingOpacity = Math.max(0, (p - 0.2) / 0.8)
-                leftWingRef.current.style.opacity = wingOpacity
-                leftWingRef.current.style.pointerEvents = p > 0.4 ? 'all' : 'none'
-                rightWingRef.current.style.opacity = wingOpacity
-                rightWingRef.current.style.pointerEvents = p > 0.4 ? 'all' : 'none'
-              }
-            }
+          // If user scrolls down before auto-dock finishes, complete the dock immediately
+          if (scrollY > 50 && !hasDockedRef.current && timelineRef.current) {
+            timelineRef.current.progress(1)
           }
 
           ticking = false
@@ -176,8 +251,6 @@ export default function Navbar() {
 
   const isActive = (path) => location.pathname === path
 
-  const isInitiallyHero = isHome && !hasDocked
-
   return (
     <>
       <header
@@ -194,8 +267,8 @@ export default function Navbar() {
           alignItems: 'center',
           justifyContent: 'space-between',
           transition: 'background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease',
-          background: isHome ? 'transparent' : 'var(--nav-bg)',
-          borderBottom: isHome ? '1px solid transparent' : '1px solid var(--gold-hair)',
+          background: 'transparent',
+          borderBottom: '1px solid transparent',
           minHeight: '84px',
         }}
       >
@@ -211,7 +284,8 @@ export default function Navbar() {
             justifyContent: 'flex-start',
             gap: '2.5rem',
             zIndex: 1002,
-            opacity: isInitiallyHero ? 0 : 1,
+            opacity: hasDocked || !isHome ? 1 : 0,
+            pointerEvents: hasDocked || !isHome ? 'all' : 'none',
             transition: 'opacity 0.3s ease',
           }}
         >
@@ -270,16 +344,17 @@ export default function Navbar() {
           style={{
             position: 'absolute',
             left: '50%',
-            top: isInitiallyHero ? '48vh' : '50%',
-            transform: isInitiallyHero ? 'translate(-50%, -50%) scale(1.75)' : 'translate(-50%, -50%) scale(1)',
+            top: hasDocked || !isHome ? '50%' : '48vh',
+            transform: hasDocked || !isHome ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.15)',
             transformOrigin: 'center center',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 1005,
-            willChange: 'transform, top',
+            willChange: 'transform, top, opacity',
             cursor: 'pointer',
             padding: 0,
+            opacity: hasDocked || !isHome ? 1 : 0,
           }}
           onClick={() => go('/')}
           title="Ekora Studio — Home"
@@ -290,11 +365,12 @@ export default function Navbar() {
             style={{
               position: 'absolute',
               inset: '-32px',
-              display: isInitiallyHero ? 'flex' : 'none',
+              display: hasDocked || !isHome ? 'none' : 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               pointerEvents: 'none',
               transition: 'opacity 0.3s ease',
+              opacity: 0,
             }}
           >
             {/* Outer Glowing Pulsing Aura */}
@@ -388,6 +464,8 @@ export default function Navbar() {
             gap: '2.5rem',
             transition: 'opacity 0.25s ease, transform 0.25s ease',
             zIndex: 1002,
+            opacity: hasDocked || !isHome ? 1 : 0,
+            pointerEvents: hasDocked || !isHome ? 'all' : 'none',
           }}
         >
           {/* Desktop Right Navigation Links */}
@@ -446,10 +524,16 @@ export default function Navbar() {
                 </button>
               )
             })}
+            <div style={{ marginLeft: '0.75rem', display: 'flex', alignItems: 'center' }}>
+              <ThemeToggle />
+            </div>
           </nav>
 
-          {/* Mobile Hamburger Menu Toggle */}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          {/* Mobile Right Controls: Theme Toggle + Hamburger Menu */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div className="nav-hamburger">
+              <ThemeToggle />
+            </div>
             <button
               className="nav-hamburger"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -510,7 +594,8 @@ export default function Navbar() {
         style={{
           position: 'fixed',
           inset: 0,
-          background: '#FFFFFF',
+          background: 'var(--bg)',
+          backdropFilter: 'blur(20px)',
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
@@ -520,6 +605,7 @@ export default function Navbar() {
           pointerEvents: 'none',
           padding: '5rem 2rem 3rem',
           overflowY: 'auto',
+          transition: 'background 0.4s ease',
         }}
       >
         {/* Mobile Menu Top Emblem */}
@@ -587,7 +673,12 @@ export default function Navbar() {
           })}
         </div>
 
-        <div style={{ marginTop: '2.5rem', width: 'min(100%, 280px)', textAlign: 'center' }}>
+        {/* Mobile Drawer Theme Switcher Pill */}
+        <div className="menu-link" style={{ marginTop: '2rem' }}>
+          <ThemeToggle variant="pill" showLabel />
+        </div>
+
+        <div style={{ marginTop: '2rem', width: 'min(100%, 280px)', textAlign: 'center' }}>
           <button
             className="btn-gold menu-link"
             onClick={() => go('/contact')}

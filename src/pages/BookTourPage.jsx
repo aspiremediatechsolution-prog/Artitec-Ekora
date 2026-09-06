@@ -8,6 +8,7 @@ import Footer from '../components/sections/Footer'
 import SectionHeading from '../components/ui/SectionHeading'
 import TiltCard from '../components/ui/TiltCard'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
+import CardCarousel from '../components/ui/CardCarousel'
 import { studioVideo, faqVideo, gallery3, gallery1, heroMain } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -80,11 +81,11 @@ export default function BookTourPage() {
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.reveal').forEach((el) => {
         gsap.from(el, {
-          y: 45,
+          y: 32,
           opacity: 0,
-          duration: 0.85,
+          duration: 0.95,
           ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
+          scrollTrigger: { trigger: el, start: 'top 88%' },
         })
       })
     }, pageRef)
@@ -188,7 +189,7 @@ export default function BookTourPage() {
                               padding: '0.6rem 1.25rem',
                               cursor: 'pointer',
                               background: form.tour === t ? 'var(--gold)' : 'var(--bg-alt)',
-                              color: form.tour === t ? '#140E0C' : 'var(--text-soft)',
+                              color: form.tour === t ? 'var(--on-gold)' : 'var(--text-soft)',
                               border: form.tour === t ? '1px solid var(--gold)' : '1px solid var(--text-hair)',
                               borderRadius: '2px',
                               transition: 'all 0.22s ease',
@@ -346,34 +347,36 @@ export default function BookTourPage() {
         <section className="section-pad" style={{ background: 'var(--bg-deep)', borderTop: '1px solid var(--gold-hair)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <SectionHeading kicker="Inquiries" title="Frequently asked questions." align="center" />
-            <div className="grid-resp-2" style={{ marginTop: '3.5rem' }}>
-              {faqs.map((f, i) => (
-                <TiltCard key={i} className="reveal" maxTilt={5}>
-                  <div
-                    style={{
-                      background: 'var(--bg-alt)',
-                      border: '1px solid var(--text-hair)',
-                      padding: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-                      height: '100%',
-                    }}
-                  >
-                    <h3
+            <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+              <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 2 }} gap={24} autoPlay={true} autoPlayInterval={3800}>
+                {faqs.map((f, i) => (
+                  <TiltCard key={i} className="reveal" maxTilt={5} style={{ height: '100%' }}>
+                    <div
                       style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '1.3rem',
-                        fontWeight: 300,
-                        color: 'var(--gold)',
-                        marginBottom: '0.75rem',
+                        background: 'var(--bg-alt)',
+                        border: '1px solid var(--text-hair)',
+                        padding: 'clamp(1.6rem, 2.5vw, 2.2rem)',
+                        height: '100%',
                       }}
                     >
-                      {f.q}
-                    </h3>
-                    <p style={{ fontFamily: 'Inter', fontSize: '0.82rem', lineHeight: 1.8, color: 'var(--text-dim)', margin: 0 }}>
-                      {f.a}
-                    </p>
-                  </div>
-                </TiltCard>
-              ))}
+                      <h3
+                        style={{
+                          fontFamily: 'Cormorant Garamond, serif',
+                          fontSize: '1.3rem',
+                          fontWeight: 300,
+                          color: 'var(--gold)',
+                          marginBottom: '0.75rem',
+                        }}
+                      >
+                        {f.q}
+                      </h3>
+                      <p style={{ fontFamily: 'Inter', fontSize: '0.82rem', lineHeight: 1.8, color: 'var(--text-dim)', margin: 0 }}>
+                        {f.a}
+                      </p>
+                    </div>
+                  </TiltCard>
+                ))}
+              </CardCarousel>
             </div>
           </div>
         </section>

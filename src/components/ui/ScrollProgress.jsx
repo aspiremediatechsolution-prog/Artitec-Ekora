@@ -10,8 +10,8 @@ export default function ScrollProgress() {
         window.requestAnimationFrame(() => {
           const totalHeight = document.documentElement.scrollHeight - window.innerHeight
           if (totalHeight > 0) {
-            const current = (window.scrollY / totalHeight) * 100
-            setProgress(Math.min(100, Math.max(0, current)))
+            const current = window.scrollY / totalHeight
+            setProgress(Math.min(1, Math.max(0, current)))
           }
           ticking = false
         })
@@ -39,10 +39,13 @@ export default function ScrollProgress() {
       <div
         style={{
           height: '100%',
-          width: `${progress}%`,
-          background: 'linear-gradient(90deg, #C8A96A 0%, #E7D095 50%, #C8A96A 100%)',
-          boxShadow: '0 0 10px rgba(200, 169, 106, 0.7), 0 0 4px rgba(231, 208, 149, 0.9)',
-          transition: 'width 0.1s cubic-bezier(0.16, 1, 0.3, 1)',
+          width: '100%',
+          transformOrigin: 'left center',
+          transform: `scaleX(${progress})`,
+          background: 'linear-gradient(90deg, var(--cherry-dark) 0%, var(--cherry) 50%, var(--cherry-light) 100%)',
+          boxShadow: '0 0 12px var(--gold-glow), 0 0 4px var(--cherry-light)',
+          transition: 'transform 0.08s linear',
+          willChange: 'transform',
         }}
       />
     </div>

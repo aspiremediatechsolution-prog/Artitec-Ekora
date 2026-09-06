@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FiSearch, FiArrowRight, FiCompass, FiLayers, FiMapPin, FiMessageCircle, FiX } from 'react-icons/fi'
+import { FiSearch, FiArrowRight, FiCompass, FiLayers, FiMapPin, FiMessageCircle, FiX, FiSun, FiMoon } from 'react-icons/fi'
 import { projectsData } from '../../data/projectsData'
+import { useTheme } from '../../useTheme'
 
 const staticItems = [
   { id: 'home', title: 'Home Studio', category: 'Navigation', path: '/', icon: FiCompass },
@@ -19,6 +20,15 @@ export default function CommandPalette({ isOpen, onClose }) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const inputRef = useRef(null)
   const navigate = useNavigate()
+  const { theme, toggle } = useTheme()
+
+  const themeItem = {
+    id: 'theme-toggle',
+    title: theme === 'dark' ? 'Switch to Imperial White Cherry Theme' : 'Switch to Nocturne Black Cherry Theme',
+    category: 'Theme Preference',
+    action: () => toggle(),
+    icon: theme === 'dark' ? FiSun : FiMoon,
+  }
 
   // Build searchable items list
   const projectItems = projectsData.map((p) => ({
@@ -29,7 +39,7 @@ export default function CommandPalette({ isOpen, onClose }) {
     icon: FiLayers,
   }))
 
-  const allItems = [...staticItems, ...projectItems]
+  const allItems = [themeItem, ...staticItems, ...projectItems]
 
   const filtered = query.trim() === ''
     ? allItems.slice(0, 7)
@@ -67,7 +77,9 @@ export default function CommandPalette({ isOpen, onClose }) {
 
   const handleSelect = (item) => {
     onClose()
-    if (item.external) {
+    if (item.action) {
+      item.action()
+    } else if (item.external) {
       window.open(item.external, '_blank')
     } else if (item.path) {
       navigate(item.path)

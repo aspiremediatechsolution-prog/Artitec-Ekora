@@ -11,6 +11,7 @@ import CTABanner from '../components/ui/CTABanner'
 import TiltCard from '../components/ui/TiltCard'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
 import ProjectScopeEstimator from '../components/ui/ProjectScopeEstimator'
+import CardCarousel from '../components/ui/CardCarousel'
 import { processVideo, ctaServices, w2_16_49, w2_17_19, w2_17_18 } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -73,11 +74,11 @@ export default function ServicesPage() {
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.reveal').forEach((el) => {
         gsap.from(el, {
-          y: 45,
+          y: 32,
           opacity: 0,
-          duration: 0.85,
+          duration: 0.95,
           ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
+          scrollTrigger: { trigger: el, start: 'top 88%' },
         })
       })
     }, pageRef)
@@ -154,29 +155,31 @@ export default function ServicesPage() {
                 sub="Refined across hundreds of bespoke architectural commissions."
                 align="center"
               />
-              <div className="grid-resp-4" style={{ marginTop: '3.5rem' }}>
-                {process.map((p, i) => (
-                  <TiltCard key={i} className="reveal" maxTilt={6}>
-                    <div
-                      style={{
-                        padding: 'clamp(1.5rem, 2.5vw, 2.2rem)',
-                        border: '1px solid var(--gold-hair)',
-                        background: 'var(--bg-alt)',
-                        height: '100%',
-                      }}
-                    >
-                      <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem', color: 'var(--gold)', marginBottom: '0.75rem' }}>
-                        {p.step}
+              <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+                <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 4 }} gap={20} autoPlay={true} autoPlayInterval={3500}>
+                  {process.map((p, i) => (
+                    <TiltCard key={i} className="reveal" maxTilt={6} style={{ height: '100%' }}>
+                      <div
+                        style={{
+                          padding: 'clamp(1.5rem, 2.5vw, 2.2rem)',
+                          border: '1px solid var(--gold-hair)',
+                          background: 'var(--bg-alt)',
+                          height: '100%',
+                        }}
+                      >
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.4rem', color: 'var(--gold)', marginBottom: '0.75rem' }}>
+                          {p.step}
+                        </div>
+                        <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.3rem', fontWeight: 300, color: 'var(--heading)', marginBottom: '0.5rem' }}>
+                          {p.title}
+                        </h3>
+                        <p style={{ fontFamily: 'Inter', fontSize: '0.8rem', lineHeight: 1.75, color: 'var(--text-dim)', margin: 0 }}>
+                          {p.desc}
+                        </p>
                       </div>
-                      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.3rem', fontWeight: 300, color: 'var(--heading)', marginBottom: '0.5rem' }}>
-                        {p.title}
-                      </h3>
-                      <p style={{ fontFamily: 'Inter', fontSize: '0.8rem', lineHeight: 1.75, color: 'var(--text-dim)', margin: 0 }}>
-                        {p.desc}
-                      </p>
-                    </div>
-                  </TiltCard>
-                ))}
+                    </TiltCard>
+                  ))}
+                </CardCarousel>
               </div>
             </div>
           </section>

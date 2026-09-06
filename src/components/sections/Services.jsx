@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router-dom'
+import CardCarousel from '../ui/CardCarousel'
 import { w2_17_19, w2_17_18, w2_17_17, w2_17_16 } from '../../assets'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -164,7 +165,7 @@ function ServiceCard({ s }) {
               fontFamily: 'Cormorant Garamond, Georgia, serif',
               fontSize: 'clamp(1.4rem, 2vw, 1.85rem)',
               fontWeight: 300,
-              color: 'var(--heading)',
+              color: '#FFFFFF',
               marginBottom: '0.65rem',
               lineHeight: 1.2,
               transition: 'color 0.25s ease',
@@ -177,7 +178,7 @@ function ServiceCard({ s }) {
               fontFamily: 'Inter, sans-serif',
               fontSize: '0.78rem',
               lineHeight: 1.7,
-              color: 'var(--text-dim)',
+              color: 'rgba(250, 247, 242, 0.88)',
               marginBottom: '1rem',
             }}
           >
@@ -265,12 +266,14 @@ export default function Services() {
         >
           Comprehensive Architectural &amp; Spatial Services
         </h2>
-        <div className="services-grid">
-          {services.map((s, i) => (
-            <div key={i} className="service-card">
-              <ServiceCard s={s} />
-            </div>
-          ))}
+        <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+          <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 2 }} gap={24} autoPlay={true} autoPlayInterval={3400}>
+            {services.map((s, i) => (
+              <div key={i} className="service-card" style={{ height: '100%' }}>
+                <ServiceCard s={s} />
+              </div>
+            ))}
+          </CardCarousel>
         </div>
       </div>
     </section>

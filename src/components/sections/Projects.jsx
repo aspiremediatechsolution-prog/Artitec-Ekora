@@ -293,7 +293,7 @@ export default function Projects({ id = 'projects', title = 'Project Showcase', 
                 style={{
                   padding: '0.65rem 1.4rem',
                   background: isActive ? 'var(--gold)' : 'var(--bg-alt)',
-                  color: isActive ? '#140E0C' : 'var(--text)',
+                  color: isActive ? 'var(--on-gold)' : 'var(--text)',
                   border: isActive ? '1px solid var(--gold)' : '1px solid var(--gold-hair)',
                   borderRadius: '2px',
                   fontFamily: 'Inter',
@@ -307,7 +307,7 @@ export default function Projects({ id = 'projects', title = 'Project Showcase', 
                   gap: '0.5rem',
                   transition: 'all 0.3s ease',
                   flexShrink: 0,
-                  boxShadow: isActive ? '0 4px 15px rgba(200, 169, 106, 0.25)' : 'none',
+                  boxShadow: isActive ? '0 4px 15px var(--gold-glow)' : 'none',
                 }}
               >
                 <span>{cat.label}</span>
@@ -316,8 +316,8 @@ export default function Projects({ id = 'projects', title = 'Project Showcase', 
                     fontSize: '0.6rem',
                     padding: '0.12rem 0.45rem',
                     borderRadius: '8px',
-                    background: isActive ? 'rgba(0,0,0,0.2)' : 'rgba(200, 169, 106, 0.12)',
-                    color: isActive ? '#140E0C' : 'var(--gold)',
+                    background: isActive ? 'rgba(0,0,0,0.2)' : 'var(--chip-bg)',
+                    color: isActive ? 'var(--on-gold)' : 'var(--gold)',
                   }}
                 >
                   {cat.count}
