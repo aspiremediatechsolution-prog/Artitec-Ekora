@@ -15,7 +15,6 @@ import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
 import ProjectsPage from './pages/ProjectsPage'
 import BookTourPage from './pages/BookTourPage'
-import RecentProjectsPage from './pages/RecentProjectsPage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,10 +33,6 @@ function Shell() {
 
   useEffect(() => {
     if (!loaded) return
-
-    // Don't run Lenis on pages that manage their own scroll
-    const noLenisRoutes = ['/recent-projects']
-    if (noLenisRoutes.includes(location.pathname)) return
 
     // Lenis ultra-smooth inertial scroll
     const lenis = new Lenis({
@@ -190,7 +185,7 @@ function Shell() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/recent-projects" element={<RecentProjectsPage />} />
+            <Route path="/recent-projects" element={<ProjectsPage />} />
             <Route path="/book-a-tour" element={<BookTourPage />} />
             <Route path="/contact" element={<BookTourPage />} />
             <Route path="/contact-us" element={<BookTourPage />} />

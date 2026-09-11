@@ -6,10 +6,10 @@ import ThemeToggle from './ThemeToggle'
 const leftLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
+  { label: 'Services', path: '/services' },
 ]
 
 const rightLinks = [
-  { label: 'Services', path: '/services' },
   { label: 'Projects', path: '/projects' },
   { label: 'Contact Us', path: '/contact' },
 ]
@@ -19,6 +19,7 @@ const mobileLinks = [
   { label: 'About', path: '/about' },
   { label: 'Services', path: '/services' },
   { label: 'Projects', path: '/projects' },
+  { label: 'Book a Tour', path: '/book-a-tour' },
   { label: 'Contact Us', path: '/contact' },
 ]
 
@@ -33,10 +34,12 @@ export default function Navbar() {
   const timelineRef = useRef(null)
 
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isPastHero, setIsPastHero] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
   const [hasDocked, setHasDocked] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const lastScrollRef = useRef(0)
 
   const isHome = location.pathname === '/'
 
@@ -63,11 +66,11 @@ export default function Navbar() {
     }
   }, [isHome, location.pathname])
 
-  // Cinematic Hero Pop-up & Smooth Ascent into Navbar Center
+  // Original Hero Center Emblem Pop-up & Smooth Ascent into Navbar Center
   useEffect(() => {
     if (!isHome) return
 
-    // If already docked, maintain docked state in navbar center
+    // If already docked, maintain docked position in navbar center
     if (hasDockedRef.current) {
       if (logoWrapperRef.current) {
         gsap.set(logoWrapperRef.current, {
@@ -110,7 +113,7 @@ export default function Navbar() {
     if (rightWing) gsap.set(rightWing, { opacity: 0, pointerEvents: 'none' })
 
     const tl = gsap.timeline({
-      delay: 0.25,
+      delay: 0.2,
       onComplete: () => {
         hasDockedRef.current = true
         setHasDocked(true)
@@ -121,7 +124,7 @@ export default function Navbar() {
     })
     timelineRef.current = tl
 
-    // 1. POPUP in Hero: Scales up to large crest with spring and expanding orbit rings
+    // 1. POPUP in Hero: Scales up to prominent crest with spring and expanding halo rings
     tl.to(logoEl, {
       opacity: 1,
       scale: 1.85,
@@ -141,18 +144,18 @@ export default function Navbar() {
       )
     }
 
-    // 2. Pause in Hero section center so the user can admire the emblem
-    tl.to({}, { duration: 0.85 })
+    // 2. Pause in Hero section center so user can admire the emblem
+    tl.to({}, { duration: 0.8 })
 
-    // 3. Smooth slow glide up to the navbar center ("dhira sa upar jya aur center mai lag jya")
+    // 3. Smooth slow glide up to the navbar center
     tl.to(logoEl, {
       top: '50%',
       scale: 1,
-      duration: 1.45,
+      duration: 1.4,
       ease: 'power3.inOut',
     })
 
-    // Orbit rings softly fade out as it glides up
+    // Orbit rings softly fade out as logo glides up
     if (orbitEl) {
       tl.to(
         orbitEl,
@@ -184,30 +187,33 @@ export default function Navbar() {
     }
   }, [isHome])
 
-  // Scroll listener for navbar styling on scroll
+  // Scroll listener for auto-hiding and backdrop blur
   useEffect(() => {
     let ticking = false
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const scrollY = window.scrollY || window.pageYOffset || 0
-          setIsScrolled(scrollY > 20)
+          const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0
+          const lastScroll = lastScrollRef.current
+          const threshold = window.innerHeight * 0.12
 
-          // Navbar background styling — Completely Transparent with Zero Blur
-          if (navRef.current) {
-            navRef.current.style.background = 'transparent'
-            navRef.current.style.backdropFilter = 'none'
-            navRef.current.style.webkitBackdropFilter = 'none'
-            navRef.current.style.boxShadow = 'none'
-            navRef.current.style.borderBottom = '1px solid transparent'
-          }
+          // Frosted glass blur past hero
+          setIsPastHero(scrollY >= threshold)
 
           // If user scrolls down before auto-dock finishes, complete the dock immediately
           if (scrollY > 50 && !hasDockedRef.current && timelineRef.current) {
             timelineRef.current.progress(1)
           }
 
+          // Direction-Aware Auto-Hiding
+          if (scrollY > 120 && scrollY > lastScroll + 4) {
+            setIsHidden(true)
+          } else if (scrollY < lastScroll - 4 || scrollY <= 60) {
+            setIsHidden(false)
+          }
+
+          lastScrollRef.current = scrollY
           ticking = false
         })
         ticking = true
@@ -226,8 +232,8 @@ export default function Navbar() {
       document.body.style.overflow = 'hidden'
       gsap.to(menuRef.current, { opacity: 1, pointerEvents: 'all', duration: 0.35, ease: 'power2.out' })
       gsap.fromTo(
-        '.menu-link',
-        { y: 35, opacity: 0 },
+        '.mobile-nav-link',
+        { y: 30, opacity: 0 },
         { y: 0, opacity: 1, stagger: 0.06, duration: 0.45, ease: 'power3.out', delay: 0.05 }
       )
     } else {
@@ -240,7 +246,6 @@ export default function Navbar() {
   }, [menuOpen])
 
   useEffect(() => {
-    window.scrollTo({ top: 0 })
     setMenuOpen(false)
   }, [location.pathname])
 
@@ -249,337 +254,325 @@ export default function Navbar() {
     navigate(path)
   }
 
-  const isActive = (path) => location.pathname === path
-
   return (
     <>
       <header
         ref={navRef}
-        className="nav-pad"
+        className={`main-header ${isPastHero ? 'bg' : ''} ${isHidden ? 'hidden-nav' : ''}`}
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
-          right: 0,
-          zIndex: 1000,
-          padding: '0.75rem 3.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          transition: 'background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease',
-          background: 'transparent',
-          borderBottom: '1px solid transparent',
-          minHeight: '84px',
+          width: '100%',
+          zIndex: 9000,
+          height: 'clamp(64px, 8vh, 84px)',
+          transition:
+            'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease',
+          transform: isHidden ? 'translate3d(0, -100%, 0)' : 'translate3d(0, 0, 0)',
         }}
       >
-        {/* ── LEFT WING: Home & About Links ── */}
-        <nav
-          ref={leftWingRef}
-          className="nav-desktop-links"
-          aria-label="Left Navigation"
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            gap: '2.5rem',
-            zIndex: 1002,
-            opacity: hasDocked || !isHome ? 1 : 0,
-            pointerEvents: hasDocked || !isHome ? 'all' : 'none',
-            transition: 'opacity 0.3s ease',
-          }}
-        >
-          {leftLinks.map((link) => {
-            const active = isActive(link.path)
-            return (
-              <button
-                key={link.path}
-                onClick={() => go(link.path)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: active ? 'var(--gold)' : 'var(--text-bright)',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '0.76rem',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  fontWeight: active ? 600 : 400,
-                  cursor: 'pointer',
-                  transition: 'color 0.25s ease, transform 0.25s ease',
-                  position: 'relative',
-                  padding: '0.4rem 0',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--gold-light)'
-                  e.currentTarget.style.transform = 'translateY(-1px)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = active ? 'var(--gold)' : 'var(--text-bright)'
-                  e.currentTarget.style.transform = 'translateY(0)'
-                }}
-              >
-                {link.label}
-                {active && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      width: '20px',
-                      height: '1.5px',
-                      background: 'var(--gold)',
-                      boxShadow: '0 0 6px var(--gold-glow)',
-                    }}
-                  />
-                )}
-              </button>
-            )
-          })}
-        </nav>
-
-        {/* ── CENTER: PROMINENT ENLARGED LOGO BADGE + ONE-WAY HERO-TO-NAV DOCK ── */}
         <div
-          ref={logoWrapperRef}
           style={{
-            position: 'absolute',
-            left: '50%',
-            top: hasDocked || !isHome ? '50%' : '48vh',
-            transform: hasDocked || !isHome ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.15)',
-            transformOrigin: 'center center',
+            maxWidth: '1600px',
+            margin: '0 auto',
+            height: '100%',
+            padding: '0 clamp(1rem, 3.5vw, 2.5rem)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1005,
-            willChange: 'transform, top, opacity',
-            cursor: 'pointer',
-            padding: 0,
-            opacity: hasDocked || !isHome ? 1 : 0,
+            justifyContent: 'space-between',
+            position: 'relative',
           }}
-          onClick={() => go('/')}
-          title="Ekora Studio — Home"
         >
-          {/* Animated Hero Circle Orbits & Aura (Active only initially in hero) */}
+          {/* Left Wing Navigation Links (Desktop) */}
           <div
-            ref={orbitRingsRef}
+            ref={leftWingRef}
+            className="nav-wing left-wing"
             style={{
-              position: 'absolute',
-              inset: '-32px',
-              display: hasDocked || !isHome ? 'none' : 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              pointerEvents: 'none',
-              transition: 'opacity 0.3s ease',
-              opacity: 0,
-            }}
-          >
-            {/* Outer Glowing Pulsing Aura */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                borderRadius: '50%',
-                border: '1px solid var(--gold-line)',
-                animation: 'heroCirclePulse 3.5s ease-in-out infinite',
-              }}
-            />
-
-            {/* Rotating Architectural Dashed Orbital Ring */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '124%',
-                height: '124%',
-                borderRadius: '50%',
-                border: '1px dashed var(--gold-mid)',
-                animation: 'heroOrbitRotate 24s linear infinite',
-              }}
-            />
-
-            {/* Inner Cardinal Orbit Ring */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '144%',
-                height: '144%',
-                borderRadius: '50%',
-                border: '1px solid var(--gold-hair)',
-                animation: 'heroOrbitRotateRev 36s linear infinite',
-              }}
-            />
-          </div>
-
-          {/* Large, Crisp Circular Monogram Badge */}
-          <div
-            className="navbar-logo-badge"
-            style={{
-              position: 'relative',
-              width: '64px',
-              height: '64px',
-              borderRadius: '50%',
-              overflow: 'hidden',
-              border: '1.8px solid var(--gold)',
-              background: '#2B050B',
-              boxShadow: '0 8px 26px rgba(0, 0, 0, 0.65), 0 0 18px var(--gold-glow)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              padding: '2.5px',
-              transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.08)'
-              e.currentTarget.style.borderColor = 'var(--gold-light)'
-              e.currentTarget.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.85), 0 0 26px var(--gold)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)'
-              e.currentTarget.style.borderColor = 'var(--gold)'
-              e.currentTarget.style.boxShadow = '0 8px 26px rgba(0, 0, 0, 0.65), 0 0 18px var(--gold-glow)'
+              gap: 'clamp(1rem, 1.8vw, 2.2rem)',
+              marginRight: 'clamp(2.5rem, 5vw, 5rem)',
             }}
           >
-            <img
-              src="/logo.jpeg"
-              alt="Ekora"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '50%',
-                display: 'block',
-              }}
-            />
-          </div>
-        </div>
-
-        {/* ── RIGHT WING: Services, Projects, Contact Us + Search + Theme + Hamburger ── */}
-        <div
-          ref={rightWingRef}
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: '2.5rem',
-            transition: 'opacity 0.25s ease, transform 0.25s ease',
-            zIndex: 1002,
-            opacity: hasDocked || !isHome ? 1 : 0,
-            pointerEvents: hasDocked || !isHome ? 'all' : 'none',
-          }}
-        >
-          {/* Desktop Right Navigation Links */}
-          <nav
-            className="nav-desktop-links"
-            aria-label="Right Navigation"
-            style={{
-              gap: '2.5rem',
-              alignItems: 'center',
-            }}
-          >
-            {rightLinks.map((link) => {
-              const active = isActive(link.path)
+            {leftLinks.map((item) => {
+              const active = location.pathname === item.path
               return (
                 <button
-                  key={link.path}
-                  onClick={() => go(link.path)}
+                  key={item.path}
+                  onClick={() => go(item.path)}
+                  data-hoversize="8"
+                  className={`nav-link ${active ? 'active' : ''}`}
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: active ? 'var(--gold)' : 'var(--text-bright)',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '0.74rem',
-                    letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    fontWeight: active ? 600 : 400,
+                    padding: 0,
                     cursor: 'pointer',
-                    transition: 'color 0.25s ease, transform 0.25s ease',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: 'clamp(0.7rem, 0.9vw, 0.78rem)',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    color: active ? 'var(--gold)' : 'var(--text-bright)',
+                    transition: 'color 0.25s ease',
                     position: 'relative',
-                    padding: '0.4rem 0',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--gold-light)'
-                    e.currentTarget.style.transform = 'translateY(-1px)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = active ? 'var(--gold)' : 'var(--text-bright)'
-                    e.currentTarget.style.transform = 'translateY(0)'
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  {link.label}
+                  {item.label}
                   {active && (
                     <span
                       style={{
                         position: 'absolute',
-                        bottom: 0,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '20px',
-                        height: '1.5px',
+                        bottom: '-4px',
+                        left: 0,
+                        width: '100%',
+                        height: '1px',
                         background: 'var(--gold)',
-                        boxShadow: '0 0 6px var(--gold-glow)',
                       }}
                     />
                   )}
                 </button>
               )
             })}
-            <div style={{ marginLeft: '0.75rem', display: 'flex', alignItems: 'center' }}>
-              <ThemeToggle />
-            </div>
-          </nav>
+          </div>
 
-          {/* Mobile Right Controls: Theme Toggle + Hamburger Menu */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div className="nav-hamburger">
-              <ThemeToggle />
+          {/* Center Brand Emblem with Hero Pop-Up & Docking Sequence */}
+          <div
+            ref={logoWrapperRef}
+            className="nav-center-logo-wrapper"
+            onClick={() => go('/')}
+            data-hoversize="9"
+            style={{
+              position: 'absolute',
+              top: hasDocked ? '50%' : '48vh',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 9005,
+              userSelect: 'none',
+              transformOrigin: 'center center',
+            }}
+          >
+            {/* Concentric Radiant Halo Orbit Rings (Shown in Hero center) */}
+            <div
+              ref={orbitRingsRef}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 'clamp(120px, 20vw, 180px)',
+                height: 'clamp(120px, 20vw, 180px)',
+                borderRadius: '50%',
+                border: '1px solid var(--gold-mid)',
+                boxShadow: '0 0 35px var(--gold-glow, rgba(160, 16, 45, 0.35))',
+                pointerEvents: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <div
+                style={{
+                  width: 'clamp(90px, 15vw, 140px)',
+                  height: 'clamp(90px, 15vw, 140px)',
+                  borderRadius: '50%',
+                  border: '1px solid var(--gold-line)',
+                }}
+              />
             </div>
+
+            {/* Circular Luxury Brand Badge Emblem (Responsive sizing) */}
+            <div
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <div
+                className="nav-logo-badge"
+                style={{
+                  width: 'clamp(46px, 5vw, 64px)',
+                  height: 'clamp(46px, 5vw, 64px)',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '2px solid var(--gold)',
+                  background: '#2B050B',
+                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px var(--gold-glow, rgba(160, 16, 45, 0.35))',
+                  padding: '2px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.06)'
+                  e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.5), 0 0 24px var(--gold-glow, rgba(160, 16, 45, 0.5))'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)'
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px var(--gold-glow, rgba(160, 16, 45, 0.35))'
+                }}
+              >
+                <img
+                  src="/logo.jpeg"
+                  alt="Ekora Logo"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '50%',
+                    display: 'block',
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right Wing Navigation Links + Actions (Desktop) */}
+          <div
+            ref={rightWingRef}
+            className="nav-wing right-wing"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'clamp(0.85rem, 1.6vw, 2rem)',
+              marginLeft: 'clamp(2.5rem, 5vw, 5rem)',
+            }}
+          >
+            {rightLinks.map((item) => {
+              const active = location.pathname === item.path
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => go(item.path)}
+                  data-hoversize="8"
+                  className={`nav-link ${active ? 'active' : ''}`}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    cursor: 'pointer',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: 'clamp(0.7rem, 0.9vw, 0.78rem)',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    color: active ? 'var(--gold)' : 'var(--text-bright)',
+                    transition: 'color 0.25s ease',
+                    position: 'relative',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {item.label}
+                  {active && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        bottom: '-4px',
+                        left: 0,
+                        width: '100%',
+                        height: '1px',
+                        background: 'var(--gold)',
+                      }}
+                    />
+                  )}
+                </button>
+              )
+            })}
+
+            {/* Theme Toggle & Let's Talk CTA */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginLeft: '0.25rem' }}>
+              <ThemeToggle />
+              <button
+                onClick={() => go('/contact')}
+                data-hoversize="8"
+                className="lets-talk-btn"
+                style={{
+                  padding: '0.5rem 1.15rem',
+                  borderRadius: '30px',
+                  background: 'var(--gold)',
+                  color: '#FFFFFF',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '0.68rem',
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  border: '1px solid var(--gold)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                Let's Talk
+                <span style={{ fontSize: '0.85rem', lineHeight: 1 }}>+</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Actions Container (Right side on Mobile/Tablet) */}
+          <div
+            className="mobile-nav-actions"
+            style={{
+              display: 'none',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginLeft: 'auto',
+              zIndex: 9010,
+            }}
+          >
+            <ThemeToggle />
             <button
-              className="nav-hamburger"
+              className="mobile-menu-btn"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label="Toggle Navigation Menu"
               style={{
                 background: 'var(--bg-alt)',
-                border: '1px solid var(--gold-mid)',
-                borderRadius: '2px',
+                border: '1px solid var(--gold-hair)',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
                 cursor: 'pointer',
+                display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '5px',
-                width: '42px',
-                height: '42px',
-                padding: '8px',
-                transition: 'border-color 0.25s ease, background 0.25s ease',
+                padding: 0,
+                transition: 'all 0.25s ease',
               }}
             >
               <span
                 style={{
-                  display: 'block',
                   width: '20px',
                   height: '1.5px',
-                  background: menuOpen ? 'var(--gold)' : 'var(--text)',
-                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  background: 'var(--text-bright)',
+                  transition: 'transform 0.3s ease',
                   transform: menuOpen ? 'rotate(45deg) translate(4.5px, 4.5px)' : 'none',
                 }}
               />
               <span
                 style={{
-                  display: 'block',
-                  width: '14px',
+                  width: '20px',
                   height: '1.5px',
-                  background: menuOpen ? 'transparent' : 'var(--text)',
-                  transition: 'all 0.25s ease',
+                  background: 'var(--text-bright)',
                   opacity: menuOpen ? 0 : 1,
+                  transition: 'opacity 0.2s ease',
                 }}
               />
               <span
                 style={{
-                  display: 'block',
                   width: '20px',
                   height: '1.5px',
-                  background: menuOpen ? 'var(--gold)' : 'var(--text)',
-                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  background: 'var(--text-bright)',
+                  transition: 'transform 0.3s ease',
                   transform: menuOpen ? 'rotate(-45deg) translate(4.5px, -4.5px)' : 'none',
                 }}
               />
@@ -588,121 +581,55 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Fullscreen Architectural Mobile Menu */}
+      {/* Fullscreen Mobile Navigation Drawer */}
       <div
         ref={menuRef}
+        className="mobile-drawer"
         style={{
           position: 'fixed',
           inset: 0,
-          background: 'var(--bg)',
-          backdropFilter: 'blur(20px)',
-          zIndex: 9999,
+          background: 'var(--bg-deep)',
+          zIndex: 8999,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           opacity: 0,
           pointerEvents: 'none',
-          padding: '5rem 2rem 3rem',
-          overflowY: 'auto',
-          transition: 'background 0.4s ease',
+          padding: '2rem',
         }}
       >
-        {/* Mobile Menu Top Emblem */}
-        <div
-          style={{
-            width: '58px',
-            height: '58px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '1.5px solid var(--gold)',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px var(--gold-glow)',
-            marginBottom: '1.5rem',
-            background: '#2B050B',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '2px',
-          }}
-        >
-          <img src="/logo.jpeg" alt="Ekora" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
-        </div>
-
-        <div style={{ width: '32px', height: '1px', background: 'var(--gold)', marginBottom: '2.5rem' }} />
-
-        {/* Mobile Navigation Links */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '1.25rem',
-            width: '100%',
-            maxWidth: '360px',
-          }}
-        >
-          {mobileLinks.map((link) => {
-            const active = isActive(link.path)
-            return (
-              <button
-                key={link.path}
-                className="menu-link"
-                onClick={() => go(link.path)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: 'clamp(1.8rem, 6vw, 2.5rem)',
-                  color: active ? 'var(--gold)' : 'var(--text)',
-                  cursor: 'pointer',
-                  letterSpacing: '0.04em',
-                  transition: 'color 0.25s, transform 0.25s',
-                  lineHeight: 1.25,
-                  fontWeight: active ? 500 : 300,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = active ? 'var(--gold)' : 'var(--text)')}
-              >
-                {active && <span style={{ color: 'var(--gold)', fontSize: '0.9rem' }}>✦</span>}
-                {link.label}
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Mobile Drawer Theme Switcher Pill */}
-        <div className="menu-link" style={{ marginTop: '2rem' }}>
-          <ThemeToggle variant="pill" showLabel />
-        </div>
-
-        <div style={{ marginTop: '2rem', width: 'min(100%, 280px)', textAlign: 'center' }}>
-          <button
-            className="btn-gold menu-link"
-            onClick={() => go('/contact')}
-            style={{ width: '100%', padding: '0.9rem 2rem' }}
-          >
-            Contact Studio & Visit
-          </button>
-
-          <p
-            className="menu-link"
-            style={{
-              fontFamily: 'Inter',
-              fontSize: '0.65rem',
-              letterSpacing: '0.18em',
-              color: 'var(--text-faint)',
-              textTransform: 'uppercase',
-              marginTop: '2rem',
-            }}
-          >
-            New Delhi · Lucknow · Spatial Atelier
-          </p>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.4rem', textAlign: 'center' }}>
+          {mobileLinks.map((item) => (
+            <button
+              key={item.path}
+              onClick={() => go(item.path)}
+              className="mobile-nav-link"
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'Cormorant Garamond, serif',
+                fontSize: 'clamp(1.6rem, 5.5vw, 2.4rem)',
+                color: location.pathname === item.path ? 'var(--gold)' : 'var(--text-bright)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+          <div style={{ marginTop: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button
+              onClick={() => go('/contact')}
+              className="btn-gold"
+              style={{ padding: '0.65rem 1.6rem', fontSize: '0.75rem' }}
+            >
+              Contact Studio
+            </button>
+          </div>
         </div>
       </div>
     </>
   )
 }
-

@@ -254,6 +254,14 @@ canvas { display: block; background: var(--bg); }
 /* ============================================================
    SANJAY PURI ARCHITECTS STYLE ARCHITECTURAL DRAWING CURSOR
    ============================================================ */
+:root {
+  --arch-cursor-color: #111111;
+}
+
+[data-theme="dark"] {
+  --arch-cursor-color: #e5c388;
+}
+
 @media (min-width: 769px) {
   body,
   body * {
@@ -269,37 +277,41 @@ canvas { display: block; background: var(--bg); }
     top: 0;
     pointer-events: none;
     z-index: 999999;
-    transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-    transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.2s ease;
-    will-change: transform, width, height;
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.25s ease,
+      height 0.25s ease,
+      opacity 0.2s ease;
+    opacity: 0;
+    will-change: left, top, width, height;
     backface-visibility: hidden;
   }
 
-  /* Four Architectural Corners / Crop Marks */
+  /* Four Architectural Corners / Drafting Crosshair */
   .arch-drawing-cursor::before {
     content: "";
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) left top / 9px 1.2px no-repeat,
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) left top / 1.2px 9px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) left top / 9px 1px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) left top / 1px 9px no-repeat,
 
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) right top / 9px 1.2px no-repeat,
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) right top / 1.2px 9px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) right top / 9px 1px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) right top / 1px 9px no-repeat,
 
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) left bottom / 9px 1.2px no-repeat,
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) left bottom / 1.2px 9px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) left bottom / 9px 1px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) left bottom / 1px 9px no-repeat,
 
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) right bottom / 9px 1.2px no-repeat,
-      linear-gradient(var(--gold, #c8a96a), var(--gold, #c8a96a)) right bottom / 1.2px 9px no-repeat;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                border-radius 0.25s ease,
-                background 0.25s ease;
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) right bottom / 9px 1px no-repeat,
+      linear-gradient(var(--arch-cursor-color, #111), var(--arch-cursor-color, #111)) right bottom / 1px 9px no-repeat;
+
+    transition:
+      transform 0.3s ease,
+      border-radius 0.2s ease,
+      background 0.2s ease;
   }
 
-  /* Centered Text label (e.g. + EXPLORE) */
+  /* Centered Text Label (e.g. + EXPLORE) */
   .arch-drawing-cursor::after {
     content: "";
     position: absolute;
@@ -310,17 +322,17 @@ canvas { display: block; background: var(--bg); }
     font-size: 8px;
     letter-spacing: 1.5px;
     font-weight: 600;
-    color: var(--gold, #c8a96a);
+    color: var(--arch-cursor-color, #111);
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.25s ease;
     text-transform: uppercase;
   }
 
-  /* Project / Image hover state */
+  /* Project & Image hover state -> Expands with + EXPLORE */
   .arch-drawing-cursor.project {
-    width: 72px;
-    height: 72px;
+    width: 70px;
+    height: 70px;
   }
 
   .arch-drawing-cursor.project::after {
@@ -328,7 +340,7 @@ canvas { display: block; background: var(--bg); }
     opacity: 1;
   }
 
-  /* Text hover state = tiny dot */
+  /* Text & Paragraph hover state -> Tiny drafting dot */
   .arch-drawing-cursor.text {
     width: 6px;
     height: 6px;
@@ -336,24 +348,24 @@ canvas { display: block; background: var(--bg); }
 
   .arch-drawing-cursor.text::before {
     border-radius: 50%;
-    background: var(--gold, #c8a96a);
+    background: var(--arch-cursor-color, #111);
   }
 
-  /* Links & buttons hover state */
+  /* Links & interactive buttons hover state -> 45deg rotated diamond */
   .arch-drawing-cursor.link {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
   }
 
   .arch-drawing-cursor.link::before {
     transform: rotate(45deg);
   }
 
-  /* Drawing drafting line trail */
+  /* Architectural drafting line trail */
   .arch-line {
     position: fixed;
     height: 1px;
-    background: var(--gold, #c8a96a);
+    background: var(--arch-cursor-color, #111);
     pointer-events: none;
     z-index: 999998;
     transform-origin: left center;
@@ -1449,4 +1461,134 @@ canvas { display: block; background: var(--bg); }
   color: var(--gold);
 }
 
+/* ==========================================================================
+   CINEMATIC PINNED-SCROLL & INTERACTIVE ANIMATION ENGINE (Aparna Kaushik System)
+   ========================================================================== */
 
+
+
+/* ── 2. Direction-Aware Auto-Hiding Navbar Styles ── */
+header.main-header {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+}
+
+header.main-header.bg {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid var(--gold-line);
+  box-shadow: 0 10px 30px -10px rgba(117, 6, 29, 0.08);
+}
+
+[data-theme="dark"] header.main-header.bg {
+  background: rgba(13, 8, 10, 0.85);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid rgba(224, 30, 71, 0.25);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 1024px) {
+  .nav-wing {
+    display: none !important;
+  }
+  .mobile-nav-actions {
+    display: flex !important;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+
+/* ── 3. Split Parallax Section Responsiveness ── */
+@media (max-width: 980px) {
+  .split-parallax-container {
+    flex-direction: column !important;
+  }
+  .split-parallax-container.reverse {
+    flex-direction: column-reverse !important;
+  }
+  .split-frame-left,
+  .split-frame-right,
+  .split-text-left,
+  .split-text-right {
+    width: 100% !important;
+  }
+  .split-frame-left img,
+  .split-frame-right img {
+    width: 100% !important;
+  }
+}
+
+/* ── 4. Horizontal Services Slider Transitions ── */
+.hp_sec5 .title-item {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+}
+
+.hp_sec5 .title-item.expand {
+  transform: scale(1) !important;
+  opacity: 1 !important;
+}
+
+.hp_sec5 .title-item:hover {
+  opacity: 0.85;
+}
+
+/* ── 5. Camera Aperture Zoom Reveal Cards ── */
+.camera-aperture-card .aperture-frame {
+  will-change: clip-path, opacity;
+  transition: box-shadow 0.4s ease;
+}
+
+.camera-aperture-card:hover .aperture-frame {
+  box-shadow: 0 20px 50px -10px rgba(160, 16, 45, 0.25);
+}
+
+/* ── 6. Services Bottom Wrapper & Responsive Controls ── */
+.services-bottom-wrapper {
+  position: absolute;
+  bottom: clamp(2rem, 5vw, 4.5rem);
+  left: clamp(1.5rem, 5vw, 5rem);
+  right: clamp(1.5rem, 5vw, 5rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.services-bottom-wrapper * {
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .services-bottom-wrapper {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    bottom: 1.5rem !important;
+    left: 1.25rem !important;
+    right: 1.25rem !important;
+    gap: 1.25rem !important;
+  }
+}
+
+/* ── 7. Scroll Parallax Floaters (Desktop Only) ── */
+@media (max-width: 1024px) {
+  .scroll-floater {
+    display: none !important;
+  }
+}
+
+/* ── 8. Aparna Detail Sticky Nav Mobile Optimization ── */
+@media (max-width: 640px) {
+  .aparna-detail-sticky-nav {
+    padding: 0.75rem 1rem !important;
+    gap: 0.5rem !important;
+  }
+  .aparna-detail-back-btn span:last-child {
+    display: none;
+  }
+}

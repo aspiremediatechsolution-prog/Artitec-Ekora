@@ -295,7 +295,6 @@ export default function RecentProjectsModal({ onClose }) {
           left: 'clamp(0px, 3vw, 36px)', right: 'clamp(0px, 3vw, 36px)',
           zIndex: 1201,
           display: 'flex',
-          flexDirection: 'row',
           background: 'var(--bg-deep)',
           border: '1px solid var(--gold-line)',
         }}

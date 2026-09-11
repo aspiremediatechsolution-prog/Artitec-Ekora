@@ -123,7 +123,7 @@ export default function ProjectScopeEstimator() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '2.5rem' }}>
         {/* Left Column: Interactive Inputs */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Typology */}
@@ -198,7 +198,7 @@ export default function ProjectScopeEstimator() {
             <label style={{ fontFamily: 'Inter', fontSize: '0.68rem', letterSpacing: '0.16em', color: 'var(--gold)', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem', fontWeight: 600 }}>
               03 · Discipline Scope
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '0.6rem' }}>
               {serviceScopes.map((s) => {
                 const isSelected = selectedScopes.includes(s.id)
                 return (

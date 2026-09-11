@@ -92,9 +92,8 @@ export default function AboutPage() {
           sub="EKORA ARCHITECTS — Architecture with Purpose. Identity. Experience."
         />
 
-        {/* ── Content Wrapper with Floating Architectural Parallax Images ── */}
+        {/* ── Content Wrapper ── */}
         <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <ScrollParallaxFloaters floaters={aboutFloaters} />
 
           {/* ══════════════════════════════════════════════
               SECTION 1 — ABOUT EKORA ARCHITECTS

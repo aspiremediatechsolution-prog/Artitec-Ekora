@@ -65,7 +65,7 @@ export default function Preloader({ onComplete }) {
           left: 0,
           right: 0,
           height: '50%',
-          background: 'var(--bg-deep)',
+          background: 'var(--bg-deep, #0d080a)',
           transformOrigin: 'top',
           zIndex: 1,
         }}
@@ -80,7 +80,7 @@ export default function Preloader({ onComplete }) {
           left: 0,
           right: 0,
           height: '50%',
-          background: 'var(--bg-deep)',
+          background: 'var(--bg-deep, #0d080a)',
           transformOrigin: 'bottom',
           zIndex: 1,
         }}
@@ -109,7 +109,7 @@ export default function Preloader({ onComplete }) {
             overflow: 'hidden',
             border: '2px solid var(--gold)',
             background: '#2B050B',
-            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.8), 0 0 28px var(--gold-glow)',
+            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.8), 0 0 28px var(--gold-glow, rgba(160, 16, 45, 0.4))',
             padding: '4px',
             display: 'flex',
             alignItems: 'center',
@@ -129,13 +129,13 @@ export default function Preloader({ onComplete }) {
           />
         </div>
 
-        {/* Minimal Sleek Progress Bar (No text / pure clean luxury line) */}
+        {/* Minimal Sleek Progress Bar */}
         <div ref={progressWrapRef} style={{ width: 'clamp(140px, 35vw, 200px)' }}>
           <div
             style={{
               width: '100%',
               height: '1.5px',
-              background: 'var(--text-hair)',
+              background: 'var(--text-hair, rgba(255,255,255,0.15))',
               position: 'relative',
               overflow: 'hidden',
             }}
@@ -148,8 +148,8 @@ export default function Preloader({ onComplete }) {
                 top: 0,
                 height: '100%',
                 width: '0%',
-                background: 'var(--gold)',
-                boxShadow: '0 0 8px var(--gold)',
+                background: 'var(--gold, #A0102D)',
+                boxShadow: '0 0 8px var(--gold, #A0102D)',
               }}
             />
           </div>
@@ -158,4 +158,3 @@ export default function Preloader({ onComplete }) {
     </div>
   )
 }
-

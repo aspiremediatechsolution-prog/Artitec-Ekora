@@ -93,10 +93,8 @@ export default function ServicesPage() {
           sub="Architecture · Bespoke Interiors · Landscape · Turnkey Execution"
         />
 
-        {/* ── Content Wrapper with Floating Architectural Parallax Images ── */}
+        {/* ── Content Wrapper ── */}
         <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <ScrollParallaxFloaters floaters={servicesFloaters} />
-
           <Services />
 
           {/* ── Interactive Project Scope & Timeline Estimator ── */}

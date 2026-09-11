@@ -1,279 +1,465 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router-dom'
-import CardCarousel from '../ui/CardCarousel'
-import { w2_17_19, w2_17_18, w2_17_17, w2_17_16 } from '../../assets'
+import { w2_17_19, w2_17_18, w2_17_17, w2_17_16, gallery1, gallery2, gallery3, gallery4 } from '../../assets'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const services = [
+const servicesData = [
   {
     num: '01',
-    title: 'Luxury Villas & Estates',
-    desc: 'Private residences shaped around your family rituals, climate orientation, daylight, and natural landscape.',
-    scope: ['Site & Solar Analysis', 'Parametric 3D Modeling', 'Structural Engineering', 'Turnkey Construction'],
+    title: 'Iconic Architecture',
+    subtitle: 'Bespoke Private Estates & Villas',
+    desc: 'Volumetric equilibrium, climate orientation, and monolithic massing crafted for multi-generational living.',
     img: w2_17_19,
+    path: '/services',
   },
   {
     num: '02',
-    title: 'Interior Architecture & FF&E',
-    desc: 'Considered interiors where every texture, custom stone junction, lighting layer, and bespoke furniture piece is curated.',
-    scope: ['Spatial Planning', 'Material & Lighting Palettes', 'Bespoke Joinery & Metalwork', 'Custom FF&E Procurement'],
+    title: 'Interior Design',
+    subtitle: 'Haute-Couture Joinery & FF&E',
+    desc: 'Tactile stone selections, bookmatched Italian marbles, custom brushed bronze lighting, and acoustic walnut panelling.',
     img: w2_17_18,
+    path: '/services',
   },
   {
     num: '03',
-    title: 'Commercial & Workplace',
-    desc: 'Workspaces and boutique medical facilities designed to elevate productivity, user wellbeing, and brand presence.',
-    scope: ['Circulation & Flow Strategy', 'Acoustic & Thermal Comfort', 'Branded Environment', 'Code & Safety Compliance'],
+    title: 'Landscape Design',
+    subtitle: 'Biophilic Courtyards & Water Architecture',
+    desc: 'Seamless indoor-outdoor living, reflection pools, microclimate botanical zones, and stone colonnades.',
     img: w2_17_17,
+    path: '/services',
   },
   {
     num: '04',
-    title: 'Landscape Architecture',
-    desc: 'Outdoor living spaces, courtyards, and native biophilic ecosystems that seamlessly connect building to surroundings.',
-    scope: ['Microclimate Conditioning', 'Native Planting Schemes', 'Water Features & Hardscape', 'Outdoor Living Extensions'],
+    title: 'Smart Home Automation',
+    subtitle: 'Intelligent Lighting & Climate Ecosystems',
+    desc: 'Subtle, zero-clutter architectural automation orchestrating motorized solar shading, circadian lighting, and multi-zone climate.',
     img: w2_17_16,
+    path: '/services',
+  },
+  {
+    num: '05',
+    title: 'Lighting Architecture',
+    subtitle: 'Sculptural & Atmospheric Illuminations',
+    desc: 'Layered architectural illumination, grazing wall slots, and bespoke statement chandeliers designed to highlight textures.',
+    img: gallery4,
+    path: '/services',
+  },
+  {
+    num: '06',
+    title: 'Turnkey Execution',
+    subtitle: 'Millimetre-Precision Site Delivery',
+    desc: 'Master craftsman joinery, strict engineering tolerances, transparent BOQ procurement, and flawless key handover.',
+    img: gallery1,
+    path: '/services',
   },
 ]
 
-function ServiceCard({ s }) {
-  const cardRef = useRef(null)
-  const imgRef = useRef(null)
-  const glowRef = useRef(null)
-  const lineRef = useRef(null)
-  const contentRef = useRef(null)
-  const [hovered, setHovered] = useState(false)
+export default function Services() {
+  const containerRef = useRef(null)
+  const shutterRef = useRef(null)
+  const bgTrackRef = useRef(null)
+  const titleTrackRef = useRef(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const totalSlides = servicesData.length
   const navigate = useNavigate()
 
-  const onMouseMove = (e) => {
-    if (window.innerWidth <= 1024) return
-    const rect = cardRef.current?.getBoundingClientRect()
-    if (!rect) return
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    gsap.to(cardRef.current, { rotateY: x * 10, rotateX: -y * 8, duration: 0.4, ease: 'power2.out', transformPerspective: 900 })
-    gsap.to(imgRef.current, { scale: 1.08, x: x * 8, y: y * 6, filter: 'brightness(0.5)', duration: 0.5, ease: 'power2.out' })
-    gsap.to(glowRef.current, { opacity: 1, left: (x + 1) * 50 + '%', top: (y + 1) * 50 + '%', duration: 0.3 })
-    gsap.to(contentRef.current, { z: 20, duration: 0.4, ease: 'power2.out' })
-  }
-
-  const onMouseEnter = () => {
-    setHovered(true)
-    if (lineRef.current) gsap.to(lineRef.current, { width: '50px', duration: 0.35, ease: 'power2.out' })
-  }
-
-  const onMouseLeave = () => {
-    setHovered(false)
-    if (window.innerWidth <= 1024) return
-    if (cardRef.current) gsap.to(cardRef.current, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' })
-    if (imgRef.current) {
-      gsap.to(imgRef.current, { scale: 1, x: 0, y: 0, duration: 0.6, ease: 'power3.out' })
-      imgRef.current.style.filter = 'brightness(var(--media-dark))'
-    }
-    if (glowRef.current) gsap.to(glowRef.current, { opacity: 0, duration: 0.3 })
-    if (contentRef.current) gsap.to(contentRef.current, { z: 0, duration: 0.6, ease: 'power3.out' })
-    if (lineRef.current) gsap.to(lineRef.current, { width: '24px', duration: 0.35, ease: 'power2.out' })
-  }
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={onMouseMove}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={() => navigate('/contact')}
-      style={{
-        position: 'relative',
-        overflow: 'hidden',
-        height: 'clamp(380px, 46vw, 440px)',
-        border: `1px solid ${hovered ? 'var(--gold-line)' : 'var(--text-hair)'}`,
-        transition: 'border-color 0.3s ease',
-        transformStyle: 'preserve-3d',
-        willChange: 'transform',
-        cursor: 'pointer',
-        background: 'var(--bg-deep)',
-      }}
-    >
-      <img
-        ref={imgRef}
-        src={s.img}
-        alt={s.title}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          filter: 'brightness(var(--media-dark))',
-          transformOrigin: 'center',
-          willChange: 'transform, filter',
-        }}
-      />
-      <div
-        ref={glowRef}
-        style={{
-          position: 'absolute',
-          width: '200px',
-          height: '200px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, var(--gold-faint) 0%, transparent 70%)',
-          transform: 'translate(-50%,-50%)',
-          pointerEvents: 'none',
-          opacity: 0,
-          top: '50%',
-          left: '50%',
-          zIndex: 1,
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 1,
-          background: 'var(--overlay-video)',
-        }}
-      />
-      <div
-        ref={contentRef}
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          padding: 'clamp(1.5rem, 2.5vw, 2.2rem)',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          transformStyle: 'preserve-3d',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '0.75rem',
-            color: 'var(--gold)',
-            letterSpacing: '0.18em',
-            fontWeight: 500,
-          }}
-        >
-          {s.num}
-        </span>
-        <div>
-          <h3
-            style={{
-              fontFamily: 'Cormorant Garamond, Georgia, serif',
-              fontSize: 'clamp(1.4rem, 2vw, 1.85rem)',
-              fontWeight: 300,
-              color: '#FFFFFF',
-              marginBottom: '0.65rem',
-              lineHeight: 1.2,
-              transition: 'color 0.25s ease',
-            }}
-          >
-            {s.title}
-          </h3>
-          <p
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '0.78rem',
-              lineHeight: 1.7,
-              color: 'rgba(250, 247, 242, 0.88)',
-              marginBottom: '1rem',
-            }}
-          >
-            {s.desc}
-          </p>
-
-          {/* Scope Tags */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.25rem' }}>
-            {s.scope.map((tag, idx) => (
-              <span
-                key={idx}
-                style={{
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '0.62rem',
-                  color: 'var(--text-faint)',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  padding: '0.2rem 0.55rem',
-                  border: '1px solid var(--text-hair)',
-                  borderRadius: '2px',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div
-            ref={lineRef}
-            style={{
-              width: '24px',
-              height: '1px',
-              background: 'var(--gold)',
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default function Services() {
-  const sectionRef = useRef(null)
-
+  // 4. Container expands width from 0vw to 100vw on scroll (Aperture Shutter Effect)
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.service-card', {
-        y: 50,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 0.85,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      })
-    }, sectionRef)
+      if (shutterRef.current) {
+        gsap.fromTo(
+          shutterRef.current,
+          { width: '0vw', opacity: 0.3 },
+          {
+            width: '100vw',
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 85%',
+              end: 'top 20%',
+              scrub: 1.2,
+            },
+          }
+        )
+      }
+    })
+
     return () => ctx.revert()
   }, [])
 
+  // Slide transition animation
+  const goToSlide = useCallback((index) => {
+    const nextIdx = Math.max(0, Math.min(totalSlides - 1, index))
+    setCurrentSlide(nextIdx)
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768
+    const titleStep = isMobile ? 75 : 45
+
+    // Smoothly translate background image track (left: -N*100%)
+    if (bgTrackRef.current) {
+      gsap.to(bgTrackRef.current, {
+        x: `-${nextIdx * 100}vw`,
+        duration: 0.95,
+        ease: 'power3.out',
+      })
+    }
+
+    // Smoothly translate title track (marginLeft: -N*titleStep%)
+    if (titleTrackRef.current) {
+      gsap.to(titleTrackRef.current, {
+        x: `-${nextIdx * titleStep}vw`,
+        duration: 0.95,
+        ease: 'power3.out',
+      })
+    }
+  }, [totalSlides])
+
+  // Click on Left / Right half of the container
+  const handleContainerClick = (e) => {
+    // If clicking directly on a button or link, let it handle itself
+    if (e.target.closest('button, a, .btn_view, .nav-arrow')) return
+
+    const clickX = e.clientX
+    const width = window.innerWidth
+
+    if (clickX < width / 2) {
+      // Left side click
+      if (currentSlide > 0) goToSlide(currentSlide - 1)
+    } else {
+      // Right side click
+      if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1)
+    }
+  }
+
   return (
-    <section id="services" ref={sectionRef} className="section-pad" style={{ background: 'var(--bg-alt)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-          <div style={{ width: '24px', height: '1px', background: 'var(--gold)' }} />
-          <span
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '0.68rem',
-              fontWeight: 500,
-              letterSpacing: '0.22em',
-              color: 'var(--gold)',
-              textTransform: 'uppercase',
-            }}
-          >
-            Disciplines
-          </span>
-        </div>
-        <h2
+    <section
+      id="services"
+      ref={containerRef}
+      className="hp_sec5 services-slider"
+      data-cursor-slider="true"
+      data-current-slide={currentSlide}
+      data-total-slides={totalSlides}
+      onClick={handleContainerClick}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        minHeight: '700px',
+        overflow: 'hidden',
+        background: '#0d080a',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        userSelect: 'none',
+        cursor: 'pointer',
+      }}
+    >
+      {/* ── Expanding Shutter Box (width: 0vw -> 100vw on scroll) ── */}
+      <div
+        ref={shutterRef}
+        className="shutter-box"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100vw',
+          height: '100%',
+          overflow: 'hidden',
+          margin: '0 auto',
+        }}
+      >
+        {/* ── Background Image Track (translates left: -N*100vw) ── */}
+        <div
+          ref={bgTrackRef}
+          className="bg-track"
           style={{
-            fontFamily: 'Cormorant Garamond, Georgia, serif',
-            fontSize: 'clamp(2.2rem, 4.2vw, 3.8rem)',
-            fontWeight: 300,
-            color: 'var(--heading)',
-            marginBottom: '3.5rem',
-            lineHeight: 1.15,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            display: 'flex',
+            width: `${totalSlides * 100}vw`,
+            willChange: 'transform',
           }}
         >
-          Comprehensive Architectural &amp; Spatial Services
-        </h2>
-        <div style={{ marginTop: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
-          <CardCarousel itemsPerView={{ mobile: 1, tablet: 2, desktop: 2 }} gap={24} autoPlay={true} autoPlayInterval={3400}>
-            {services.map((s, i) => (
-              <div key={i} className="service-card" style={{ height: '100%' }}>
-                <ServiceCard s={s} />
-              </div>
-            ))}
-          </CardCarousel>
+          {servicesData.map((item, idx) => (
+            <div
+              key={idx}
+              style={{
+                position: 'relative',
+                width: '100vw',
+                height: '100%',
+                flexShrink: 0,
+                overflow: 'hidden',
+              }}
+            >
+              <img
+                src={item.img}
+                alt={item.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.72)',
+                  transform: currentSlide === idx ? 'scale(1)' : 'scale(1.08)',
+                  transition: 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease',
+                }}
+              />
+              {/* Vignette Scrim */}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top, rgba(13, 8, 10, 0.95) 0%, rgba(13, 8, 10, 0.4) 50%, rgba(13, 8, 10, 0.8) 100%)',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* ── Section Header Overlay ── */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '8vw',
+            left: '5vw',
+            right: '5vw',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            zIndex: 10,
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ width: '36px', height: '1px', background: 'var(--gold, #A0102D)' }} />
+            <span
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '0.68rem',
+                letterSpacing: '0.35em',
+                color: 'var(--gold, #C8193D)',
+                textTransform: 'uppercase',
+              }}
+            >
+              Design Disciplines
+            </span>
+          </div>
+
+          <div
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '0.75rem',
+              letterSpacing: '0.2em',
+              color: 'rgba(255, 255, 255, 0.6)',
+            }}
+          >
+            <span style={{ color: '#FFFFFF', fontWeight: 600 }}>0{currentSlide + 1}</span> / 0{totalSlides}
+          </div>
+        </div>
+
+        {/* ── Horizontal Title Track (translates marginLeft: -N*45vw or -N*75vw on mobile) ── */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '42%',
+            left: '5vw',
+            transform: 'translateY(-50%)',
+            zIndex: 10,
+            width: '100%',
+            overflow: 'visible',
+            pointerEvents: 'auto',
+          }}
+        >
+          <div
+            ref={titleTrackRef}
+            className="title-track"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4vw',
+              width: `${totalSlides * 75}vw`,
+              willChange: 'transform',
+            }}
+          >
+            {servicesData.map((item, idx) => {
+              const isExpanded = currentSlide === idx
+              return (
+                <div
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    goToSlide(idx)
+                  }}
+                  className={`title-item ${isExpanded ? 'expand' : ''}`}
+                  style={{
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease',
+                    transform: isExpanded ? 'scale(1)' : 'scale(0.75)',
+                    transformOrigin: 'left center',
+                    opacity: isExpanded ? 1 : 0.45,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'Cormorant Garamond, serif',
+                      fontSize: 'clamp(2rem, 6.5vw, 6.2rem)',
+                      fontWeight: isExpanded ? 400 : 300,
+                      color: isExpanded ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)',
+                      lineHeight: 1.05,
+                      textTransform: 'uppercase',
+                      whiteSpace: 'nowrap',
+                      textShadow: isExpanded ? '0 8px 30px rgba(0,0,0,0.8)' : 'none',
+                    }}
+                  >
+                    {item.title}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* ── Unified Responsive Bottom Bar (Description + Controls) ── */}
+        <div className="services-bottom-wrapper">
+          {/* Active Slide Description & Details */}
+          <div className="services-bottom-desc" style={{ maxWidth: '460px' }}>
+            <div
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: 'clamp(0.65rem, 0.9vw, 0.72rem)',
+                letterSpacing: '0.22em',
+                color: 'var(--gold, #C8193D)',
+                textTransform: 'uppercase',
+                marginBottom: '0.35rem',
+              }}
+            >
+              {servicesData[currentSlide].subtitle}
+            </div>
+            <p
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: 'clamp(0.78rem, 1.1vw, 0.88rem)',
+                lineHeight: 1.65,
+                color: 'rgba(255, 255, 255, 0.85)',
+                margin: 0,
+              }}
+            >
+              {servicesData[currentSlide].desc}
+            </p>
+          </div>
+
+          {/* Left / Right Direction Indicators + All Services CTA */}
+          <div
+            className="services-bottom-controls"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'clamp(0.6rem, 1.5vw, 1.2rem)',
+              flexShrink: 0,
+            }}
+          >
+            {/* Left Arrow Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                goToSlide(currentSlide - 1)
+              }}
+              disabled={currentSlide === 0}
+              data-hoversize="6"
+              className="nav-arrow lt"
+              aria-label="Previous Slide"
+              style={{
+                width: 'clamp(42px, 4vw, 50px)',
+                height: 'clamp(42px, 4vw, 50px)',
+                borderRadius: '50%',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                background: 'rgba(0, 0, 0, 0.4)',
+                color: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: currentSlide === 0 ? 'default' : 'pointer',
+                opacity: currentSlide === 0 ? 0.35 : 1,
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+
+            {/* Right Arrow Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                goToSlide(currentSlide + 1)
+              }}
+              disabled={currentSlide === totalSlides - 1}
+              data-hoversize="6"
+              className="nav-arrow rt"
+              aria-label="Next Slide"
+              style={{
+                width: 'clamp(42px, 4vw, 50px)',
+                height: 'clamp(42px, 4vw, 50px)',
+                borderRadius: '50%',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                background: 'rgba(0, 0, 0, 0.4)',
+                color: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: currentSlide === totalSlides - 1 ? 'default' : 'pointer',
+                opacity: currentSlide === totalSlides - 1 ? 0.35 : 1,
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+
+            {/* View All Services Link */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                navigate('/services')
+              }}
+              data-hoversize="8"
+              className="btn_view"
+              style={{
+                marginLeft: '0.5rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                padding: '0.55rem 1.25rem',
+                borderRadius: '30px',
+                background: 'var(--gold, #A0102D)',
+                color: '#FFFFFF',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '0.7rem',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                transition: 'all 0.3s ease',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span>All Services</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
