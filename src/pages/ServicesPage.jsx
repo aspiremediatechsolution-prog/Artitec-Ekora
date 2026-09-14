@@ -26,22 +26,22 @@ const process = [
   {
     step: '01',
     title: 'Contextual Discovery',
-    desc: 'Exhaustive site reconnaissance, solar path mapping, zoning analysis, and understanding how your family or organization lives and works.',
+    desc: 'Site reconnaissance, solar path mapping, and lifestyle brief calibration.',
   },
   {
     step: '02',
     title: 'Computational Design',
-    desc: 'Translating spatial logic into sketches, computational massing, and immersive 360° VR environments for early experiential validation.',
+    desc: 'Algorithmic massing, 3D spatial models, and immersive 360° VR validation.',
   },
   {
     step: '03',
     title: 'Precision Detailing',
-    desc: 'Comprehensive architectural construction drawings, stone and timber specifications, custom joinery, and lighting schedules specified down to the millimetre.',
+    desc: 'Millimetre-accurate architectural construction drawings and material schedules.',
   },
   {
     step: '04',
     title: 'Turnkey Delivery',
-    desc: 'Dedicated on-site project operations, structural quality benchmarks, contractor supervision, and flawless handover with comprehensive documentation.',
+    desc: 'On-site engineering, craft supervision, and seamless handover with zero surprises.',
   },
 ]
 

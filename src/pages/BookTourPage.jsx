@@ -14,7 +14,7 @@ import { studioVideo, faqVideo, gallery3, gallery1, heroMain } from '../assets'
 gsap.registerPlugin(ScrollTrigger)
 
 const bookTourFloaters = [
-  { img: gallery3, kicker: '01 · Design Atelier', title: 'Private Studio Consultation', top: '10%', side: 'right' },
+  { img: gallery3, kicker: '01 · Design Studio', title: 'Private Studio Consultation', top: '10%', side: 'right' },
   { img: gallery1, kicker: '02 · Material Library', title: 'Tactile Finishes & Stone', top: '48%', side: 'left' },
   { img: heroMain, kicker: '03 · Completed Villa', title: 'Experiential Walkthrough', top: '78%', side: 'right' },
 ]
@@ -23,20 +23,20 @@ const tourTypes = ['Private Site Visit', 'Design Studio Tour', 'Completed Villa 
 
 const faqs = [
   {
-    q: 'How long does an architectural tour take?',
-    a: 'Site and villa tours typically run for 60 to 90 minutes. A design studio visit in New Delhi or Lucknow is usually 45 to 60 minutes.',
+    q: 'How long does a tour take?',
+    a: '60 to 90 minutes for site visits; 45 minutes for studio consultations.',
   },
   {
     q: 'Do I need an advance appointment?',
-    a: 'Yes — all studio visits and villa walkthroughs are strictly private and scheduled in advance to ensure the principal team’s undivided focus.',
+    a: 'Yes, all studio sessions and villa tours are strictly by prior appointment.',
   },
   {
-    q: 'Can family members or project partners join?',
-    a: 'Of course. We welcome up to four guests per booking to keep discussions focused, personal, and comfortable.',
+    q: 'Can family or partners join?',
+    a: 'Yes, up to four guests are welcome per private session.',
   },
   {
     q: 'Is there a virtual consultation option?',
-    a: 'Yes. If you are located outside Delhi NCR or Lucknow, we conduct full 360° virtual walkthroughs over high-definition video calls.',
+    a: 'Yes, we provide full 360° virtual walkthroughs over high-definition video calls.',
   },
 ]
 

@@ -10,7 +10,7 @@ export default function PageBanner({
       head1={title}
       head2=""
       sub={sub}
-      label="Ekora Architects — Spatial Atelier"
+      label="Ekora Architects — Spatial Architecture"
       video={video}
     />
   )

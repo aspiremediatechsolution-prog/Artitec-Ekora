@@ -332,14 +332,14 @@ export default function About() {
             <p
               style={{
                 fontFamily: 'Inter, sans-serif',
-                fontSize: '0.9rem',
-                lineHeight: 1.85,
+                fontSize: '0.88rem',
+                lineHeight: 1.8,
                 color: 'var(--text-dim)',
                 marginBottom: '1.5rem',
-                maxWidth: '520px',
+                maxWidth: '500px',
               }}
             >
-              Founded on the timeless doctrine of spatial purity, Ekora Atelier sculpts bespoke residences, private estates, and luxury sanctuaries. We weave natural daylight, organic minerals, and tailored joinery into spaces of permanent serenity.
+              Ekora Architects crafts bespoke residences, private estates, and luxury sanctuaries — balancing natural daylight, authentic stone, and refined craft into spaces of permanent serenity.
             </p>
 
             {/* Read More Action */}
@@ -393,7 +393,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Section 2: Principal Architect & Atelier Craft Split Parallax ── */}
+      {/* ── Section 2: Principal Architect & Architectural Craft Split Parallax ── */}
       <section
         ref={section2Ref}
         className="hp_sec3 split-parallax-section reverse"
@@ -464,14 +464,14 @@ export default function About() {
             <p
               style={{
                 fontFamily: 'Inter, sans-serif',
-                fontSize: '0.9rem',
-                lineHeight: 1.85,
+                fontSize: '0.88rem',
+                lineHeight: 1.8,
                 color: 'var(--text-dim)',
                 marginBottom: '1.75rem',
-                maxWidth: '520px',
+                maxWidth: '500px',
               }}
             >
-              Every architectural stroke is calibrated against environmental orientation, tactile acoustics, and bespoke client rituals. We treat each residence as a legacy monument to life lived with depth and elegance.
+              Every volume is calibrated to environmental orientation, natural light, and lifestyle rituals — creating enduring spaces with depth, proportion, and quiet elegance.
             </p>
 
             {/* Quick Stat Counter Row (Responsive 2x2 on Mobile, 4x1 on Desktop) */}

@@ -13,7 +13,7 @@ export default function Hero({
   head1 = 'Architecture',
   head2 = 'of quiet permanence.',
   sub = 'Villas · Bespoke Interiors · Landscape Architecture',
-  label = 'Ekora Architects — Spatial Atelier',
+  label = 'Ekora Architects — Spatial Architecture',
   video = heroVideo,
   baseImage = gallery4,
 }) {
@@ -115,8 +115,9 @@ export default function Hero({
         touchAction: 'pan-y',
       }}
     >
-      {/* ── High-Definition Architectural Video Background (new.mp4 / custom video) ── */}
+      {/* ── High-Definition Architectural Video Background ── */}
       <video
+        key={video || heroVideo}
         ref={(el) => {
           if (el) {
             el.muted = true
@@ -134,6 +135,7 @@ export default function Hero({
         loop
         playsInline
         preload="auto"
+        src={video || heroVideo}
         className="hero-bg-media hero-video"
         style={{
           position: 'absolute',
@@ -194,17 +196,18 @@ export default function Hero({
                 style={{
                   width: '36px',
                   height: '1px',
-                  background: 'var(--gold)',
+                  background: 'var(--gold-light, #FF335F)',
                 }}
               />
               <span
                 style={{
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '0.68rem',
-                  fontWeight: 500,
+                  fontWeight: 600,
                   letterSpacing: '0.25em',
-                  color: 'var(--gold)',
+                  color: 'var(--gold-light, #FF335F)',
                   textTransform: 'uppercase',
+                  textShadow: '0 2px 10px rgba(0, 0, 0, 0.8)',
                 }}
               >
                 Ekora Studio · Architectural Works
@@ -214,11 +217,12 @@ export default function Hero({
               ref={subtitleRef}
               style={{
                 fontFamily: 'Inter, sans-serif',
-                fontSize: 'clamp(0.62rem, 1.2vw, 0.72rem)',
+                fontSize: 'clamp(0.65rem, 1.2vw, 0.76rem)',
                 letterSpacing: '0.22em',
-                color: 'var(--text-dim)',
+                color: 'rgba(255, 255, 255, 0.85)',
                 textTransform: 'uppercase',
                 margin: 0,
+                textShadow: '0 2px 12px rgba(0, 0, 0, 0.85)',
               }}
             >
               {sub}
@@ -231,8 +235,8 @@ export default function Hero({
               ref={lineRef}
               style={{
                 width: '45px',
-                height: '1px',
-                background: 'var(--gold)',
+                height: '1.5px',
+                background: 'var(--gold-light, #FF335F)',
                 marginBottom: '1.2rem',
               }}
             />
@@ -241,12 +245,12 @@ export default function Hero({
                 <h1
                   style={{
                     fontFamily: 'Cormorant Garamond, serif',
-                    fontSize: 'clamp(2.2rem, 5.5vw, 4.8rem)',
+                    fontSize: 'clamp(2.4rem, 5.5vw, 4.8rem)',
                     fontWeight: 300,
                     lineHeight: 1.05,
-                    color: 'var(--text)',
+                    color: '#FFFFFF',
                     letterSpacing: '-0.02em',
-                    textShadow: '0 4px 40px var(--shadow-deep)',
+                    textShadow: '0 4px 30px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.8)',
                     margin: 0,
                   }}
                 >
@@ -258,13 +262,13 @@ export default function Hero({
                   <h1
                     style={{
                       fontFamily: 'Cormorant Garamond, serif',
-                      fontSize: 'clamp(2.2rem, 5.5vw, 4.8rem)',
+                      fontSize: 'clamp(2.4rem, 5.5vw, 4.8rem)',
                       fontWeight: 300,
                       lineHeight: 1.05,
-                      color: 'var(--gold)',
+                      color: 'var(--gold-light, #FF335F)',
                       letterSpacing: '-0.02em',
                       fontStyle: 'italic',
-                      textShadow: '0 0 80px var(--gold-glow)',
+                      textShadow: '0 0 40px rgba(255, 51, 95, 0.6), 0 2px 20px rgba(0, 0, 0, 0.9)',
                       margin: 0,
                     }}
                   >
@@ -280,10 +284,12 @@ export default function Hero({
                 style={{
                   marginTop: '1.25rem',
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: 'clamp(0.62rem, 1.3vw, 0.72rem)',
+                  fontSize: 'clamp(0.68rem, 1.3vw, 0.82rem)',
                   letterSpacing: '0.22em',
-                  color: 'var(--text-dim)',
+                  color: 'rgba(255, 255, 255, 0.85)',
                   textTransform: 'uppercase',
+                  textShadow: '0 2px 14px rgba(0, 0, 0, 0.85)',
+                  fontWeight: 400,
                 }}
               >
                 {sub}
@@ -312,8 +318,9 @@ export default function Hero({
             fontFamily: 'Inter, sans-serif',
             fontSize: '0.62rem',
             letterSpacing: '0.28em',
-            color: 'var(--text-faint)',
+            color: 'rgba(255, 255, 255, 0.5)',
             textTransform: 'uppercase',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
           }}
         >
           {label}
@@ -341,8 +348,9 @@ export default function Hero({
             fontFamily: 'Inter',
             fontSize: '0.58rem',
             letterSpacing: '0.24em',
-            color: 'var(--text-faint)',
+            color: 'rgba(255, 255, 255, 0.65)',
             textTransform: 'uppercase',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
           }}
         >
           Scroll
@@ -351,7 +359,7 @@ export default function Hero({
           style={{
             width: '1px',
             height: '32px',
-            background: 'linear-gradient(to bottom, var(--gold), transparent)',
+            background: 'linear-gradient(to bottom, var(--gold-light, #FF335F), transparent)',
             animation: 'heroScrollPulse 2s ease-in-out infinite',
           }}
         />

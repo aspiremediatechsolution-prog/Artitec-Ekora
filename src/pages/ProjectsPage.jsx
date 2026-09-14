@@ -13,7 +13,6 @@ import ErrorBoundary from '../components/ui/ErrorBoundary'
 import ProjectModal from '../components/ui/ProjectModal'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
 import CardCarousel from '../components/ui/CardCarousel'
-import ScrollytellingSection from '../components/ui/ScrollytellingSection'
 import { statsVideo, ctaProjects, gallery3, w2_16_59, w2_17_17 } from '../assets'
 import { projectsData } from '../data/projectsData'
 import { panoramaProjects } from '../data/panoramasData'
@@ -354,7 +353,7 @@ export default function ProjectsPage() {
           {/* ══════════════════════════════════════════════════════════
               SECTION 1 (HERO FEATURE): 360° VIRTUAL WALKTHROUGHS EXPLORER (Mr. Chishti Residence)
           ══════════════════════════════════════════════════════════ */}
-          <section id="360-hero-section" style={{ background: 'var(--bg-deep)', paddingTop: 'clamp(4rem, 7vw, 6rem)', paddingBottom: 'clamp(4rem, 7vw, 6rem)', borderBottom: '1px solid var(--gold-hair)' }}>
+          <section id="360-hero-section" style={{ background: 'var(--bg-deep)', paddingTop: 'clamp(3rem, 5vw, 4.5rem)', paddingBottom: 'clamp(2.5rem, 4vw, 3.5rem)', borderBottom: '1px solid var(--gold-hair)' }}>
           <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 5%' }}>
             <div className="page-reveal" style={{ marginBottom: 'clamp(2rem, 4vw, 3.5rem)' }}>
               <SectionHeading
@@ -500,14 +499,6 @@ export default function ProjectsPage() {
             )}
           </div>
         </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 1.5: CINEMATIC ARCHITECTURAL SCROLLYTELLING BREAKDOWN
-        ══════════════════════════════════════════════════════════ */}
-        <ScrollytellingSection
-          projectName="The Chishti Residence"
-          projectLocation="Lucknow · Master Commission"
-        />
 
         {/* ══════════════════════════════════════════════════════════
             SECTION 2: APARNA KAUSHIK PROJECT SHOWCASE (lyt1 & lyt2 Full / Split Rhythm)

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 import Hero from '../components/sections/Hero'
 import About from '../components/sections/About'
-import Services from '../components/sections/Services'
 import Projects from '../components/sections/Projects'
 import Footer from '../components/sections/Footer'
 import CTABanner from '../components/ui/CTABanner'
@@ -34,10 +33,7 @@ export default function Home() {
         {/* ── 2. Brand Story & Studio Split Parallax ── */}
         <About />
 
-        {/* ── 3. Core Disciplines / Services Slider ── */}
-        <Services />
-
-        {/* ── 4. Featured Works (Architecture & Interiors Showcase) ── */}
+        {/* ── 3. Featured Works (Architecture & Interiors Showcase) ── */}
         <Projects id="projects" title="Featured Works" subtitle="Iconic Architecture · Bespoke Interiors · Master Planning" />
 
         {/* ── 5. Spatial Philosophy Statement ── */}
@@ -124,7 +120,7 @@ export default function Home() {
         />
       </main>
 
-      <Footer />
+      <Footer hidePreFooter={true} />
     </>
   )
 }

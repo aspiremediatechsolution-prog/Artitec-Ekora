@@ -97,23 +97,21 @@ export default function Preloader({ onComplete }) {
           maxWidth: '90vw',
         }}
       >
-        {/* Large Brand Emblem Badge */}
+        {/* Large Brand Emblem */}
         <div
           ref={logoImgRef}
           style={{
             position: 'relative',
-            marginBottom: '2rem',
-            width: 'clamp(95px, 20vw, 130px)',
-            height: 'clamp(95px, 20vw, 130px)',
+            marginBottom: '2.2rem',
+            width: 'clamp(100px, 22vw, 140px)',
+            height: 'clamp(100px, 22vw, 140px)',
             borderRadius: '50%',
             overflow: 'hidden',
-            border: '2px solid var(--gold)',
-            background: '#2B050B',
-            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.8), 0 0 28px var(--gold-glow, rgba(160, 16, 45, 0.4))',
-            padding: '4px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            background: '#2B050B',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), 0 0 45px rgba(200, 25, 61, 0.4)',
           }}
         >
           <img
@@ -123,8 +121,8 @@ export default function Preloader({ onComplete }) {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              borderRadius: '50%',
               display: 'block',
+              filter: 'contrast(1.1) saturate(1.25) brightness(1.08)',
             }}
           />
         </div>

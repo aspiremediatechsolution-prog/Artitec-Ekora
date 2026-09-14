@@ -244,7 +244,7 @@ export default function CommandPalette({ isOpen, onClose }) {
             Use <strong style={{ color: 'var(--gold)' }}>↑</strong> <strong style={{ color: 'var(--gold)' }}>↓</strong> to navigate · <strong style={{ color: 'var(--gold)' }}>↵</strong> to select
           </span>
           <span style={{ fontFamily: 'Inter', fontSize: '0.6rem', color: 'var(--gold)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-            Ekora Atelier Index
+            Ekora Architects Index
           </span>
         </div>
       </div>

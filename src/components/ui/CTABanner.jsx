@@ -118,10 +118,11 @@ export default function CTABanner({
             fontFamily: 'Cormorant Garamond, Georgia, serif',
             fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
             fontWeight: 300,
-            color: 'var(--heading)',
+            color: '#FFFFFF',
             lineHeight: 1.15,
             marginBottom: '1.25rem',
             textWrap: 'balance',
+            textShadow: '0 4px 30px rgba(0, 0, 0, 0.8)',
           }}
         >
           {title}

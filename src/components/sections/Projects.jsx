@@ -79,7 +79,7 @@ export default function Projects({
     return rows
   }, [filteredProjects])
 
-  // 5. Featured Works Camera-Aperture Zoom Reveals (box 0% -> 100%, image scale 2.0 -> 1.0)
+  // Smooth Scroll Reveal for Project Cards (No harsh clip-path white borders)
   useEffect(() => {
     const ctx = gsap.context(() => {
       const apertureCards = document.querySelectorAll('.camera-aperture-card')
@@ -88,35 +88,35 @@ export default function Projects({
         const frame = card.querySelector('.aperture-frame')
         const img = card.querySelector('.aperture-img')
 
-        if (frame && img) {
-          // Frame expands from 0% / tight aperture to 100%
+        if (frame) {
           gsap.fromTo(
             frame,
-            { clipPath: 'inset(20% 20% 20% 20%)', opacity: 0.5 },
+            { y: 30, opacity: 0.85 },
             {
-              clipPath: 'inset(0% 0% 0% 0%)',
+              y: 0,
               opacity: 1,
-              ease: 'none',
+              ease: 'power2.out',
               scrollTrigger: {
                 trigger: card,
-                start: 'top 90%',
-                end: 'top 25%',
-                scrub: 1.2,
+                start: 'top 92%',
+                end: 'top 45%',
+                scrub: 1,
               },
             }
           )
+        }
 
-          // Internal image counter-zooms from scale(2.0) down to scale(1.0)
+        if (img) {
           gsap.fromTo(
             img,
-            { scale: 2.0 },
+            { scale: 1.08 },
             {
               scale: 1.0,
               ease: 'none',
               scrollTrigger: {
                 trigger: card,
-                start: 'top 90%',
-                end: 'top 25%',
+                start: 'top 92%',
+                end: 'top 35%',
                 scrub: 1.2,
               },
             }
@@ -136,11 +136,11 @@ export default function Projects({
       style={{
         position: 'relative',
         background: 'var(--bg)',
-        padding: '7vw 0',
+        padding: 'clamp(3.5rem, 5vw, 5rem) 0',
         overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 4vw' }}>
+      <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 clamp(1rem, 3.5vw, 3.5rem)' }}>
         {/* ── Section Header & Category Filter ── */}
         <div
           style={{
@@ -148,10 +148,10 @@ export default function Projects({
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            marginBottom: '4.5rem',
+            marginBottom: 'clamp(2rem, 3.5vw, 3rem)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ width: '36px', height: '1px', background: 'var(--gold)' }} />
             <span
               style={{
@@ -170,11 +170,11 @@ export default function Projects({
           <h2
             style={{
               fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(2.5rem, 5vw, 4.8rem)',
+              fontSize: 'clamp(2.2rem, 4.5vw, 4.2rem)',
               fontWeight: 300,
               color: 'var(--heading)',
               lineHeight: 1.1,
-              marginBottom: '0.6rem',
+              marginBottom: '0.5rem',
               textTransform: 'uppercase',
             }}
           >
@@ -184,10 +184,10 @@ export default function Projects({
           <p
             style={{
               fontFamily: 'Inter, sans-serif',
-              fontSize: '0.85rem',
+              fontSize: '0.82rem',
               letterSpacing: '0.12em',
               color: 'var(--text-dim)',
-              marginBottom: '2.5rem',
+              marginBottom: '1.75rem',
             }}
           >
             {subtitle}
@@ -231,7 +231,7 @@ export default function Projects({
         </div>
 
         {/* ── Editorial Staggered Layout Rows ── */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '5vw' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(1.5rem, 2.5vw, 2.5rem)' }}>
           {editorialRows.map((row) => {
             if (row.type === 'full') {
               const project = row.items[0]
@@ -247,17 +247,16 @@ export default function Projects({
                     cursor: 'pointer',
                   }}
                 >
-                  {/* Aperture Frame (clip-path expands on scroll) */}
+                  {/* Aperture Frame */}
                   <div
                     className="aperture-frame pc"
                     style={{
                       width: '100%',
-                      height: 'clamp(420px, 68vh, 750px)',
+                      height: 'clamp(400px, 62vh, 700px)',
                       position: 'relative',
                       overflow: 'hidden',
-                      borderRadius: '2px',
+                      borderRadius: '3px',
                       boxShadow: 'var(--shadow-card)',
-                      willChange: 'clip-path, opacity',
                     }}
                   >
                     <img
@@ -353,7 +352,7 @@ export default function Projects({
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-                  gap: '4vw',
+                  gap: 'clamp(1rem, 2vw, 1.8rem)',
                   width: '100%',
                 }}
               >

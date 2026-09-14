@@ -581,6 +581,13 @@ canvas { display: block; background: var(--bg); }
   margin-bottom: 3.5rem;
 }
 
+.footer-3col-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1.05fr 1.25fr;
+  gap: clamp(2.5rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -705,6 +712,7 @@ canvas { display: block; background: var(--bg); }
   .services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1.25rem !important; }
   .team-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1.5rem !important; }
   .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 3rem !important; }
+  .footer-3col-grid { grid-template-columns: 1fr !important; gap: 2.75rem !important; }
   .about-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
   .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
   .book-tour-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
@@ -732,6 +740,7 @@ canvas { display: block; background: var(--bg); }
   .contact-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
   .book-tour-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
   .footer-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+  .footer-3col-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
   .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1.25rem !important; }
   .grid-resp-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 1.2rem !important; }
   .grid-resp-3 { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
@@ -876,8 +885,8 @@ canvas { display: block; background: var(--bg); }
 
 .aparna-projects-showcase {
   background: var(--bg);
-  padding-top: clamp(3.5rem, 6vw, 6rem);
-  padding-bottom: clamp(4rem, 7vw, 7rem);
+  padding-top: clamp(2rem, 3.5vw, 3.5rem);
+  padding-bottom: clamp(3rem, 5vw, 5rem);
   overflow: hidden;
   position: relative;
 }
@@ -885,7 +894,7 @@ canvas { display: block; background: var(--bg); }
 /* Header (lyt1) */
 .aparna-lyt1 {
   text-align: center;
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   padding: 0 clamp(1rem, 3vw, 3rem);
 }
 
@@ -915,8 +924,8 @@ canvas { display: block; background: var(--bg); }
   display: flex;
   gap: 0.65rem;
   overflow-x: auto;
-  padding-bottom: 1.25rem;
-  margin-bottom: clamp(2.5rem, 4.5vw, 4rem);
+  padding-bottom: 0.75rem;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   justify-content: center;

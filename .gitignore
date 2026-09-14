@@ -30,6 +30,7 @@ dist-ssr/
 
 # Raw assets & Local workspace
 ekora project/
+hero video/
 scratch/
 .temp_videos/
 *.CR3
