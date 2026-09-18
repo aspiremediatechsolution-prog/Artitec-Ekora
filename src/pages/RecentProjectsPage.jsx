@@ -308,7 +308,7 @@ function PanoCard({ pano, index, onOpen }) {
         alt={pano.title}
         loading="lazy"
         style={{
-          width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+          width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block',
           transform: hovered ? 'scale(1.04)' : 'scale(1)',
           transition: 'transform 0.6s cubic-bezier(0.23,1,0.32,1)',
           filter: hovered ? 'brightness(0.5)' : 'brightness(0.75)',
@@ -506,8 +506,10 @@ function ImageLightbox({ src, onClose }) {
         alt=""
         onClick={(e) => e.stopPropagation()}
         style={{
-          maxWidth: '92vw', maxHeight: '92vh',
+          maxWidth: '92vw', maxHeight: '90vh',
+          width: 'auto', height: 'auto',
           objectFit: 'contain',
+          borderRadius: '2px',
           boxShadow: '0 0 80px rgba(0,0,0,0.8)',
         }}
       />
@@ -552,7 +554,7 @@ function ImageCard({ src, index, projectName, onOpen }) {
         alt={`${projectName} — ${index + 1}`}
         loading="lazy"
         style={{
-          width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+          width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block',
           transform: hovered ? 'scale(1.06)' : 'scale(1)',
           transition: 'transform 0.5s cubic-bezier(0.23,1,0.32,1)',
         }}

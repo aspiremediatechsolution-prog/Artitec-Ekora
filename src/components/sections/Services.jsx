@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router-dom'
-import { w2_17_19, w2_17_18, w2_17_17, w2_17_16, gallery1, gallery2, gallery3, gallery4 } from '../../assets'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,7 +11,6 @@ const servicesData = [
     title: 'Iconic Architecture',
     subtitle: 'Bespoke Private Estates & Villas',
     desc: 'Climate-responsive massing and monolithic volumes crafted for luxury living.',
-    img: w2_17_19,
     path: '/services',
   },
   {
@@ -20,7 +18,6 @@ const servicesData = [
     title: 'Interior Design',
     subtitle: 'Haute-Couture Joinery & FF&E',
     desc: 'Curated stone selections, custom bronze accents, and acoustic timber panelling.',
-    img: w2_17_18,
     path: '/services',
   },
   {
@@ -28,7 +25,6 @@ const servicesData = [
     title: 'Landscape Design',
     subtitle: 'Biophilic Courtyards & Water Architecture',
     desc: 'Biophilic courtyards, reflection pools, and seamless indoor-outdoor flow.',
-    img: w2_17_17,
     path: '/services',
   },
   {
@@ -36,7 +32,6 @@ const servicesData = [
     title: 'Smart Home Automation',
     subtitle: 'Intelligent Lighting & Climate Ecosystems',
     desc: 'Zero-clutter smart ecosystems for circadian lighting, shading, and climate.',
-    img: w2_17_16,
     path: '/services',
   },
   {
@@ -44,7 +39,6 @@ const servicesData = [
     title: 'Lighting Architecture',
     subtitle: 'Sculptural & Atmospheric Illuminations',
     desc: 'Layered architectural illumination designed to highlight texture and form.',
-    img: gallery4,
     path: '/services',
   },
   {
@@ -52,7 +46,6 @@ const servicesData = [
     title: 'Turnkey Execution',
     subtitle: 'Millimetre-Precision Site Delivery',
     desc: 'Engineering precision, transparent procurement, and seamless handover.',
-    img: gallery1,
     path: '/services',
   },
 ]
@@ -60,7 +53,6 @@ const servicesData = [
 export default function Services() {
   const containerRef = useRef(null)
   const shutterRef = useRef(null)
-  const bgTrackRef = useRef(null)
   const titleTrackRef = useRef(null)
   const [currentSlide, setCurrentSlide] = useState(0)
   const totalSlides = servicesData.length
@@ -98,15 +90,6 @@ export default function Services() {
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768
     const titleStep = isMobile ? 75 : 45
-
-    // Smoothly translate background image track (left: -N*100%)
-    if (bgTrackRef.current) {
-      gsap.to(bgTrackRef.current, {
-        x: `-${nextIdx * 100}vw`,
-        duration: 0.95,
-        ease: 'power3.out',
-      })
-    }
 
     // Smoothly translate title track (marginLeft: -N*titleStep%)
     if (titleTrackRef.current) {
@@ -150,7 +133,7 @@ export default function Services() {
         height: '100vh',
         minHeight: '700px',
         overflow: 'hidden',
-        background: '#0d080a',
+        background: 'var(--bg-deep, #0d080a)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -169,57 +152,9 @@ export default function Services() {
           height: '100%',
           overflow: 'hidden',
           margin: '0 auto',
+          background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(160, 16, 45, 0.08), transparent 70%), var(--bg-deep, #0d080a)',
         }}
       >
-        {/* ── Background Image Track (translates left: -N*100vw) ── */}
-        <div
-          ref={bgTrackRef}
-          className="bg-track"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            display: 'flex',
-            width: `${totalSlides * 100}vw`,
-            willChange: 'transform',
-          }}
-        >
-          {servicesData.map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                position: 'relative',
-                width: '100vw',
-                height: '100%',
-                flexShrink: 0,
-                overflow: 'hidden',
-              }}
-            >
-              <img
-                src={item.img}
-                alt={item.title}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  filter: 'brightness(0.72)',
-                  transform: currentSlide === idx ? 'scale(1)' : 'scale(1.08)',
-                  transition: 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease',
-                }}
-              />
-              {/* Vignette Scrim */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background:
-                    'linear-gradient(to top, rgba(13, 8, 10, 0.95) 0%, rgba(13, 8, 10, 0.4) 50%, rgba(13, 8, 10, 0.8) 100%)',
-                }}
-              />
-            </div>
-          ))}
-        </div>
 
         {/* ── Section Header Overlay ── */}
         <div

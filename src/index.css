@@ -175,6 +175,18 @@
   box-sizing: border-box;
 }
 
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  object-fit: cover;
+  image-rendering: auto;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 html {
   scroll-behavior: auto;
   background-color: var(--bg);
@@ -778,15 +790,8 @@ canvas { display: block; background: var(--bg); }
   .grid-resp-4 { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
   .section-pad { padding: 2.75rem 1rem !important; }
 
-  .btn-gold, .btn-outline {
-    width: 100% !important;
-    padding: 0.85rem 1.25rem !important;
-    text-align: center !important;
-    justify-content: center !important;
-  }
-
   .aparna-lyt2 .dv {
-    height: 310px !important;
+    height: clamp(280px, 72vw, 360px) !important;
   }
 }
 
@@ -1599,5 +1604,56 @@ header.main-header.bg {
   }
   .aparna-detail-back-btn span:last-child {
     display: none;
+  }
+}
+
+/* ── 9. Universal Responsive Hardening ── */
+@media (max-width: 768px) {
+  h1, .hero-heading {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .aparna-detail-hero-title {
+    font-size: clamp(1.8rem, 6.5vw, 2.8rem) !important;
+  }
+
+  .aparna-detail-sec0 {
+    padding: 2rem 1.25rem !important;
+  }
+
+  .aparna-detail-gallery {
+    padding: 0 1rem !important;
+  }
+
+  .camera-aperture-card .aperture-frame {
+    height: clamp(300px, 60vw, 450px) !important;
+  }
+
+  .split-frame-left,
+  .split-frame-right {
+    height: clamp(280px, 55vw, 420px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .aparna-detail-hero {
+    height: 380px !important;
+  }
+
+  .aparna-detail-hero-content {
+    left: 1.25rem !important;
+    right: 1.25rem !important;
+    bottom: 1.5rem !important;
+  }
+
+  .camera-aperture-card .aperture-frame {
+    height: 280px !important;
+  }
+
+  .camera-aperture-card .aperture-frame > div:last-child {
+    bottom: 1.25rem !important;
+    left: 1.25rem !important;
+    right: 1.25rem !important;
   }
 }

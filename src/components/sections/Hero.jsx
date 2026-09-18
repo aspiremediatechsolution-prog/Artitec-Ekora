@@ -15,6 +15,7 @@ export default function Hero({
   sub = 'Villas · Bespoke Interiors · Landscape Architecture',
   label = 'Ekora Architects — Spatial Architecture',
   video = heroVideo,
+  image = null,
   baseImage = gallery4,
 }) {
   const location = useLocation()
@@ -27,12 +28,18 @@ export default function Hero({
   const scrollHintRef = useRef(null)
   const rightLabelRef = useRef(null)
   const textWrapRef = useRef(null)
-  const videoRef = useRef(null)
+  const mediaRef = useRef(null)
+
+  const isImageMedia = Boolean(
+    image ||
+    (typeof video === 'string' && /\.(jpg|jpeg|png|webp|avif|svg)(\?.*)?$/i.test(video))
+  )
+  const activeMediaSrc = image || video || heroVideo
 
   // Entrance animation & parallax
   useEffect(() => {
-    const vid = videoRef.current
-    if (vid) {
+    const vid = mediaRef.current
+    if (vid && !isImageMedia && vid.tagName === 'VIDEO') {
       vid.muted = true
       vid.defaultMuted = true
       const playPromise = vid.play()
@@ -76,8 +83,8 @@ export default function Hero({
       },
     })
 
-    const st2 = videoRef.current
-      ? gsap.to(videoRef.current, {
+    const st2 = mediaRef.current
+      ? gsap.to(mediaRef.current, {
           y: 45,
           scale: 1.05,
           ease: 'none',
@@ -97,7 +104,7 @@ export default function Hero({
       st2?.scrollTrigger?.kill()
       st2?.kill()
     }
-  }, [video])
+  }, [video, image, isImageMedia])
 
   return (
     <section
@@ -115,42 +122,65 @@ export default function Hero({
         touchAction: 'pan-y',
       }}
     >
-      {/* ── High-Definition Architectural Video Background ── */}
-      <video
-        key={video || heroVideo}
-        ref={(el) => {
-          if (el) {
-            el.muted = true
-            el.defaultMuted = true
-            el.playsInline = true
-            el.setAttribute('playsinline', '')
-            el.setAttribute('webkit-playsinline', '')
-            el.setAttribute('muted', '')
-            el.play().catch(() => {})
-          }
-          videoRef.current = el
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        src={video || heroVideo}
-        className="hero-bg-media hero-video"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          transformOrigin: 'center',
-          zIndex: 1,
-          opacity: 1,
-          display: 'block',
-        }}
-      >
-        <source src={video || heroVideo} type="video/mp4" />
-      </video>
+      {/* ── Architectural Media Background (Video or High-Res Image) ── */}
+      {isImageMedia ? (
+        <img
+          key={activeMediaSrc}
+          ref={mediaRef}
+          src={activeMediaSrc}
+          alt={head1 || 'Architecture'}
+          className="hero-bg-media hero-image"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            transformOrigin: 'center',
+            zIndex: 1,
+            opacity: 1,
+            display: 'block',
+          }}
+        />
+      ) : (
+        <video
+          key={activeMediaSrc}
+          ref={(el) => {
+            if (el) {
+              el.muted = true
+              el.defaultMuted = true
+              el.playsInline = true
+              el.setAttribute('playsinline', '')
+              el.setAttribute('webkit-playsinline', '')
+              el.setAttribute('muted', '')
+              el.play().catch(() => {})
+            }
+            mediaRef.current = el
+          }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          src={activeMediaSrc}
+          className="hero-bg-media hero-video"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            transformOrigin: 'center',
+            zIndex: 1,
+            opacity: 1,
+            display: 'block',
+          }}
+        >
+          <source src={activeMediaSrc} type="video/mp4" />
+        </video>
+      )}
 
       {/* ── Cinematic Ambient Lighting & Vignette Overlays ── */}
       <div

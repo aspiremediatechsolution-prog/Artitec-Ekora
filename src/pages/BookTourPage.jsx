@@ -121,8 +121,8 @@ export default function BookTourPage() {
     <>
       <main ref={pageRef}>
         <PageBanner
-          title="Schedule a Private Tour"
-          sub="Experience our built spaces, material samples, and design studio in person."
+          title="Contact Us"
+          sub="Connect with our principal architects, explore material samples, and schedule private studio consultations."
         />
 
         {/* ── Content Wrapper with Floating Architectural Parallax Images ── */}
@@ -135,7 +135,7 @@ export default function BookTourPage() {
             <div className="book-tour-grid">
               {/* Left Column: Interactive Form */}
               <div className="reveal">
-                <SectionHeading kicker="Private Consultation" title="Select your experience." />
+                <SectionHeading kicker="Get In Touch" title="Connect with our studio architects." />
 
                 {submitted ? (
                   <div
@@ -309,7 +309,8 @@ export default function BookTourPage() {
                       <p style={{ fontFamily: 'Inter', fontSize: '0.8rem', lineHeight: 1.7, color: 'var(--text-soft)', paddingLeft: '1.35rem' }}>
                         2nd Floor, 203 A, Felix Square,<br />
                         Sushant Golf City, Ansal API,<br />
-                        Near Lulu Mall, Lucknow 226030
+                        Nearby Lulu Mall, Lucknow,<br />
+                        Uttar Pradesh 226030
                       </p>
                     </div>
                   </div>

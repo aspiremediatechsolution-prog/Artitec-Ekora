@@ -1,22 +1,68 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useNavigate } from 'react-router-dom'
 import { philosophyVideo } from '../../assets'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function CTABanner({
   title,
   sub,
   label = 'Contact Us',
-  video = philosophyVideo,
+  video = null,
+  image = null,
   secondaryAction = null,
 }) {
   const navigate = useNavigate()
   const sectionRef = useRef(null)
   const mediaRef = useRef(null)
+  const contentRef = useRef(null)
+
+  const activeVideo = image ? null : (video || philosophyVideo)
 
   useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (image && mediaRef.current && sectionRef.current) {
+        gsap.fromTo(
+          mediaRef.current,
+          { yPercent: -10, scale: 1.05 },
+          {
+            yPercent: 10,
+            scale: 1.18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.25,
+            },
+          }
+        )
+      }
+
+      if (contentRef.current && sectionRef.current) {
+        gsap.fromTo(
+          contentRef.current.children,
+          { y: 35, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.0,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+    }, sectionRef)
+
     const vid = mediaRef.current
-    if (vid) {
+    if (activeVideo && vid && vid.tagName === 'VIDEO') {
       vid.muted = true
       vid.defaultMuted = true
       const p = vid.play()
@@ -34,7 +80,9 @@ export default function CTABanner({
         })
       }
     }
-  }, [video])
+
+    return () => ctx.revert()
+  }, [activeVideo, image])
 
   const onMouseMove = (e) => {
     if (window.innerWidth <= 1024) return
@@ -42,12 +90,12 @@ export default function CTABanner({
     if (!rect) return
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    gsap.to(mediaRef.current, { x: x * 20, y: y * 12, scale: 1.05, duration: 0.6, ease: 'power2.out' })
+    gsap.to(mediaRef.current, { x: x * 18, y: y * 10, duration: 0.6, ease: 'power2.out' })
   }
 
   const onMouseLeave = () => {
     if (window.innerWidth <= 1024) return
-    gsap.to(mediaRef.current, { x: 0, y: 0, scale: 1, duration: 0.9, ease: 'power3.out' })
+    gsap.to(mediaRef.current, { x: 0, y: 0, duration: 0.9, ease: 'power3.out' })
   }
 
   return (
@@ -63,47 +111,69 @@ export default function CTABanner({
         background: 'var(--bg-deep)',
       }}
     >
-      <video
-        ref={(el) => {
-          if (el) {
-            el.muted = true
-            el.defaultMuted = true
-            el.playsInline = true
-            el.setAttribute('playsinline', '')
-            el.setAttribute('webkit-playsinline', '')
-            el.setAttribute('muted', '')
-            el.play().catch(() => {})
-          }
-          mediaRef.current = el
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          filter: 'brightness(0.35) contrast(1.05)',
-          transformOrigin: 'center',
-          willChange: 'transform',
-          opacity: 1,
-          display: 'block',
-        }}
-      >
-        <source src={video} type="video/mp4" />
-      </video>
+      {image ? (
+        <img
+          ref={mediaRef}
+          src={image}
+          alt={title}
+          style={{
+            position: 'absolute',
+            inset: '-10%',
+            width: '120%',
+            height: '120%',
+            objectFit: 'cover',
+            filter: 'brightness(0.38) contrast(1.1) saturate(1.05)',
+            transformOrigin: 'center',
+            willChange: 'transform',
+            display: 'block',
+            pointerEvents: 'none',
+          }}
+        />
+      ) : (
+        <video
+          ref={(el) => {
+            if (el) {
+              el.muted = true
+              el.defaultMuted = true
+              el.playsInline = true
+              el.setAttribute('playsinline', '')
+              el.setAttribute('webkit-playsinline', '')
+              el.setAttribute('muted', '')
+              el.play().catch(() => {})
+            }
+            mediaRef.current = el
+          }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            filter: 'brightness(0.35) contrast(1.05)',
+            transformOrigin: 'center',
+            willChange: 'transform',
+            opacity: 1,
+            display: 'block',
+          }}
+        >
+          <source src={activeVideo} type="video/mp4" />
+        </video>
+      )}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'var(--overlay-banner)',
+          background: 'linear-gradient(to bottom, rgba(13, 8, 10, 0.85) 0%, rgba(13, 8, 10, 0.6) 50%, rgba(13, 8, 10, 0.9) 100%)',
+          zIndex: 1,
         }}
       />
       <div
+        ref={contentRef}
         style={{
           position: 'relative',
           zIndex: 2,

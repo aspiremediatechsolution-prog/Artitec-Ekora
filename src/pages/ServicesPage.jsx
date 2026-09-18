@@ -9,18 +9,11 @@ import Footer from '../components/sections/Footer'
 import SectionHeading from '../components/ui/SectionHeading'
 import CTABanner from '../components/ui/CTABanner'
 import TiltCard from '../components/ui/TiltCard'
-import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
 import ProjectScopeEstimator from '../components/ui/ProjectScopeEstimator'
 import CardCarousel from '../components/ui/CardCarousel'
-import { processVideo, ctaServices, w2_16_49, w2_17_19, w2_17_18 } from '../assets'
+import { gallery4, gallery2 } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const servicesFloaters = [
-  { img: w2_16_49, kicker: '01 · Architectural Form', title: 'Master Planning & Massing', top: '10%', side: 'right' },
-  { img: w2_17_19, kicker: '02 · Bespoke FF&E', title: 'Tactile Interior Joinery', top: '46%', side: 'left' },
-  { img: w2_17_18, kicker: '03 · Turnkey Delivery', title: 'Zero Surprise Execution', top: '78%', side: 'right' },
-]
 
 const process = [
   {
@@ -47,30 +40,11 @@ const process = [
 
 export default function ServicesPage() {
   const pageRef = useRef(null)
-  const videoRef = useRef(null)
+  const processSectionRef = useRef(null)
+  const processImgRef = useRef(null)
   const navigate = useNavigate()
 
   useEffect(() => {
-    const vid = videoRef.current
-    if (vid) {
-      vid.muted = true
-      vid.defaultMuted = true
-      const p = vid.play()
-      if (p !== undefined) {
-        p.catch(() => {
-          const tryPlay = () => {
-            if (vid) vid.play().catch(() => {})
-            window.removeEventListener('click', tryPlay)
-            window.removeEventListener('touchstart', tryPlay)
-            window.removeEventListener('scroll', tryPlay)
-          }
-          window.addEventListener('click', tryPlay, { once: true })
-          window.addEventListener('touchstart', tryPlay, { once: true })
-          window.addEventListener('scroll', tryPlay, { once: true })
-        })
-      }
-    }
-
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.reveal').forEach((el) => {
         gsap.from(el, {
@@ -81,6 +55,24 @@ export default function ServicesPage() {
           scrollTrigger: { trigger: el, start: 'top 88%' },
         })
       })
+
+      if (processImgRef.current && processSectionRef.current) {
+        gsap.fromTo(
+          processImgRef.current,
+          { yPercent: -10, scale: 1.05 },
+          {
+            yPercent: 10,
+            scale: 1.18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: processSectionRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.2,
+            },
+          }
+        )
+      }
     }, pageRef)
     return () => ctx.revert()
   }, [])
@@ -113,39 +105,36 @@ export default function ServicesPage() {
           </section>
 
           {/* ── Delivery Methodology Process ── */}
-          <section className="section-pad" style={{ background: 'var(--bg-deep)', position: 'relative', overflow: 'hidden' }}>
-            <video
-              ref={(el) => {
-                if (el) {
-                  el.muted = true
-                  el.defaultMuted = true
-                  el.playsInline = true
-                  el.setAttribute('playsinline', '')
-                  el.setAttribute('webkit-playsinline', '')
-                  el.setAttribute('muted', '')
-                  el.play().catch(() => {})
-                }
-                videoRef.current = el
+          <section
+            ref={processSectionRef}
+            className="section-pad"
+            style={{ background: 'var(--bg-deep)', position: 'relative', overflow: 'hidden' }}
+          >
+            <img
+              ref={processImgRef}
+              src={gallery4}
+              alt="Delivery Methodology"
+              style={{
+                position: 'absolute',
+                inset: '-10%',
+                width: '120%',
+                height: '120%',
+                objectFit: 'cover',
+                filter: 'brightness(0.3) contrast(1.1) saturate(1.05)',
+                transformOrigin: 'center',
+                willChange: 'transform',
+                display: 'block',
+                pointerEvents: 'none',
               }}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
+            />
+            <div
               style={{
                 position: 'absolute',
                 inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                filter: 'brightness(0.32) saturate(1.05)',
-                opacity: 1,
-                display: 'block',
+                background: 'linear-gradient(to bottom, rgba(13, 8, 10, 0.9) 0%, rgba(13, 8, 10, 0.58) 50%, rgba(13, 8, 10, 0.92) 100%)',
+                zIndex: 1,
               }}
-            >
-              <source src={processVideo} type="video/mp4" />
-            </video>
-            <div style={{ position: 'absolute', inset: 0, background: 'var(--overlay-band)' }} />
+            />
             <div style={{ position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto' }}>
               <SectionHeading
                 kicker="Process"
@@ -186,7 +175,7 @@ export default function ServicesPage() {
         <CTABanner
           title="Ready to commission your project?"
           sub="Every project begins with a structured discovery session to understand your site, timeline, and vision."
-          video={ctaServices}
+          image={gallery2}
         />
       </main>
       <Footer />

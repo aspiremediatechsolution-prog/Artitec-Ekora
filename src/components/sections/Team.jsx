@@ -59,6 +59,7 @@ function TeamCard({ member }) {
         <img ref={imgRef} src={member.img} alt={member.name}
           style={{
             width: '100%', height: '100%', objectFit: 'cover',
+            objectPosition: 'center 18%',
             filter: hovered ? 'brightness(0.5) grayscale(0%)' : 'brightness(0.7) grayscale(30%)',
             transformOrigin: 'center', transition: 'filter 0.5s', willChange: 'transform',
           }}

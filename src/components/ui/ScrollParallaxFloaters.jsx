@@ -131,7 +131,7 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
         <img
           src={f1.img}
           alt={f1.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.95)' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block', filter: 'brightness(0.95)' }}
         />
         <div
           style={{
@@ -174,7 +174,7 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
         <img
           src={f2.img}
           alt={f2.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.95)' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block', filter: 'brightness(0.95)' }}
         />
         <div
           style={{
@@ -217,7 +217,7 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
         <img
           src={f3.img}
           alt={f3.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.95)' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block', filter: 'brightness(0.95)' }}
         />
         <div
           style={{

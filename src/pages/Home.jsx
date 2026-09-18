@@ -8,20 +8,48 @@ import About from '../components/sections/About'
 import Projects from '../components/sections/Projects'
 import Footer from '../components/sections/Footer'
 import CTABanner from '../components/ui/CTABanner'
-import { philosophyVideo } from '../assets'
+import { heroMain, projectsImage } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
   const introRef = useRef(null)
-  const philVideoRef = useRef(null)
+  const philSectionRef = useRef(null)
+  const philImgRef = useRef(null)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (philVideoRef.current) {
-      philVideoRef.current.muted = true
-      philVideoRef.current.play().catch(() => {})
-    }
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray('.reveal').forEach((el) => {
+        gsap.from(el, {
+          y: 32,
+          opacity: 0,
+          duration: 0.95,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' },
+        })
+      })
+
+      if (philImgRef.current && philSectionRef.current) {
+        gsap.fromTo(
+          philImgRef.current,
+          { yPercent: -10, scale: 1.05 },
+          {
+            yPercent: 10,
+            scale: 1.18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: philSectionRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.25,
+            },
+          }
+        )
+      }
+    }, introRef)
+
+    return () => ctx.revert()
   }, [])
 
   return (
@@ -38,6 +66,7 @@ export default function Home() {
 
         {/* ── 5. Spatial Philosophy Statement ── */}
         <section
+          ref={philSectionRef}
           className="section-pad"
           style={{
             background: 'var(--bg-deep)',
@@ -46,29 +75,29 @@ export default function Home() {
             overflow: 'hidden',
           }}
         >
-          <video
-            ref={philVideoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
+          <img
+            ref={philImgRef}
+            src={heroMain}
+            alt="Spatial Philosophy"
             style={{
               position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
+              inset: '-10%',
+              width: '120%',
+              height: '120%',
               objectFit: 'cover',
-              filter: 'brightness(0.32) saturate(1.05)',
+              filter: 'brightness(0.3) contrast(1.1) saturate(1.05)',
+              transformOrigin: 'center',
+              willChange: 'transform',
+              display: 'block',
+              pointerEvents: 'none',
             }}
-          >
-            <source src={philosophyVideo} type="video/mp4" />
-          </video>
+          />
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'var(--overlay-band)',
+              background: 'linear-gradient(to bottom, rgba(13, 8, 10, 0.9) 0%, rgba(13, 8, 10, 0.58) 50%, rgba(13, 8, 10, 0.92) 100%)',
+              zIndex: 1,
             }}
           />
           <div
@@ -117,6 +146,7 @@ export default function Home() {
         <CTABanner
           title="Begin your architectural journey with Ekora."
           sub="Schedule a private consultation at our New Delhi head office or regional studio."
+          image={projectsImage}
         />
       </main>
 

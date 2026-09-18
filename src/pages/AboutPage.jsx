@@ -10,7 +10,7 @@ import CTABanner from '../components/ui/CTABanner'
 import TiltCard from '../components/ui/TiltCard'
 import ScrollParallaxFloaters from '../components/ui/ScrollParallaxFloaters'
 import CardCarousel from '../components/ui/CardCarousel'
-import { founderIshwer, founderRajdeep, ctaAbout, aboutImage, gallery1, heroSide } from '../assets'
+import { founderIshwer, founderRajdeep, ctaAbout, aboutImage, gallery1, gallery3, heroSide } from '../assets'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -261,7 +261,9 @@ export default function AboutPage() {
                       width: '100%',
                       aspectRatio: '3/4',
                       objectFit: 'cover',
+                      objectPosition: 'center 15%',
                       display: 'block',
+                      borderRadius: '2px',
                       filter: 'brightness(0.92) contrast(1.02)',
                     }}
                   />
@@ -433,7 +435,9 @@ export default function AboutPage() {
                       width: '100%',
                       aspectRatio: '3/4',
                       objectFit: 'cover',
+                      objectPosition: 'center 15%',
                       display: 'block',
+                      borderRadius: '2px',
                       filter: 'brightness(0.92) contrast(1.02)',
                     }}
                   />
@@ -500,10 +504,10 @@ export default function AboutPage() {
       </div>
 
       <CTABanner
-          title="Meet the architects behind your vision."
-          sub="Schedule a private consultation at our studio or on your project site — honest advice, transparent execution."
-          video={ctaAbout}
-        />
+        title="Meet the architects behind your vision."
+        sub="Schedule a private consultation at our studio or on your project site — honest advice, transparent execution."
+        image={gallery3}
+      />
       </main>
       <Footer hidePreFooter={true} />
     </>

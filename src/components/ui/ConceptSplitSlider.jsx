@@ -107,7 +107,7 @@ export default function ConceptSplitSlider({
             inset: 0,
             width: '100%',
             height: '100%',
-            objectFit: 'contain',
+            objectFit: 'cover',
             objectPosition: 'center center',
             display: 'block',
             pointerEvents: 'none',
@@ -136,7 +136,7 @@ export default function ConceptSplitSlider({
               left: 0,
               width: `${containerDim.width}px`,
               height: `${containerDim.height}px`,
-              objectFit: 'contain',
+              objectFit: 'cover',
               objectPosition: 'center center',
               maxWidth: 'none',
             }}

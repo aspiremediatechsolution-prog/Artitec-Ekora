@@ -11,7 +11,6 @@ const leftLinks = [
 
 const rightLinks = [
   { label: 'Projects', path: '/projects' },
-  { label: 'Contact Us', path: '/contact' },
 ]
 
 const mobileLinks = [
@@ -19,7 +18,6 @@ const mobileLinks = [
   { label: 'About', path: '/about' },
   { label: 'Services', path: '/services' },
   { label: 'Projects', path: '/projects' },
-  { label: 'Book a Tour', path: '/book-a-tour' },
   { label: 'Contact Us', path: '/contact' },
 ]
 
@@ -265,7 +263,7 @@ export default function Navbar() {
           left: 0,
           width: '100%',
           zIndex: 9000,
-          height: 'clamp(64px, 8vh, 84px)',
+          height: 'clamp(72px, 8.5vh, 88px)',
           transition:
             'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease',
           transform: isHidden ? 'translate3d(0, -100%, 0)' : 'translate3d(0, 0, 0)',
@@ -276,7 +274,7 @@ export default function Navbar() {
             maxWidth: '1600px',
             margin: '0 auto',
             height: '100%',
-            padding: '0 clamp(1rem, 3.5vw, 2.5rem)',
+            padding: '0 clamp(1.25rem, 3.5vw, 3rem)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -290,8 +288,10 @@ export default function Navbar() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 'clamp(1rem, 1.8vw, 2.2rem)',
-              marginRight: 'clamp(2.5rem, 5vw, 5rem)',
+              gap: 'clamp(1.2rem, 2vw, 2.4rem)',
+              flex: 1,
+              justifyContent: 'flex-start',
+              paddingRight: 'clamp(2.5rem, 5vw, 4.5rem)',
             }}
           >
             {leftLinks.map((item) => {
@@ -384,7 +384,7 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Circular Luxury Brand Badge Emblem (Responsive sizing) */}
+            {/* Circular Luxury Brand Badge Emblem (Responsive sizing with optimal breathing room) */}
             <div
               style={{
                 position: 'relative',
@@ -397,13 +397,13 @@ export default function Navbar() {
               <div
                 className="nav-logo-badge"
                 style={{
-                  width: 'clamp(46px, 5vw, 64px)',
-                  height: 'clamp(46px, 5vw, 64px)',
+                  width: 'clamp(42px, 4vw, 52px)',
+                  height: 'clamp(42px, 4vw, 52px)',
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  border: '2px solid var(--gold)',
+                  border: '1.5px solid var(--gold)',
                   background: '#2B050B',
-                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px var(--gold-glow, rgba(160, 16, 45, 0.35))',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4), 0 0 14px var(--gold-glow, rgba(160, 16, 45, 0.35))',
                   padding: '2px',
                   display: 'flex',
                   alignItems: 'center',
@@ -413,11 +413,11 @@ export default function Navbar() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'scale(1.06)'
-                  e.currentTarget.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.5), 0 0 24px var(--gold-glow, rgba(160, 16, 45, 0.5))'
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px var(--gold-glow, rgba(160, 16, 45, 0.5))'
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1)'
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px var(--gold-glow, rgba(160, 16, 45, 0.35))'
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.4), 0 0 14px var(--gold-glow, rgba(160, 16, 45, 0.35))'
                 }}
               >
                 <img
@@ -442,8 +442,10 @@ export default function Navbar() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 'clamp(0.85rem, 1.6vw, 2rem)',
-              marginLeft: 'clamp(2.5rem, 5vw, 5rem)',
+              gap: 'clamp(1rem, 1.8vw, 2rem)',
+              flex: 1,
+              justifyContent: 'flex-end',
+              paddingLeft: 'clamp(2.5rem, 5vw, 4.5rem)',
             }}
           >
             {rightLinks.map((item) => {
@@ -486,7 +488,7 @@ export default function Navbar() {
               )
             })}
 
-            {/* Theme Toggle & Let's Talk CTA */}
+            {/* Theme Toggle & Contact Us CTA */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginLeft: '0.25rem' }}>
               <ThemeToggle />
               <button
@@ -511,7 +513,7 @@ export default function Navbar() {
                   transition: 'all 0.3s ease',
                 }}
               >
-                Let's Talk
+                Contact Us
                 <span style={{ fontSize: '0.85rem', lineHeight: 1 }}>+</span>
               </button>
             </div>
@@ -619,15 +621,6 @@ export default function Navbar() {
               {item.label}
             </button>
           ))}
-          <div style={{ marginTop: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <button
-              onClick={() => go('/contact')}
-              className="btn-gold"
-              style={{ padding: '0.65rem 1.6rem', fontSize: '0.75rem' }}
-            >
-              Contact Studio
-            </button>
-          </div>
         </div>
       </div>
     </>

@@ -63,6 +63,8 @@ function ImageLightbox({ images, currentIndex, onClose, onNavigate }) {
           style={{
             maxWidth: '92vw',
             maxHeight: '88vh',
+            width: 'auto',
+            height: 'auto',
             objectFit: 'contain',
             boxShadow: '0 20px 80px rgba(0,0,0,0.9)',
             cursor: 'default',

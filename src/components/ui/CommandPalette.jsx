@@ -9,7 +9,7 @@ const staticItems = [
   { id: 'about', title: 'Practice & 7 Principles', category: 'Navigation', path: '/about', icon: FiLayers },
   { id: 'services', title: 'Services & Turnkey Framework', category: 'Navigation', path: '/services', icon: FiLayers },
   { id: 'projects', title: 'Selected Commissions & Portfolio', category: 'Navigation', path: '/projects', icon: FiLayers },
-  { id: 'tour', title: 'Contact Us / Schedule Studio Consultation', category: 'Experience', path: '/contact', icon: FiCompass },
+  { id: 'contact', title: 'Contact Us — Schedule Studio Consultation', category: 'Experience', path: '/contact', icon: FiCompass },
   { id: 'delhi', title: 'Head Office — Statesman House, Connaught Place, New Delhi', category: 'Studio Location', path: '/contact', icon: FiMapPin },
   { id: 'lucknow', title: 'Regional Studio — Sushant Golf City, Lucknow', category: 'Studio Location', path: '/contact', icon: FiMapPin },
   { id: 'whatsapp', title: 'Direct WhatsApp Architectural Concierge (+91 99990 33566)', category: 'Direct Concierge', external: 'https://wa.me/919999033566', icon: FiMessageCircle },
