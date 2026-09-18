@@ -263,6 +263,8 @@ export default function Projects({
                       className="aperture-img"
                       src={project.images[0]}
                       alt={project.name}
+                      loading="lazy"
+                      decoding="async"
                       style={{
                         width: '100%',
                         height: '100%',
@@ -385,6 +387,8 @@ export default function Projects({
                         className="aperture-img"
                         src={project.images[0]}
                         alt={project.name}
+                        loading="lazy"
+                        decoding="async"
                         style={{
                           width: '100%',
                           height: '100%',

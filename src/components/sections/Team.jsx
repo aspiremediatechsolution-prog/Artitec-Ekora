@@ -57,6 +57,8 @@ function TeamCard({ member }) {
     >
       <div style={{ position: 'relative', height: 'clamp(220px, 32vw, 280px)', overflow: 'hidden' }}>
         <img ref={imgRef} src={member.img} alt={member.name}
+          loading="lazy"
+          decoding="async"
           style={{
             width: '100%', height: '100%', objectFit: 'cover',
             objectPosition: 'center 18%',

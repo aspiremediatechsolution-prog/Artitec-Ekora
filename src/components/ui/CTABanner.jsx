@@ -116,6 +116,8 @@ export default function CTABanner({
           ref={mediaRef}
           src={image}
           alt={title}
+          loading="lazy"
+          decoding="async"
           style={{
             position: 'absolute',
             inset: '-10%',
@@ -147,7 +149,7 @@ export default function CTABanner({
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
           style={{
             position: 'absolute',
             inset: 0,

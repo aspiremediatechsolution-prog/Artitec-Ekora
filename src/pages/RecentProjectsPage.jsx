@@ -307,6 +307,7 @@ function PanoCard({ pano, index, onOpen }) {
         src={pano.url}
         alt={pano.title}
         loading="lazy"
+        decoding="async"
         style={{
           width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block',
           transform: hovered ? 'scale(1.04)' : 'scale(1)',
@@ -385,15 +386,16 @@ function VideoCard({ src, index }) {
     if (!video) return
 
     video.muted = true
-    video.play().catch(() => {})
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           video.play().catch(() => {})
+        } else {
+          video.pause()
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     )
     observer.observe(video)
     return () => observer.disconnect()
@@ -419,11 +421,10 @@ function VideoCard({ src, index }) {
       <video
         ref={videoRef}
         src={src}
-        autoPlay
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         style={{
           width: '100%',
           aspectRatio: '16/9',
@@ -553,6 +554,7 @@ function ImageCard({ src, index, projectName, onOpen }) {
         src={src}
         alt={`${projectName} — ${index + 1}`}
         loading="lazy"
+        decoding="async"
         style={{
           width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block',
           transform: hovered ? 'scale(1.06)' : 'scale(1)',

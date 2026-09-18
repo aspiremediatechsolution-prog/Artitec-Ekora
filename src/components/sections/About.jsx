@@ -256,6 +256,8 @@ export default function About() {
               ref={innerImgRef}
               src={aboutImage}
               alt="Ekora Architectural Craft"
+              loading="lazy"
+              decoding="async"
               style={{
                 width: '100%',
                 height: '100%',
@@ -531,6 +533,8 @@ export default function About() {
               ref={innerImg2Ref}
               src={gallery4}
               alt="Architectural Materiality"
+              loading="lazy"
+              decoding="async"
               style={{
                 width: '100%',
                 height: '100%',

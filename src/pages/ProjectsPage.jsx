@@ -649,7 +649,7 @@ export default function ProjectsPage() {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="none"
             style={{
               position: 'absolute',
               inset: 0,

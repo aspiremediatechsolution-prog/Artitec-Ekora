@@ -117,9 +117,9 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
           position: 'absolute',
           right: f1.side === 'right' ? 'clamp(0.5rem, 3.5vw, 3.5rem)' : 'auto',
           left: f1.side === 'left' ? 'clamp(0.5rem, 3.5vw, 3.5rem)' : 'auto',
-          top: f1.top || '8%',
-          width: 'clamp(115px, 16vw, 220px)',
-          aspectRatio: '3 / 4',
+          top: f1.top || '12%',
+          width: 'clamp(120px, 17vw, 230px)',
+          aspectRatio: '4 / 5',
           borderRadius: '2px',
           overflow: 'hidden',
           border: '1px solid var(--gold)',
@@ -131,6 +131,8 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
         <img
           src={f1.img}
           alt={f1.title}
+          loading="lazy"
+          decoding="async"
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block', filter: 'brightness(0.95)' }}
         />
         <div
@@ -160,8 +162,8 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
           position: 'absolute',
           left: f2.side === 'left' ? 'clamp(0.5rem, 3.5vw, 3.5rem)' : 'auto',
           right: f2.side === 'right' ? 'clamp(0.5rem, 3.5vw, 3.5rem)' : 'auto',
-          top: f2.top || '42%',
-          width: 'clamp(120px, 18vw, 240px)',
+          top: f2.top || '44%',
+          width: 'clamp(140px, 20vw, 270px)',
           aspectRatio: '16 / 10',
           borderRadius: '2px',
           overflow: 'hidden',
@@ -174,6 +176,8 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
         <img
           src={f2.img}
           alt={f2.title}
+          loading="lazy"
+          decoding="async"
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block', filter: 'brightness(0.95)' }}
         />
         <div
@@ -217,6 +221,8 @@ export default function ScrollParallaxFloaters({ floaters = defaultFloaters }) {
         <img
           src={f3.img}
           alt={f3.title}
+          loading="lazy"
+          decoding="async"
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block', filter: 'brightness(0.95)' }}
         />
         <div

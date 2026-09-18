@@ -105,10 +105,23 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
   const videoRef = useRef(null)
 
   useEffect(() => {
-    if (isVideo && videoRef.current) {
-      videoRef.current.muted = true
-      videoRef.current.play().catch(() => {})
-    }
+    if (!isVideo) return
+    const video = videoRef.current
+    if (!video) return
+
+    video.muted = true
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
   }, [isVideo, src])
 
   return (
@@ -131,11 +144,10 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
           <video
             ref={videoRef}
             src={src}
-            autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             style={{
               width: '100%', height: '100%',
               objectFit: 'cover', display: 'block',
@@ -169,13 +181,17 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
           </div>
           {/* Video badge */}
           <div style={{
-            position: 'absolute', top: '0.5rem', left: '0.5rem',
-            fontFamily: 'Inter', fontSize: '0.52rem',
-            letterSpacing: '0.18em', color: 'var(--gold)',
+            position: 'absolute', bottom: '0.6rem', left: '0.6rem',
             background: 'rgba(24, 15, 17, 0.85)',
-            border: '1px solid var(--gold-faint)',
-            padding: '0.15rem 0.5rem',
+            border: '1px solid var(--gold-line)',
+            color: 'var(--gold)',
+            fontFamily: 'Inter',
+            fontSize: '0.6rem',
+            letterSpacing: '0.1em',
+            padding: '0.2rem 0.5rem',
+            borderRadius: '2px',
             textTransform: 'uppercase',
+            pointerEvents: 'none',
           }}>
             Video
           </div>
@@ -186,6 +202,7 @@ function MediaItem({ src, index, projectName, onClickImage, onClickVideo }) {
             src={src}
             alt={`${projectName} — ${index + 1}`}
             loading="lazy"
+            decoding="async"
             style={{
               width: '100%', height: '100%',
               objectFit: 'cover', objectPosition: 'center center', display: 'block',

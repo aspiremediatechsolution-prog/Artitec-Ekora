@@ -257,6 +257,8 @@ export default function AboutPage() {
                   <img
                     src={founderIshwer}
                     alt="Ar. Ishwer Singh"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       aspectRatio: '3/4',
@@ -431,6 +433,8 @@ export default function AboutPage() {
                   <img
                     src={founderRajdeep}
                     alt="Mr. Rajdeep Singh"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       aspectRatio: '3/4',

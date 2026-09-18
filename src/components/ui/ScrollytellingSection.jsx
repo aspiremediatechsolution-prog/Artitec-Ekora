@@ -727,6 +727,8 @@ export default function ScrollytellingSection({
                   <img
                     src={stg.image}
                     alt={stg.title}
+                    loading="lazy"
+                    decoding="async"
                     className="scrolly-canvas-img"
                     style={{
                       width: '100%',
@@ -1139,6 +1141,8 @@ export default function ScrollytellingSection({
               <img
                 src={activeStage.image}
                 alt={activeStage.title}
+                loading="lazy"
+                decoding="async"
                 style={{
                   width: '100%',
                   height: '100%',

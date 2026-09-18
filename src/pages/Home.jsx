@@ -79,6 +79,8 @@ export default function Home() {
             ref={philImgRef}
             src={heroMain}
             alt="Spatial Philosophy"
+            loading="lazy"
+            decoding="async"
             style={{
               position: 'absolute',
               inset: '-10%',

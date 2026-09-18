@@ -129,6 +129,8 @@ export default function Hero({
           ref={mediaRef}
           src={activeMediaSrc}
           alt={head1 || 'Architecture'}
+          fetchPriority="high"
+          decoding="async"
           className="hero-bg-media hero-image"
           style={{
             position: 'absolute',
@@ -162,7 +164,7 @@ export default function Hero({
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           src={activeMediaSrc}
           className="hero-bg-media hero-video"
           style={{

@@ -102,6 +102,8 @@ export default function ConceptSplitSlider({
         <img
           src={imageAfter}
           alt={labelAfter}
+          loading="lazy"
+          decoding="async"
           style={{
             position: 'absolute',
             inset: 0,
@@ -130,6 +132,8 @@ export default function ConceptSplitSlider({
           <img
             src={imageBefore}
             alt={labelBefore}
+            loading="lazy"
+            decoding="async"
             style={{
               position: 'absolute',
               top: 0,

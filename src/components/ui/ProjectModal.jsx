@@ -580,7 +580,7 @@ export default function ProjectModal({ project, onClose, onSelectProject }) {
 
       {/* ── SECTION 1: HERO BANNER (hp_sec1) ── */}
       <div className="aparna-detail-hero">
-        <img ref={heroImgRef} src={heroCover} alt={project.name} />
+        <img ref={heroImgRef} src={heroCover} alt={project.name} fetchPriority="high" decoding="async" />
         <div className="overlay-top" />
         <div className="overlay-bottom" />
 

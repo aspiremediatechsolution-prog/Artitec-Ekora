@@ -114,6 +114,8 @@ export default function ServicesPage() {
               ref={processImgRef}
               src={gallery4}
               alt="Delivery Methodology"
+              loading="lazy"
+              decoding="async"
               style={{
                 position: 'absolute',
                 inset: '-10%',
