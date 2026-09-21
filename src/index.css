@@ -907,7 +907,7 @@ canvas { display: block; background: var(--bg); }
   font-family: 'Inter', sans-serif;
   font-size: clamp(0.7rem, 1.1vw, 0.85rem);
   letter-spacing: 0.38em;
-  color: #ffffff;
+  color: var(--gold);
   text-transform: uppercase;
   margin-bottom: 0.8rem;
   font-weight: 500;
@@ -917,7 +917,7 @@ canvas { display: block; background: var(--bg); }
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.85rem, 4vw, 3.6rem);
   font-weight: 300;
-  color: #ffffff;
+  color: var(--heading);
   line-height: 1.2;
   letter-spacing: 0.02em;
   max-width: 980px;
@@ -953,9 +953,9 @@ canvas { display: block; background: var(--bg); }
 
 .aparna-filter-btn {
   padding: 0.6rem 1.35rem;
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--gold-hair);
   border-radius: 2px;
   font-family: 'Inter', sans-serif;
   font-size: 0.68rem;
@@ -972,31 +972,31 @@ canvas { display: block; background: var(--bg); }
 }
 
 .aparna-filter-btn:hover {
-  border-color: #ffffff;
-  color: #ffffff;
+  border-color: var(--gold);
+  color: var(--text-strong);
   transform: translateY(-1px);
 }
 
 .aparna-filter-btn.active {
-  background: #ffffff;
-  color: #110608;
-  border-color: #ffffff;
+  background: var(--gold);
+  color: var(--on-gold);
+  border-color: var(--gold);
   font-weight: 600;
-  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 18px var(--gold-glow);
 }
 
 .aparna-filter-btn .badge {
   font-size: 0.58rem;
   padding: 0.12rem 0.45rem;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  background: var(--chip-bg);
+  color: var(--gold);
   transition: all 0.3s ease;
 }
 
 .aparna-filter-btn.active .badge {
-  background: rgba(0, 0, 0, 0.12);
-  color: #110608;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--on-gold);
 }
 
 /* Alternating Layout Rows (lyt2 full & lyt2 split) */
