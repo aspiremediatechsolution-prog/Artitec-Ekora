@@ -305,32 +305,6 @@ export default function About() {
               </span>
             </div>
 
-            <h2
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(2rem, 4vw, 4.2rem)',
-                fontWeight: 300,
-                color: 'var(--heading)',
-                lineHeight: 1.15,
-                marginBottom: '0.35rem',
-              }}
-            >
-              "Designing a home is like drawing a
-            </h2>
-            <h2
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(2rem, 4vw, 4.2rem)',
-                fontWeight: 300,
-                color: 'var(--gold)',
-                fontStyle: 'italic',
-                lineHeight: 1.15,
-                marginBottom: '1.5rem',
-              }}
-            >
-              portrait of your client."
-            </h2>
-
             <p
               style={{
                 fontFamily: 'Inter, sans-serif',

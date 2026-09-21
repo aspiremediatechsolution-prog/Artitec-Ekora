@@ -723,13 +723,13 @@ export default function ProjectModal({ project, onClose, onSelectProject }) {
       {has360 && (
         <div id="detail-360" style={{ maxWidth: '1440px', margin: '4rem auto', padding: '0 clamp(1rem, 3vw, 3rem)' }}>
           <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div style={{ width: '28px', height: '1px', background: 'var(--gold)' }} />
+            <div style={{ width: '28px', height: '1px', background: '#ffffff' }} />
             <span
               style={{
                 fontFamily: 'Inter',
                 fontSize: '0.75rem',
                 letterSpacing: '0.25em',
-                color: 'var(--gold)',
+                color: '#ffffff',
                 textTransform: 'uppercase',
                 fontWeight: 600,
               }}

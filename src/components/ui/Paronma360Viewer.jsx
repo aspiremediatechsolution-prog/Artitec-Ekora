@@ -1014,12 +1014,12 @@ export default function Paronma360Viewer({
                   left: '50%',
                   transform: 'translateX(-50%)',
                   background: 'rgba(15, 1, 3, 0.94)',
-                  border: '1px solid var(--gold)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
                   borderRadius: '20px',
                   padding: '0.35rem 0.85rem',
                   backdropFilter: 'blur(12px)',
                   whiteSpace: 'nowrap',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.7), 0 0 16px rgba(200, 169, 106, 0.2)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.7), 0 0 16px rgba(255, 255, 255, 0.2)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.45rem',
@@ -1029,13 +1029,13 @@ export default function Paronma360Viewer({
                   pointerEvents: 'none',
                 }}
               >
-                <span style={{ fontFamily: 'Inter', fontSize: '0.52rem', letterSpacing: '0.15em', color: 'var(--gold)', textTransform: 'uppercase' }}>
+                <span style={{ fontFamily: 'Inter', fontSize: '0.52rem', letterSpacing: '0.15em', color: '#ffffff', textTransform: 'uppercase' }}>
                   Walk to
                 </span>
                 <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '0.95rem', color: '#ffffff', fontWeight: 500 }}>
                   {spot.room || spot.title}
                 </span>
-                <span style={{ color: 'var(--gold)', fontSize: '0.75rem' }}>→</span>
+                <span style={{ color: '#ffffff', fontSize: '0.75rem' }}>→</span>
               </div>
 
               {/* Glowing Interactive Portal Trigger Button */}
@@ -1086,7 +1086,7 @@ export default function Paronma360Viewer({
                     width: '6px',
                     height: '6px',
                     borderRadius: '50%',
-                    background: isHovered ? 'var(--gold)' : '#280306',
+                    background: isHovered ? '#ffffff' : '#280306',
                   }} />
                 </div>
               </button>
@@ -1113,7 +1113,7 @@ export default function Paronma360Viewer({
             left: '50%',
             transform: 'translate(-50%, -50%)',
             background: 'rgba(15, 1, 3, 0.85)',
-            border: '1px solid var(--gold-hair)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '30px',
             padding: 'clamp(0.45rem, 1.5vw, 0.65rem) clamp(0.9rem, 2.5vw, 1.4rem)',
             backdropFilter: 'blur(12px)',
@@ -1126,7 +1126,7 @@ export default function Paronma360Viewer({
             textAlign: 'center',
             animation: 'fadeInOut 4s infinite alternate ease-in-out',
           }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.8">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.8">
               <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
               <path d="m9 12 3-3 3 3" />
               <path d="m9 15 3 3 3-3" />
@@ -1135,7 +1135,7 @@ export default function Paronma360Viewer({
               fontFamily: 'Inter',
               fontSize: 'clamp(0.6rem, 1.5vw, 0.68rem)',
               letterSpacing: '0.1em',
-              color: 'var(--text)',
+              color: '#ffffff',
               textTransform: 'uppercase',
             }}>
               Drag 360° · Pinch or Scroll to Zoom
@@ -1153,7 +1153,7 @@ export default function Paronma360Viewer({
               left: 'clamp(0.8rem, 2vw, 1.8rem)',
               zIndex: 24,
               background: 'rgba(12, 1, 2, 0.92)',
-              border: '1px solid var(--gold-hair)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               borderRadius: '50%',
               width: 'clamp(58px, 9vw, 84px)',
               height: 'clamp(58px, 9vw, 84px)',
@@ -1172,7 +1172,7 @@ export default function Paronma360Viewer({
               top: '3px',
               fontSize: '0.42rem',
               fontFamily: 'Inter',
-              color: 'var(--gold)',
+              color: '#ffffff',
               fontWeight: 700,
               letterSpacing: '0.12em',
             }}>N</span>
@@ -1196,8 +1196,8 @@ export default function Paronma360Viewer({
                 height: 0,
                 borderLeft: '11px solid transparent',
                 borderRight: '11px solid transparent',
-                borderTop: '24px solid rgba(200, 169, 106, 0.38)',
-                filter: 'drop-shadow(0 0 5px var(--gold))',
+                borderTop: '24px solid rgba(255, 255, 255, 0.35)',
+                filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.6))',
               }} />
             </div>
 
@@ -1220,8 +1220,8 @@ export default function Paronma360Viewer({
                     width: isCurrent ? '7px' : '4.5px',
                     height: isCurrent ? '7px' : '4.5px',
                     borderRadius: '50%',
-                    background: isCurrent ? '#ffffff' : 'var(--gold)',
-                    boxShadow: isCurrent ? '0 0 10px #ffffff, 0 0 14px var(--gold)' : 'none',
+                    background: isCurrent ? '#ffffff' : 'rgba(255, 255, 255, 0.7)',
+                    boxShadow: isCurrent ? '0 0 10px #ffffff, 0 0 14px rgba(255, 255, 255, 0.8)' : 'none',
                     border: 'none',
                     cursor: 'pointer',
                     padding: 0,
@@ -1256,7 +1256,7 @@ export default function Paronma360Viewer({
           className="hud-space-badge"
           style={{
             background: 'rgba(15, 1, 3, 0.92)',
-            border: '1px solid var(--gold-hair)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             padding: 'clamp(0.32rem, 1vw, 0.45rem) clamp(0.55rem, 1.5vw, 0.95rem)',
             borderRadius: '30px',
             backdropFilter: 'blur(14px)',
@@ -1274,15 +1274,15 @@ export default function Paronma360Viewer({
             height: '7px',
             borderRadius: '50%',
             background: '#ffffff',
-            boxShadow: '0 0 10px #ffffff, 0 0 16px var(--gold)',
+            boxShadow: '0 0 10px #ffffff, 0 0 16px rgba(255, 255, 255, 0.8)',
             flexShrink: 0,
             animation: 'pulseDot 2s infinite ease-in-out',
           }} />
           <span style={{
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: 'clamp(0.85rem, 2vw, 1.2rem)',
-            color: 'var(--text)',
-            fontWeight: 400,
+            color: '#ffffff',
+            fontWeight: 500,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -1295,9 +1295,9 @@ export default function Paronma360Viewer({
               fontFamily: 'Inter',
               fontSize: '0.52rem',
               letterSpacing: '0.12em',
-              color: 'var(--gold)',
+              color: '#ffffff',
               textTransform: 'uppercase',
-              borderLeft: '1px solid var(--gold-faint)',
+              borderLeft: '1px solid rgba(255, 255, 255, 0.25)',
               paddingLeft: '0.45rem',
               whiteSpace: 'nowrap',
               fontWeight: 600,
@@ -1313,7 +1313,7 @@ export default function Paronma360Viewer({
           className="hud-controls-island"
           style={{
             background: 'rgba(15, 1, 3, 0.92)',
-            border: '1px solid var(--gold-hair)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '30px',
             padding: '0.22rem 0.35rem',
             backdropFilter: 'blur(14px)',
@@ -1334,7 +1334,7 @@ export default function Paronma360Viewer({
               background: 'transparent',
               border: 'none',
               padding: '0.32rem 0.5rem',
-              color: 'var(--gold)',
+              color: '#ffffff',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -1353,7 +1353,7 @@ export default function Paronma360Viewer({
               <rect x="14" y="14" width="7" height="7" rx="1" />
               <rect x="3" y="14" width="7" height="7" rx="1" />
             </svg>
-            <span className="hud-btn-label">Spaces</span>
+            <span className="hud-btn-label" style={{ color: '#ffffff' }}>Spaces</span>
           </button>
 
           {/* Auto Rotate / Tour Toggle */}
@@ -1362,9 +1362,9 @@ export default function Paronma360Viewer({
             className="hud-icon-btn"
             title={autoRotate ? 'Pause 360 Auto-Tour' : 'Start 360 Auto-Tour'}
             style={{
-              background: autoRotate ? 'rgba(200, 169, 106, 0.18)' : 'transparent',
-              border: autoRotate ? '1px solid var(--gold)' : '1px solid transparent',
-              color: 'var(--gold)',
+              background: autoRotate ? 'rgba(255, 255, 255, 0.22)' : 'transparent',
+              border: autoRotate ? '1px solid #ffffff' : '1px solid transparent',
+              color: '#ffffff',
               padding: '0.32rem 0.5rem',
               borderRadius: '20px',
               cursor: 'pointer',
@@ -1381,7 +1381,7 @@ export default function Paronma360Viewer({
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
             </svg>
-            <span className="hud-btn-label">{autoRotate ? 'Touring' : 'Auto'}</span>
+            <span className="hud-btn-label" style={{ color: '#ffffff' }}>{autoRotate ? 'Touring' : 'Auto'}</span>
           </button>
 
           {/* Gyroscope Button for mobile */}
@@ -1391,9 +1391,9 @@ export default function Paronma360Viewer({
               className="hud-icon-btn"
               title={isGyroActive ? 'Disable Gyroscope' : 'Enable Gyroscope Motion'}
               style={{
-                background: isGyroActive ? 'var(--gold)' : 'transparent',
-                color: isGyroActive ? '#120204' : 'var(--gold)',
-                border: '1px solid var(--gold-hair)',
+                background: isGyroActive ? '#ffffff' : 'transparent',
+                color: isGyroActive ? '#120204' : '#ffffff',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
                 padding: '0.32rem 0.5rem',
                 borderRadius: '20px',
                 cursor: 'pointer',
@@ -1411,7 +1411,7 @@ export default function Paronma360Viewer({
                 <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
                 <line x1="12" y1="18" x2="12.01" y2="18" />
               </svg>
-              <span className="hud-btn-label">Gyro</span>
+              <span className="hud-btn-label" style={{ color: isGyroActive ? '#120204' : '#ffffff' }}>Gyro</span>
             </button>
           )}
 
@@ -1421,9 +1421,9 @@ export default function Paronma360Viewer({
             className="hud-icon-btn"
             title={isAudioPlaying ? 'Mute Luxury Ambient Music' : 'Play Luxury Spatial Music'}
             style={{
-              background: isAudioPlaying ? 'rgba(200, 169, 106, 0.22)' : 'transparent',
-              color: 'var(--gold)',
-              border: isAudioPlaying ? '1px solid var(--gold)' : '1px solid transparent',
+              background: isAudioPlaying ? 'rgba(255, 255, 255, 0.22)' : 'transparent',
+              color: '#ffffff',
+              border: isAudioPlaying ? '1px solid #ffffff' : '1px solid transparent',
               padding: '0.32rem 0.5rem',
               borderRadius: '20px',
               cursor: 'pointer',
@@ -1450,7 +1450,7 @@ export default function Paronma360Viewer({
                 <line x1="17" y1="9" x2="23" y2="15" />
               </svg>
             )}
-            <span className="hud-btn-label">{isAudioPlaying ? 'Music On' : 'Music'}</span>
+            <span className="hud-btn-label" style={{ color: '#ffffff' }}>{isAudioPlaying ? 'Music On' : 'Music'}</span>
           </button>
 
           {/* Zoom In */}
@@ -1460,7 +1460,7 @@ export default function Paronma360Viewer({
             title="Zoom In (+)"
             style={{
               background: 'transparent',
-              color: 'var(--gold)',
+              color: '#ffffff',
               border: 'none',
               width: '28px',
               height: '28px',
@@ -1486,7 +1486,7 @@ export default function Paronma360Viewer({
             title="Zoom Out (-)"
             style={{
               background: 'transparent',
-              color: 'var(--gold)',
+              color: '#ffffff',
               border: 'none',
               width: '28px',
               height: '28px',
@@ -1511,7 +1511,7 @@ export default function Paronma360Viewer({
             title="Reset Perspective"
             style={{
               background: 'transparent',
-              color: 'var(--gold)',
+              color: '#ffffff',
               border: 'none',
               width: '28px',
               height: '28px',
@@ -1536,7 +1536,7 @@ export default function Paronma360Viewer({
             title={isFullscreen ? 'Exit Fullscreen' : 'Enter Immersive Fullscreen'}
             style={{
               background: 'transparent',
-              color: 'var(--gold)',
+              color: '#ffffff',
               border: 'none',
               width: '28px',
               height: '28px',
@@ -1573,8 +1573,8 @@ export default function Paronma360Viewer({
               top: '50%',
               transform: 'translateY(-50%)',
               background: 'rgba(15, 1, 3, 0.88)',
-              border: '1px solid var(--gold-hair)',
-              color: 'var(--gold)',
+              border: '1px solid rgba(255, 255, 255, 0.35)',
+              color: '#ffffff',
               width: 'clamp(34px, 4.5vw, 44px)',
               height: 'clamp(34px, 4.5vw, 44px)',
               borderRadius: '50%',
@@ -1603,8 +1603,8 @@ export default function Paronma360Viewer({
               top: '50%',
               transform: 'translateY(-50%)',
               background: 'rgba(15, 1, 3, 0.88)',
-              border: '1px solid var(--gold-hair)',
-              color: 'var(--gold)',
+              border: '1px solid rgba(255, 255, 255, 0.35)',
+              color: '#ffffff',
               width: 'clamp(34px, 4.5vw, 44px)',
               height: 'clamp(34px, 4.5vw, 44px)',
               borderRadius: '50%',
@@ -1646,11 +1646,11 @@ export default function Paronma360Viewer({
             onClick={() => setIsFilmstripOpen((prev) => !prev)}
             style={{
               background: 'rgba(15, 1, 3, 0.94)',
-              border: '1px solid var(--gold-hair)',
-              borderBottom: isFilmstripOpen ? 'none' : '1px solid var(--gold-hair)',
+              border: '1px solid rgba(255, 255, 255, 0.35)',
+              borderBottom: isFilmstripOpen ? 'none' : '1px solid rgba(255, 255, 255, 0.35)',
               padding: '0.25rem 0.85rem',
               borderRadius: isFilmstripOpen ? '14px 14px 0 0' : '20px',
-              color: 'var(--gold)',
+              color: '#ffffff',
               fontFamily: 'Inter',
               fontSize: '0.52rem',
               letterSpacing: '0.14em',
@@ -1664,7 +1664,7 @@ export default function Paronma360Viewer({
               boxShadow: '0 -4px 16px rgba(0,0,0,0.4)',
             }}
           >
-            <span>{isFilmstripOpen ? 'Hide Spaces' : `Explore ${items.length} Spaces`}</span>
+            <span style={{ color: '#ffffff' }}>{isFilmstripOpen ? 'Hide Spaces' : `Explore ${items.length} Spaces`}</span>
             <svg
               width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
               style={{ transform: isFilmstripOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.25s' }}
@@ -1678,11 +1678,11 @@ export default function Paronma360Viewer({
             <div style={{
               width: '100%',
               background: 'rgba(12, 1, 2, 0.94)',
-              border: '1px solid var(--gold-hair)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               borderRadius: '8px',
               padding: '0.4rem 0.5rem',
               backdropFilter: 'blur(16px)',
-              boxShadow: '0 16px 40px rgba(0,0,0,0.85), 0 0 24px rgba(200,169,106,0.1)',
+              boxShadow: '0 16px 40px rgba(0,0,0,0.85), 0 0 24px rgba(255, 255, 255, 0.1)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.4rem',
@@ -1694,13 +1694,13 @@ export default function Paronma360Viewer({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: 'var(--gold)',
+                  color: '#ffffff',
                   cursor: 'pointer',
                   padding: '0.3rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  opacity: 0.75,
+                  opacity: 0.85,
                 }}
               >
                 ‹
@@ -1731,13 +1731,13 @@ export default function Paronma360Viewer({
                         alignItems: 'center',
                         gap: '0.5rem',
                         padding: '0.3rem 0.65rem',
-                        background: isActive ? 'rgba(200, 169, 106, 0.22)' : 'rgba(30, 2, 5, 0.6)',
-                        border: isActive ? '1px solid var(--gold)' : '1px solid var(--gold-hair)',
+                        background: isActive ? 'rgba(255, 255, 255, 0.2)' : 'rgba(30, 2, 5, 0.6)',
+                        border: isActive ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.25)',
                         borderRadius: '6px',
                         cursor: 'pointer',
                         textAlign: 'left',
                         transition: 'all 0.2s ease',
-                        boxShadow: isActive ? '0 0 14px rgba(200, 169, 106, 0.25)' : 'none',
+                        boxShadow: isActive ? '0 0 14px rgba(255, 255, 255, 0.25)' : 'none',
                       }}
                     >
                       {/* Mini circular preview with room index */}
@@ -1748,7 +1748,7 @@ export default function Paronma360Viewer({
                         backgroundImage: `url("${it.url}")`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
-                        border: isActive ? '1.5px solid var(--gold)' : '1px solid var(--gold-hair)',
+                        border: isActive ? '1.5px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.3)',
                         flexShrink: 0,
                       }} />
 
@@ -1757,7 +1757,7 @@ export default function Paronma360Viewer({
                           fontFamily: 'Inter',
                           fontSize: '0.45rem',
                           letterSpacing: '0.1em',
-                          color: isActive ? 'var(--gold)' : 'var(--text-faint)',
+                          color: '#ffffff',
                           textTransform: 'uppercase',
                         }}>
                           Space {String(idx + 1).padStart(2, '0')}
@@ -1765,7 +1765,7 @@ export default function Paronma360Viewer({
                         <div style={{
                           fontFamily: 'Cormorant Garamond, serif',
                           fontSize: '0.88rem',
-                          color: isActive ? '#ffffff' : 'var(--text)',
+                          color: '#ffffff',
                           fontWeight: isActive ? 600 : 300,
                           whiteSpace: 'nowrap',
                         }}>
@@ -1784,13 +1784,13 @@ export default function Paronma360Viewer({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: 'var(--gold)',
+                  color: '#ffffff',
                   cursor: 'pointer',
                   padding: '0.3rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  opacity: 0.75,
+                  opacity: 0.85,
                 }}
               >
                 ›
@@ -1820,14 +1820,14 @@ export default function Paronma360Viewer({
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingBottom: '1rem',
-            borderBottom: '1px solid var(--gold-hair)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.25)',
             marginBottom: '1.5rem',
           }}>
             <div>
-              <div style={{ fontFamily: 'Inter', fontSize: '0.52rem', letterSpacing: '0.2em', color: 'var(--gold)', textTransform: 'uppercase' }}>
+              <div style={{ fontFamily: 'Inter', fontSize: '0.52rem', letterSpacing: '0.2em', color: '#ffffff', textTransform: 'uppercase' }}>
                 Spatial Overview
               </div>
-              <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.3rem, 2.5vw, 2rem)', color: 'var(--heading)', margin: '0.2rem 0 0 0' }}>
+              <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(1.3rem, 2.5vw, 2rem)', color: '#ffffff', margin: '0.2rem 0 0 0' }}>
                 Select an Architectural Space
               </h3>
             </div>
@@ -1836,8 +1836,8 @@ export default function Paronma360Viewer({
               onClick={() => setShowSpacesGridModal(false)}
               style={{
                 background: 'transparent',
-                border: '1px solid var(--gold-hair)',
-                color: 'var(--gold)',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
+                color: '#ffffff',
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
@@ -1869,12 +1869,12 @@ export default function Paronma360Viewer({
                   }}
                   style={{
                     background: 'rgba(25, 2, 4, 0.8)',
-                    border: isActive ? '1px solid var(--gold)' : '1px solid var(--gold-hair)',
+                    border: isActive ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.25)',
                     borderRadius: '6px',
                     overflow: 'hidden',
                     cursor: 'pointer',
                     transition: 'all 0.25s ease',
-                    boxShadow: isActive ? '0 8px 24px rgba(200, 169, 106, 0.3)' : 'none',
+                    boxShadow: isActive ? '0 8px 24px rgba(255, 255, 255, 0.25)' : 'none',
                   }}
                 >
                   <div style={{
@@ -1889,7 +1889,7 @@ export default function Paronma360Viewer({
                         position: 'absolute',
                         top: '6px',
                         left: '6px',
-                        background: 'var(--gold)',
+                        background: '#ffffff',
                         color: '#120204',
                         padding: '0.15rem 0.45rem',
                         borderRadius: '3px',
@@ -1904,10 +1904,10 @@ export default function Paronma360Viewer({
                     )}
                   </div>
                   <div style={{ padding: '0.75rem 0.85rem' }}>
-                    <div style={{ fontFamily: 'Inter', fontSize: '0.48rem', letterSpacing: '0.12em', color: 'var(--gold)', textTransform: 'uppercase', marginBottom: '0.15rem' }}>
+                    <div style={{ fontFamily: 'Inter', fontSize: '0.48rem', letterSpacing: '0.12em', color: '#ffffff', textTransform: 'uppercase', marginBottom: '0.15rem' }}>
                       Space {String(idx + 1).padStart(2, '0')}
                     </div>
-                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.05rem', color: 'var(--text)', fontWeight: 400 }}>
+                    <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.05rem', color: '#ffffff', fontWeight: 400 }}>
                       {it.room || it.title}
                     </div>
                   </div>
@@ -1935,8 +1935,8 @@ export default function Paronma360Viewer({
           <div style={{
             width: '38px',
             height: '38px',
-            border: '2px solid rgba(200, 169, 106, 0.2)',
-            borderTop: '2px solid var(--gold)',
+            border: '2px solid rgba(255, 255, 255, 0.2)',
+            borderTop: '2px solid #ffffff',
             borderRadius: '50%',
             animation: 'spin 1s linear infinite',
             marginBottom: '0.75rem',
@@ -1945,7 +1945,7 @@ export default function Paronma360Viewer({
             fontFamily: 'Inter',
             fontSize: '0.6rem',
             letterSpacing: '0.2em',
-            color: 'var(--gold)',
+            color: '#ffffff',
             textTransform: 'uppercase',
           }}>
             Loading 360° Perspective...
@@ -1954,19 +1954,25 @@ export default function Paronma360Viewer({
       )}
 
       <style>{`
+        .hud-icon-btn {
+          color: #ffffff !important;
+        }
         .hud-icon-btn:hover {
-          background: rgba(200, 169, 106, 0.2) !important;
+          background: rgba(255, 255, 255, 0.22) !important;
+          color: #ffffff !important;
+        }
+        .lateral-nav-btn {
           color: #ffffff !important;
         }
         .lateral-nav-btn:hover {
-          background: var(--gold) !important;
+          background: #ffffff !important;
           color: #120204 !important;
           transform: translateY(-50%) scale(1.1) !important;
         }
         .music-bar {
           display: inline-block;
           width: 2px;
-          background: var(--gold);
+          background: #ffffff !important;
           border-radius: 1px;
         }
         .bar-1 { height: 10px; animation: musicWave 0.8s ease-in-out infinite alternate; }

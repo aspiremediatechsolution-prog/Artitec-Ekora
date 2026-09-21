@@ -554,7 +554,7 @@ export default function ProjectsPage() {
                       </div>
                       <div className="card-info-bottom">
                         <div className="card-kicker">
-                          <span style={{ width: '18px', height: '1px', background: 'var(--gold)' }} />
+                          <span style={{ width: '18px', height: '1px', background: '#ffffff' }} />
                           <span>{project.type} · {project.location}</span>
                         </div>
                         <h3 className="card-title">{project.name}</h3>
@@ -589,7 +589,7 @@ export default function ProjectsPage() {
                     </div>
                     <div className="card-info-bottom">
                       <div className="card-kicker">
-                        <span style={{ width: '18px', height: '1px', background: 'var(--gold)' }} />
+                        <span style={{ width: '18px', height: '1px', background: '#ffffff' }} />
                         <span>{leftProject.type} · {leftProject.location}</span>
                       </div>
                       <h3 className="card-title">{leftProject.name}</h3>
@@ -615,7 +615,7 @@ export default function ProjectsPage() {
                       </div>
                       <div className="card-info-bottom">
                         <div className="card-kicker">
-                          <span style={{ width: '18px', height: '1px', background: 'var(--gold)' }} />
+                          <span style={{ width: '18px', height: '1px', background: '#ffffff' }} />
                           <span>{rightProject.type} · {rightProject.location}</span>
                         </div>
                         <h3 className="card-title">{rightProject.name}</h3>
