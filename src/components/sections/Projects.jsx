@@ -302,7 +302,7 @@ export default function Projects({
                             fontFamily: 'Inter, sans-serif',
                             fontSize: '0.65rem',
                             letterSpacing: '0.3em',
-                            color: 'var(--gold, #C8193D)',
+                            color: '#FFFFFF',
                             textTransform: 'uppercase',
                             marginBottom: '0.4rem',
                           }}
@@ -426,7 +426,7 @@ export default function Projects({
                               fontFamily: 'Inter, sans-serif',
                               fontSize: '0.62rem',
                               letterSpacing: '0.25em',
-                              color: 'var(--gold, #C8193D)',
+                              color: '#FFFFFF',
                               textTransform: 'uppercase',
                               marginBottom: '0.3rem',
                             }}
