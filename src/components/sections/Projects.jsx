@@ -152,19 +152,19 @@ export default function Projects({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <div style={{ width: '36px', height: '1px', background: 'var(--gold)' }} />
+            <div style={{ width: '36px', height: '1px', background: '#ffffff' }} />
             <span
               style={{
                 fontFamily: 'Inter, sans-serif',
                 fontSize: '0.68rem',
                 letterSpacing: '0.35em',
-                color: 'var(--gold)',
+                color: '#ffffff',
                 textTransform: 'uppercase',
               }}
             >
               Selected Portfolio
             </span>
-            <div style={{ width: '36px', height: '1px', background: 'var(--gold)' }} />
+            <div style={{ width: '36px', height: '1px', background: '#ffffff' }} />
           </div>
 
           <h2
